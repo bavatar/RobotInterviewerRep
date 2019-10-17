@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Profile Update</title>
+
+    <th:block th:insert="base :: header"></th:block>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+</head>
+<body style="background-color: seagreen">
+
+<div th:replace="base::navbar"></div>
+<br><br>
+
+<div class="nav-item" sec:authorize="!hasAnyAuthority('ADMIN')">
+    <h2 style="color: red">Access to this Page is for Administrators Only</h2>
+</div>
+
+<div class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+    <h2>Admin Profile Update</h2>
+
+    <div class="container" style="background-color: azure">
+        <center><h2>Update a Profile</h2></center>
+        <form action="#" th:action="@{/process_profile}" th:object="${user}" method="post" enctype="multipart/form-data">
+            <p>Role:<select name="role" th:field="*{roles}">
+<!--                ArrayList<Role> rollArray = roleRepository.getAll();-->
+<!--                <td th:each="role: ${user.roles}">-->
+<!--                    <span th:text="${role.role}"></span>-->
+<!--                </td>-->
+                <option th:each="role : ${roles}"
+                        th:value="${role.id}"
+                        th:text="${role.role}"></option>
+            </select>
+            </p>
+            <input type="hidden" th:field="*{id}"/>
+            <p>Email:<input type="text" th:field="*{email}"/><br />
+                <span th:if="${#fields.hasErrors('email')}"
+                      th:errors="*{email}"></span><br />
+
+                Password:<input type="text" th:field="*{password}"/><br />
+                <span th:if="${#fields.hasErrors('password')}"
+                      th:errors="*{password}"></span><br />
+
+                First Name:<input type="text" th:field="*{firstName}"/><br />
+                <span th:if="${#fields.hasErrors('firstName')}"
+                      th:errors="*{firstName}"></span><br />
+
+                Last Name:<input type="text" th:field="*{lastName}"/><br />
+                <span th:if="${#fields.hasErrors('lastName')}"
+                      th:errors="*{lastName}"></span><br />
+
+                Enabled:<input type="checkbox" th:field="*{enabled}"/><br />
+                <span th:if="${#fields.hasErrors('enabled')}"
+                      th:errors="*{enabled}"></span><br />
+
+                User Name:<input type="text" th:field="*{username}"/><br />
+                <span th:if="${#fields.hasErrors('username')}"
+                      th:errors="*{username}"></span><br />
+
+                <button type="submit">Submit</button>
+        </form>
+    </div>
+
+
+
+    <br><br>
+
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!--Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<div class="container" th:fragment="footnote">
+    <footer>
+        <center>
+            <div class="footer-main-div" style="alignment: center">
+                <p style="color:greenyellow; ">&copy; Copyright 2019 John Anderjaska.</p>
+            </div>
+        </center>
+    </footer>
+    </footer>
+</div>
+</body>
+</html>

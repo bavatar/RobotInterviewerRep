@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Registration</title>
+
+    <th:block th:insert="base :: header"></th:block>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body style="background-color: seagreen">
+
+<div th:replace="base::navbar"></div>
+<br>
+
+<div style="color: whitesmoke"  class="container">
+    <h3>New User Registration</h3>
+
+    <form autocomplete="off"
+          action="#"
+          th:action="@{/register}"
+          th:object="${user}"
+          method="post">
+        First Name
+        <mark><strong>
+            <span th:if="${#fields.hasErrors('firstName')}"
+                  th:errors="*{firstName}">First Name error</span>
+        </strong></mark>
+        <input type="text" id="firstName" placeholder="First Name"
+               th:field="*{firstName}"/><br/>
+        Last Name
+        <mark><strong>
+        <span th:if="${#fields.hasErrors('lastName')}"
+           th:errors="*{lastName}">Last Name error</span>
+        </strong></mark>
+        <input type="text" id="lastName" placeholder="Last Name"
+               th:field="*{lastName}"/><br/>
+        Email
+        <mark><strong>
+            <span th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}">Email error</span>
+        </strong></mark>
+        <input type="text" id="email" placeholder="Email"
+               th:field="*{email}"/><br/>
+        Username
+        <mark><strong>
+            <span th:if="${#fields.hasErrors('username')}"
+                  th:errors="*{username}">Username error</span>
+        </strong></mark>
+        <input type="text" id="username" placeholder="Username"
+               th:field="*{username}"/><br/>
+        Password
+        <mark><strong>
+            <span th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}">Password error</span>
+        </strong></mark>
+        <input type="password" id="password" placeholder="Password"
+               th:field="*{password}"/><br/>
+        <button type="submit" style="background-color: azure" class="btn btn-default">Submit</button>
+    </form>
+</div>
+
+<!--Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<div class="container" th:fragment="footnote">
+    <footer>
+        <center>
+            <div class="footer-main-div" style="alignment: center">
+                <p style="color:greenyellow; ">&copy; Copyright 2019 John Anderjaska.</p>
+            </div>
+        </center>
+    </footer>
+    </footer>
+</div>
+
+</body>
+</html>
