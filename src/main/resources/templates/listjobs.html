@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Job List</title>
+    <div th:insert="base::header"></div>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+</head>
+<body style="background-color: seagreen">
+
+<div th:replace="base::navbar"></div>
+<br>
+
+<div class="container" style="background-color: lightgoldenrodyellow">
+    <center><h3>Job Selector Home Page</h3></center>
+</div>
+
+<div class="nav-item"  sec:authorize="isAuthenticated()">
+    <br>
+<!--<div th:each="job : ${jobs}">-->
+<!--    <p th:text="${job.title}">-->
+<!--</div>-->
+
+    <div class="container" style="background-color: azure">
+
+        <center><h3>All Jobs</h3></center>
+        <table align="center" border="1">
+            <thead>
+            <tr >
+                <th colspan="1">Title</th>
+                <th colspan="1" >Description</th>
+                <th colspan="1">Posted Date</th>
+                <th colspan="1">Phone</th>
+                <th colspan="1" class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <div th:each="job : ${jobs}">
+            <tr>
+                    <td><p th:text="${job.title}"></p></td>
+                    <td><p th:text="${job.description}"></p></td>
+                    <td><p th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></p></td>
+                    <td><p th:text="${job.phone}"></p></td>
+                    <td>
+                        <a th:href="@{/update/{id}(id=${job.id})}">Update</a>
+                        <a th:href="@{/detail/{id}(id=${job.id})}">Details</a>
+                        <a th:href="@{/delete/{id}(id=${job.id})}">Delete</a>
+                    </td>
+            </tr>
+            </div>
+        </table>
+        <br>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="container" th:fragment="footnote">
+    <footer>
+        <center>
+            <div class="footer-main-div" style="alignment: center">
+                <p style="color:greenyellow; ">&copy; Copyright 2019 John Anderjaska.</p>
+            </div>
+        </center>
+    </footer>
+</div>
+
+<!--Bootstrap JavaScript -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>

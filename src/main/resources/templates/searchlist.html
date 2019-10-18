@@ -24,33 +24,41 @@
 <body style="background-color: seagreen">
 <!-- Navigation bar-->
 <div th:insert="base :: navbar"></div>
-
 <br>
+
 <div class="container" style="background-color: lightgoldenrodyellow">
-    <center><h3>Job details</h3></center>
+    <center><h3>Search Results</h3></center>
 </div>
 
 <div class="container" style="background-color: azure">
-<br>
+    <br>
     <table align="center" border="1">
         <thead>
         <tr >
             <th colspan="1">Title</th>
-            <th colspan="1" >Description</th>
+            <th colspan="1" >description</th>
             <th colspan="1">Posted Date</th>
             <th colspan="1">Phone</th>
+            <th colspan="1" class="text-center">Actions</th>
         </tr>
-        </thead>
+        <thead>
+    <div th:each="job : ${jobs}">
         <tr>
             <td><p th:text="${job.title}"></p></td>
             <td><p th:text="${job.description}"></p></td>
             <td><p th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></p></td>
             <td><p th:text="${job.phone}"></p></td>
+            <!--            Added 10-3-19 7pm-->
+            <td>
+                <a th:href="@{/update/{id}(id=${job.id})}">Update</a>
+                <a th:href="@{/detail/{id}(id=${job.id})}">Details</a>
+                <a th:href="@{/delete/{id}(id=${job.id})}">Delete</a>
+            </td>
         </tr>
+    </div>
     </table>
     <br>
 </div>
-
 
 <br>
 <div class="container" th:fragment="footnote">
@@ -72,6 +80,7 @@
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+</script>
 </body>
 </html>

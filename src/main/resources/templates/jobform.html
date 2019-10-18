@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Jobs Center</title>
+    <title>Title</title>
     <div th:insert="base::header"></div>
     <style>
         .button {
@@ -27,30 +27,27 @@
 
 <br>
 <div class="container" style="background-color: lightgoldenrodyellow">
-    <center><h3>Job details</h3></center>
+    <center><h3>Update Job Form</h3></center>
 </div>
 
 <div class="container" style="background-color: azure">
-<br>
-    <table align="center" border="1">
-        <thead>
-        <tr >
-            <th colspan="1">Title</th>
-            <th colspan="1" >Description</th>
-            <th colspan="1">Posted Date</th>
-            <th colspan="1">Phone</th>
-        </tr>
-        </thead>
-        <tr>
-            <td><p th:text="${job.title}"></p></td>
-            <td><p th:text="${job.description}"></p></td>
-            <td><p th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></p></td>
-            <td><p th:text="${job.phone}"></p></td>
-        </tr>
-    </table>
     <br>
+<form th:action="@{/processjob}" th:object="${job}" method="post">
+    <input type="hidden" th:field="*{id}" />
+<!--    <input type="hidden" th:field="*{postedDate}" />-->
+    <input type="text" placeholder="Title" th:field="*{title}" />
+    <textarea rows="3" placeholder="Description" th:field="*{description}" />
+<!--    <input th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"/>-->
+<!--    <p th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></p>-->
+<!--    <input type="date" name="date" />-->
+    <input type="text" placeholder="Phone" th:field="*{phone}" />
+    <input class="button" type="submit" value="Submit">
+<!--    <input class="button" type="submit" onclick="confirmation()" value="Submit">-->
+<!--    <input type="submit" onclick="confirmation()" value="Submit">-->
+<!--    <button class="button" type="submit">Search</button>-->
+</form>
+<br>
 </div>
-
 
 <br>
 <div class="container" th:fragment="footnote">

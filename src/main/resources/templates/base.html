@@ -27,13 +27,19 @@
 </head>
 <body style="background-color: seagreen">
 
+<!--<div th:replace="base :: navbar"></div>-->
 <div th:fragment="navbar" style="background-color: slategray">
     <div class="row">
         <div  class="col" style="flex-grow: 0">
             <div class="nav">
                 <div class="navbar-nav" id="firstItem">
-                    <img src = "https://res.cloudinary.com/ascension-enterprises/image/upload/v1566592764/mlj1tttewvrn9n2yyabt.gif" alt = "Logo" />
+                    <img src = "https://res.cloudinary.com/ascension-enterprises/image/upload/v1570198446/JobSearchLogo_qfiiod.jpg" alt="Job Search Site" />
                 </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="nav-item" >
+                <a class="nav-link active" style="color: whitesmoke" href="/">Home</a>
             </div>
         </div>
         <div class="col" sec:authorize="isAuthenticated()">
@@ -56,8 +62,25 @@
         </div>
         <div class="col">
             <ul class="navbar-nav">
+                <div class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link active" style="color: whitesmoke" href="/add">Add a Job</a>
+                </div>
+            </ul>
+        </div>
+        <div class="col">
+            <ul class="navbar-nav">
                 <div class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
                     <a class="nav-link" style="color: whitesmoke" href="/showusers">Show Users</a>
+                </div>
+            </ul>
+        </div>
+        <div class="col">
+            <ul class="navbar-nav">
+                <div class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <form th:action="@{/processsearch}" method="post">
+                        <input type="text" placeholder="Job Title" name="search">
+                        <button class="button" type="submit">Search</button>
+                    </form>
                 </div>
             </ul>
         </div>
@@ -71,7 +94,7 @@
     </div>
 </div>
 
-<!--<div th:replace="base :: navbar"></div>-->
+
 
 <!--Bootstrap JS-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
