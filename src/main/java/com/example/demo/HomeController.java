@@ -28,7 +28,7 @@ public class HomeController {
     UserRepository userRepository;
 
     @Autowired
-    private UserService jobRepository;
+    private JobRepository jobRepository;
 
 //    // Added for ToDo
 //    @RequestMapping("/")
@@ -61,7 +61,7 @@ public class HomeController {
     @RequestMapping("/showusers")
     public String listUsers(Model model){
         model.addAttribute("users", userRepository.findAll());
-//        model.addAttribute("jobs", jobRepository.findAll());
+        model.addAttribute("jobs", jobRepository.findAll());
         try {
             if (userService.getUser() != null) {
                 model.addAttribute("user_id", userService.getUser().getId());

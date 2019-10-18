@@ -17,7 +17,7 @@ public class AppController {
     RoleRepository roleRepository;
 
     @Autowired
-    RoleRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
     private UserService userService;
