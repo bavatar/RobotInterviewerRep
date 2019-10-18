@@ -27,6 +27,7 @@ public class Job {
     @NotNull
     @Size(min=4)
     private String phone;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;

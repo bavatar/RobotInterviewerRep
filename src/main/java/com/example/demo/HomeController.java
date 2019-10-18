@@ -27,6 +27,9 @@ public class HomeController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private UserService jobRepository;
+
 //    // Added for ToDo
 //    @RequestMapping("/")
 //    public String listTasks(Model model){
@@ -54,12 +57,27 @@ public class HomeController {
         // return "index";
     }
 
-    // Added for ADMIN Role in ToDo
+    // Added for ADMIN Role
     @RequestMapping("/showusers")
     public String listUsers(Model model){
         model.addAttribute("users", userRepository.findAll());
+//        model.addAttribute("jobs", jobRepository.findAll());
+        try {
+            if (userService.getUser() != null) {
+                model.addAttribute("user_id", userService.getUser().getId());
+            }
+        } catch (Exception e){
+            System.out.println("HomeController: listUsers: " + "userService.getUser() == null");
+        }
         return "showusers";
     }
+//    // Added for ADMIN Role
+//    @RequestMapping("/showusers")
+//    public String listUsers(Model model){
+//        model.addAttribute("users", userRepository.findAll());
+////        model.addAttribute("jobs", jobRepository.findByEmail("test"));
+//        return "showusers";
+//    }
 
 //    @PostConstruct
 //    public void postConstruct() {

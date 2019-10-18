@@ -13,6 +13,8 @@ public interface JobRepository extends CrudRepository<Job,Long> {
 //        ArrayList<Flight> findFlightByAirlineContainingIgnoreCase(String airline);
 //        ArrayList<Flight> findFlightByDateAndEndAirportIgnoreCase(Date date, String dest);
     ArrayList<Job> findJobByTitleContainingIgnoreCase(String title);
+    Job findByUser(User user);
+//    ArrayList<Job> findAll();
 //    Job findByAuthor_id(long id);
 }
 

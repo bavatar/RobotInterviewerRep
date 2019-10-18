@@ -21,11 +21,13 @@ public class AppController {
     @Autowired
     private UserService userService;
 
-    // Added for Job
     @RequestMapping("/")
     public String jobList(Model model){
         model.addAttribute("jobs", jobRepository.findAll());
         model.addAttribute("users", userRepository.findAll());
+        if (userService.getUser() != null) {
+            model.addAttribute("user_id", userService.getUser().getId());
+        }
 //        long test = 0;
 //        try {
 //            if (userService.getUser().getId() > test) {
