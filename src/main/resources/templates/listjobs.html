@@ -59,11 +59,14 @@
                     <td><p th:text="${job.description}"></p></td>
                     <td><p th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></p></td>
                     <td><p th:text="${job.phone}"></p></td>
-                    <td>
-                        <a th:href="@{/update/{id}(id=${job.id})}">Update</a>
-                        <a th:href="@{/detail/{id}(id=${job.id})}">Details</a>
-                        <a th:href="@{/delete/{id}(id=${job.id})}">Delete</a>
-                    </td>
+                <td>
+                    <span th:if="${user_id == job.user.id}">
+                            <a th:href="@{/update/{id}(id=${job.id})}">Update</a>
+                            <a th:href="@{/detail/{id}(id=${job.id})}">Details</a>
+                            <a th:href="@{/delete/{id}(id=${job.id})}">Delete</a>
+                    </span>
+                </td>
+            </tr>
             </tr>
             </div>
         </table>

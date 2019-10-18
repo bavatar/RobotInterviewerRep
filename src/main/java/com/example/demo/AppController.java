@@ -3,6 +3,7 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -48,12 +49,6 @@ public class AppController {
 
     @GetMapping("/add")
     public String addJob(Model model){
-        if (userService.getUser() != null) {
-            model.addAttribute("user_id", userService.getUser().getId());
-        } else {
-            System.out.println("AppController:jobList:userService.getUser(): is null");
-        }
-
         model.addAttribute("job", new Job());
 
         if (userService.getUser() != null) {
@@ -71,11 +66,14 @@ public class AppController {
     }
 
     @PostMapping("/processjob")
-    public String processJob(@ModelAttribute Job job) {
+    public String processJob(@ModelAttribute Job job, BindingResult result) {
+        if(result.hasErrors()){
+            return "jobform";
+        }
+        job.setUser(userService.getUser());
         Date tempDate = new Date();
         job.setPostedDate(tempDate);
         jobRepository.save(job);
-        job.setUser(userService.getUser());
         return "redirect:/";
     }
 
