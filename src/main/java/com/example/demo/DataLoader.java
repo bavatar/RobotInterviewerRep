@@ -23,8 +23,8 @@ public class DataLoader implements CommandLineRunner {
         // test to see if data already exists
 //        if (roleRepository.findAll() == null) {
         try {
-            if (roleRepository.findByRole("ADMIN") != null) {
-                System.out.println("DataLoader: ADMIN account exists. Skip DataLoader");
+            if (roleRepository.count() > 0) {
+                System.out.println("DataLoader: Accounts exists. Skip DataLoader");
                 return;
             } else {
                 System.out.println("DataLoader: ADMIN account does not exist.");
