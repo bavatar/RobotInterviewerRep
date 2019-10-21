@@ -60,12 +60,10 @@
                     <span th:text="${role.role}"></span>
                 </td>
                 <td>
-                    <span th:if="${user.id == job.user.id}">
-                        <b>
-                        <a style="color: black" th:href="@{/update_profile/{id}(id=${user.id})}">Update</a>
-                        <a style="color: black" th:href="@{/delete_profile/{id}(id=${user.id})}">Delete</a>
-                        </b>
-                    </span>
+                    <b>
+                    <a style="color: black" th:href="@{/update_profile/{id}(id=${user.id})}">Update</a>
+                    <a style="color: black" th:href="@{/delete_profile/{id}(id=${user.id})}">Delete</a>
+                    </b>
                 </td>
             </tr>
         </table>
