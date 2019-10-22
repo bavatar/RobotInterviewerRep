@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @Controller
-public class AppController {
+public class JobController {
     @Autowired
     JobRepository jobRepository;
 

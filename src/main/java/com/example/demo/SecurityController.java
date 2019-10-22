@@ -11,10 +11,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
-public class HomeController {
-    // Added for ToDo
-//    @Autowired
-//    TodoRepository todoRepository;
+public class SecurityController {
 
     @Autowired
     private UserService userService;
@@ -28,7 +25,7 @@ public class HomeController {
     UserRepository userRepository;
 
     @Autowired
-    private JobRepository jobRepository;
+    JobRepository jobRepository;
 
 //    // Added for ToDo
 //    @RequestMapping("/")
@@ -86,23 +83,6 @@ public class HomeController {
 ////            roleRepository.save(new Role("USER"));
 ////            roleRepository.save(new Role("ADMIN"));
 ////        }
-//    }
-
-//    // Added for ToDo
-//    @GetMapping("/add")
-//    public String todoForm(Model model){
-//        model.addAttribute("todo", new Todo());
-//        return "todoform";
-//    }
-
-    // Added for ToDo
-//    @PostMapping("/process")
-//    public String processForm(@Valid Todo todo, BindingResult result){
-//        if (result.hasErrors()){
-//            return "todoform";
-//        }
-//        todoRepository.save(todo);
-//        return "redirect:/";
 //    }
 
     @PostMapping("/process_profile")
