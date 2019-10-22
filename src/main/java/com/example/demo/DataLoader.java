@@ -69,8 +69,8 @@ public class DataLoader implements CommandLineRunner {
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
 
-        String tesStr = "  Way Good ";
-        tesStr = tesStr.trim();
-        System.out.println(tesStr);
+//        String tesStr = "  Way Good, Better than Good ";
+//        ArrayList<String> testArray = kWords(tesStr);
+//        System.out.println("DataLoader: Test kWords(0) - (1)" + testArray.get(0) + " - " + testArray.get(1));
     }
 }
