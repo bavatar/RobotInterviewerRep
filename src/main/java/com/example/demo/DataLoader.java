@@ -76,12 +76,13 @@ public class DataLoader implements CommandLineRunner {
                 "User", true, "admin");
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
-
+        ArrayList<String> keyWords = new ArrayList<>();
+        keyWords = kWords("CSS, Design, Engineering, Full Stack, HTML, JavaScript, Ruby On Rails, Web Design, Web Development, Software Development, Team Management");
         Job job = new Job();
+        job.setKeywords(keyWords);
         job.setCurStatus(StaticData.Status.NOT_SUBMITTED);
         job.setDescription("This is a detailed description");
         job.setTitle("Senior Java Developer");
-//        job.setUser(userService.getUser());
         job.setUser(user);
         job.setPhone("301-879-6524");
         job.setEmployerEmail("jj@test.com");
@@ -89,6 +90,8 @@ public class DataLoader implements CommandLineRunner {
         Date tempDate = new Date();
         job.setPostedDate(tempDate);
         jobRepository.save(job);
+
+        System.out.println("DataLoader: postedDate: " + job.getPostedDate());
 
 //        String tesStr = "  Way Good, Better than Good ";
 //        ArrayList<String> testArray = kWords(tesStr);
