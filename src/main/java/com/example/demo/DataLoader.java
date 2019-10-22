@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 @Component
@@ -17,6 +18,15 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    public ArrayList<String> kWords(String str){
+        ArrayList<String> arrList = new ArrayList();
+        String[] kwords = str.split(",");
+        for (String s: kwords){
+            arrList.add(s.trim());
+        }
+        return arrList;
+    }
 
     @Override
     public void run(String...strings) throws Exception {
@@ -59,5 +69,8 @@ public class DataLoader implements CommandLineRunner {
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
 
+        String tesStr = "  Way Good ";
+        tesStr = tesStr.trim();
+        System.out.println(tesStr);
     }
 }

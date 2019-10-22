@@ -1,0 +1,89 @@
+User
+Evan Medrano
+Briarwood, New York, United States
+
+Resume
+Software/Web Developer
+I am a freelance full stack web engineer who loves a good web design as much as the next guy I am proficient in HTML, CSS, JavaScript, and Ruby/Rails. I value communication and punctuality amongst team members highly, so I am very reliable and a hard worker.
+
+Keywords
+CSS, Design, Engineering, Full Stack, HTML, JavaScript, Ruby On Rails, Web Design, Web Development, Software Development, Team Management
+
+**********************
+Job Title
+Need mobile app for iPhone and Android
+
+Job Description
+We have existing app that is build using phonegap and connects to portal using webservices. Main functions of app are to allow our clients to order prescription products. We need developer to build interfaces based on provided prototypes and use provide webservices to integrate with our portal.
+
+Key Words: Programming Dev, Mobile apps, iPhone, Android Development, PhoneGap Software Development, Mobile Development, Ios App Development, Mobile Programming Languages
+
+************************
+Job Title
+Word Press Website Improvements
+
+Job Description
+Improved Web Design & Functionality Project Needed:We will forward you already designed new Home Page, Landing Page & Donation Page Mockups. All 3 of the above mockup designs are good & we want them; however, they still need a bit of improvement.  
+
+Keywords
+Programming, Development, Web Development, Design Advertising, API Development, Banner Ads, Content Management System, (CMS), Design, Frontend Development, Backend Development, PHP Framework, Google Certified, Industry Specific Expertise, Web Development, Graphics, Rich Media, Interactive Media, Social Media, Networks, UX, UI
+
+***************************
+User
+Max Planck
+
+Resume
+Scopic Software offers high-quality and affordable web development and design services, providing customized solutions that best fit your business's unique needs. Having over 12 years of experience in the software industry, we have helped hundreds of businesses across different industries to succeed, by delivering exceptional custom web development services. 
+
+We guarantee the visually engaging, highly interactive and responsive front-end work you need to conquer the hearts of your ever-demanding customers. As no front-end work is of use without a great back-end work, we help you develop the exceptional back-end that your application deserves to have. We are experts in the different technology stacks, starting from the PHP/MySQL solution and full-stack JavaScript solutions with relational and non-relational databases to highly scalable cloud serverless solutions based on Amazon Web Services. Check out our website portfolio to get the feel of our work and let's connect to see how we can help you build the unique web application of your dreams!
+
+Key Words: web development, customized solutions, software develpment, full stack, PHP, MySQL, JavaScript, RDBMS, serverless, Cloud, Amazon Web Services
+****************************************
+User
+Tim McApple
+
+Resume
+Tim McApple has a strong team of 100+ professionals, each with expertise in their skills to deliver Rapid, Reliable and Robust Solutions. In this era of the internet, we build strong business relationships with clients around the globe to help them leverage technology to grow their business to the next level. 
+
+Some of our Top Services are:
+Web Application (Web portal) development
+Mobile Application Development
+Enterprise Services
+Startup Services
+Product Development
+Many more
+
+Key Industries we serve:
+- Real Estate
+- Healthcare
+- eCommerce
+- Social Networking
+- Entertainment and Media
+- Travel and Hospitality
+- Education and E-learning
+- Insurance
+- many more
+
+Custom Web Development -- Provide custom web development and programming services based on the latest technologies and industry trends.
+Web Application Development -- We provide web application development services for complex business logics dealing with large amounts of data and transactions.
+Enterprise Portal/Application Development -- We provide web application development services for complex business logics dealing with large amounts of data and transactions.
+eCommerce Solutions -- We provide end-to-end e-Business, B2B and eCommerce solutions for different market verticals to help clients excel in the digital marketplace.
+Content Management System (CMS) -- Offers a full range of CMS and ECM services that can enable you to manage your content and business data in an organized manner.
+
+Key Words: Custom Web Development, complex business logic, large scale, Rapid Development, Portal Application Development, eBusiness, B2B, eCommerce, Content Management System, (CMS), 
+ECM Services, Content Management 
+******************************
+Job Title
+Urgent need for CodeSys PLC Engineer
+
+Description
+I am looking for codesys plc engineer for very urgent work. more details will be shared with the selected candidates.
+
+Key Words:PLC, CODESYS, Electrical Controls Design, Electrical Engineering, Technical, 
+
+
+
+
+
+
+ 
