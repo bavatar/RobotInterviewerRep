@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -27,6 +28,10 @@ public class Job {
     @NotNull
     @Size(min=4)
     private String phone;
+
+    private ArrayList<String> keywords;
+
+    private StaticData.Status curStatus;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -88,5 +93,21 @@ public class Job {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public ArrayList<String> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(ArrayList<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    public StaticData.Status getCurStatus() {
+        return curStatus;
+    }
+
+    public void setCurStatus(StaticData.Status curStatus) {
+        this.curStatus = curStatus;
     }
 }
