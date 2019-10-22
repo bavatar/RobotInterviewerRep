@@ -20,7 +20,6 @@ public class Job {
     @NotNull
     @Size(min=6)
     private String description;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date postedDate;
 
