@@ -33,6 +33,14 @@ public class User{
     @Column(name = "username")
     private String username;
 
+    public StringBuffer getResume() {
+        return resume;
+    }
+
+    public void setResume(StringBuffer resume) {
+        this.resume = resume;
+    }
+
     @Column(name = "resume")
     private StringBuffer resume;
 

@@ -31,7 +31,8 @@ public class Job {
     private StaticData.Status curStatus;
 
     private HashMap<Integer, ArrayList<String>> questionsAndAnswers;
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
