@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -15,6 +16,13 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     RoleRepository roleRepository;
+
+
+    @Autowired
+    JobRepository jobRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -68,6 +76,19 @@ public class DataLoader implements CommandLineRunner {
                 "User", true, "admin");
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
+
+        Job job = new Job();
+        job.setCurStatus(StaticData.Status.NOT_SUBMITTED);
+        job.setDescription("This is a detailed description");
+        job.setTitle("Senior Java Developer");
+//        job.setUser(userService.getUser());
+        job.setUser(user);
+        job.setPhone("301-879-6524");
+        job.setEmployerEmail("jj@test.com");
+        job.setEmployerName("Amazon");
+        Date tempDate = new Date();
+        job.setPostedDate(tempDate);
+        jobRepository.save(job);
 
 //        String tesStr = "  Way Good, Better than Good ";
 //        ArrayList<String> testArray = kWords(tesStr);
