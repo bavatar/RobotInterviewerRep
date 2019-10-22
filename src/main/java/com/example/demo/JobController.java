@@ -71,6 +71,8 @@ public class JobController {
             return "jobform";
         }
         job.setUser(userService.getUser());
+        job.setEmployerEmail("jj@test.com");
+        job.setEmployerName("Amazon");
         Date tempDate = new Date();
         job.setPostedDate(tempDate);
         jobRepository.save(job);
