@@ -5,7 +5,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+//static enum Status{
+//    NOTSUBMITTED, PENDINGINTERVIEW, REJECTED, ACCEPTED;
+//}
+
+enum Status {
+    NOT_SUBMITTED, SUBMITTED, PENDING_INTERVIEW, PENDING_OFFER, REJECTED;
+}
 
 @Entity
 public class Job {
@@ -15,31 +26,80 @@ public class Job {
 
     @NotNull
     @Size(min=4)
-    private String title;
+    private String title, phone, employerName, employerEmail;
 
     @NotNull
     @Size(min=6)
     private String description;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date postedDate;
+    private ArrayList<String> keywords;
+    private StaticData.Status curStatus;
 
-    @NotNull
-    @Size(min=4)
-    private String phone;
+    public Job(@NotNull @Size(min = 4) String title, @NotNull @Size(min = 4) String phone,
+               @NotNull @Size(min = 4) String employerName, @NotNull @Size(min = 4) String employerEmail,
+               @NotNull @Size(min = 6) String description, ArrayList<String> keywords, HashMap<Integer,
+            ArrayList<String>> questionsAndAnswers, LocalDate postedDate, User user) {
+        this.title = title;
+        this.phone = phone;
+        this.employerName = employerName;
+        this.employerEmail = employerEmail;
+        this.description = description;
+        this.keywords = keywords;
+        this.questionsAndAnswers = questionsAndAnswers;
+        this.postedDate = postedDate;
+        this.user = user;
+    }
 
+    private HashMap<Integer, ArrayList<String>> questionsAndAnswers;
+
+    private LocalDate postedDate;
+
+//    formattedDate = today.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Job(@NotNull @Size(min = 4) String title, @NotNull @Size(min = 6) String description, Date postedDate, @NotNull @Size(min = 4) String phone) {
-        this.title = title;
-        this.description = description;
-        this.postedDate = postedDate;
-        this.phone = phone;
+    public Job() {
     }
 
-    public Job() {
+    public String getEmployerName() {
+        return employerName;
+    }
+
+    public void setEmployerName(String employerName) {
+        this.employerName = employerName;
+    }
+
+    public String getEmployerEmail() {
+        return employerEmail;
+    }
+
+    public void setEmployerEmail(String employerEmail) {
+        this.employerEmail = employerEmail;
+    }
+
+    public ArrayList<String> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(ArrayList<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    public HashMap<Integer, ArrayList<String>> getQuestionsAndAnswers() {
+        return questionsAndAnswers;
+    }
+
+    public void setQuestionsAndAnswers(HashMap<Integer, ArrayList<String>> questionsAndAnswers) {
+        this.questionsAndAnswers = questionsAndAnswers;
+    }
+
+    public LocalDate getPostedDate() {
+        return postedDate;
+    }
+
+    public void setPostedDate(LocalDate postedDate) {
+        this.postedDate = postedDate;
     }
 
     public long getId() {
@@ -64,14 +124,6 @@ public class Job {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getPostedDate() {
-        return postedDate;
-    }
-
-    public void setPostedDate(Date postedDate) {
-        this.postedDate = postedDate;
     }
 
     public String getPhone() {
