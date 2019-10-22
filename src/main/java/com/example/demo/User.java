@@ -3,6 +3,7 @@ package com.example.demo;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,6 +33,9 @@ public class User{
     @Column(name = "username")
     private String username;
 
+    @Column(name = "resume")
+    private StringBuffer resume;
+
     @OneToMany(mappedBy = "user")
     private Set<Job> jobs;
 
@@ -51,6 +55,34 @@ public class User{
         this.setLastName(lastName);
         this.setEnabled(enabled);
         this.setUsername(username);
+    }
+
+    // Sets the status for newly submitted applications
+    public void getMatches(StringBuffer res, Set<Job> jobs){
+        int percent = 0;
+        int numberFound = 0;
+        boolean pass = false;
+
+        for (Job job: jobs) {
+            percent = 0;
+            numberFound = 0;
+            pass = false;
+            if (job.getCurStatus()!= StaticData.Status.NOT_SUBMITTED){
+                continue;
+            }
+
+            for (String s : job.getKeywords()){
+                if (res.indexOf(s) != -1){
+                    numberFound++;
+                }
+            }
+            percent = (100 * numberFound) / job.getKeywords().size();
+            if (percent > 80) {
+                job.setCurStatus(StaticData.Status.PENDING_INTERVIEW);
+            } else {
+                job.setCurStatus(StaticData.Status.REJECTED);
+            }
+        }
     }
 
     public long getId() {
