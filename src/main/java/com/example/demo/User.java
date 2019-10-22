@@ -44,6 +44,14 @@ public class User{
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
+    public StringBuffer getResume() {
+        return resume;
+    }
+
+    public void setResume(StringBuffer resume) {
+        this.resume = resume;
+    }
+
     public User() {
         this.jobs = new HashSet<>();
     }

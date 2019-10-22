@@ -7,6 +7,11 @@ public class StaticData {
     private Status curStatus = Status.NOT_SUBMITTED;   // Initial
 
     public StaticData() {
+        behavioralQuestions = new ArrayList<>();
+        behavioralQuestions.add("What is your greatest achievement?");
+        behavioralQuestions.add("What is your greatest failure?");
+        behavioralQuestions.add("How do you like working on a team?");
+        behavioralQuestions.add("Do you like people?");
     }
 
     public String getCurStatus() {
