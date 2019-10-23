@@ -93,6 +93,33 @@ public class User{
         }
     }
 
+    public void getMatches(){
+        int percent = 0;
+        int numberFound = 0;
+        boolean pass = false;
+
+        for (Job job: jobs) {
+            percent = 0;
+            numberFound = 0;
+            pass = false;
+            if (job.getCurStatus()!= StaticData.Status.NOT_SUBMITTED){
+                continue;
+            }
+
+            for (String s : job.getKeywords()){
+                if (resume.indexOf(s) != -1){
+                    numberFound++;
+                }
+            }
+            percent = (100 * numberFound) / job.getKeywords().size();
+            if (percent > 80) {
+                job.setCurStatus(StaticData.Status.PENDING_INTERVIEW);
+            } else {
+                job.setCurStatus(StaticData.Status.REJECTED);
+            }
+        }
+    }
+
     public long getId() {
         return id;
     }

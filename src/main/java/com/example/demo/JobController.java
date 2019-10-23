@@ -82,7 +82,22 @@ public class JobController {
     @RequestMapping("/apply/{id}")
     public String applyJob(@PathVariable("id") long id, Model model){
         model.addAttribute("job", jobRepository.findById(id).get());
-        return "show";
+        Job job = jobRepository.findById(id).get();
+        job.setCurStatus(StaticData.Status.SUBMITTED);
+        User user = userService.getUser();
+        user.getMatches();  // Evaluate all jobs w/Status == SUBMITTED
+        if (job.getCurStatus() == StaticData.Status.PENDING_INTERVIEW) {
+            System.out.println("applyJob: " + "Interview is pending.");
+            // send an email or popup to user to go to myPage to schedule an interview
+            // during an available window.  When they go to myPage they will see cards for each job they have
+            // applied to.  Each will have a button to apply for an interview
+            // if the interview has not been scheduled - add PENDING_SCHEDULED_INTERVIEW
+        }
+        else {
+            System.out.println("applyJob: " + "Candidate was rejected");
+        }
+//        return "show";
+        return "redirect:/";
     }
 
     @RequestMapping("/detail/{id}")

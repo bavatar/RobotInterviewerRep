@@ -35,7 +35,6 @@ public class Job {
     @JoinColumn(name = "user_id")
     private User user;
 
-
     public Job(@NotNull @Size(min = 4) String title, @NotNull @Size(min = 4) String phone,
                @NotNull @Size(min = 4) String employerName, @NotNull @Size(min = 4) String employerEmail,
                @NotNull @Size(min = 6) String description, ArrayList<String> keywords, HashMap<Integer,
