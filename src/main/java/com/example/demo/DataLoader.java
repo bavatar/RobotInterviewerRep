@@ -77,6 +77,7 @@ public class DataLoader implements CommandLineRunner {
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
         ArrayList<String> keyWords = new ArrayList<>();
+
         keyWords = kWords("CSS, Design, Engineering, Full Stack, HTML, JavaScript, Ruby On Rails, Web Design, Web Development, Software Development, Team Management");
         Job job = new Job();
         job.setKeywords(keyWords);
@@ -92,6 +93,21 @@ public class DataLoader implements CommandLineRunner {
         jobRepository.save(job);
 
         System.out.println("DataLoader: postedDate: " + job.getPostedDate());
+
+        // Add another job with the same user
+        keyWords = kWords("Programming Dev, Mobile apps, iPhone, Android Development, PhoneGap Software Development, Mobile Development, Ios App Development, Mobile Programming Languages");
+        job = new Job();
+        job.setKeywords(keyWords);
+        job.setCurStatus(StaticData.Status.NOT_SUBMITTED);
+        job.setDescription("This is a detailed description");
+        job.setTitle("Senior Solutions Architect");
+        job.setUser(user);
+        job.setPhone("301-345-6524");
+        job.setEmployerEmail("bb@test.com");
+        job.setEmployerName("Ascension Enterprizes");
+        tempDate = new Date();
+        job.setPostedDate(tempDate);
+        jobRepository.save(job);
 
 //        String tesStr = "  Way Good, Better than Good ";
 //        ArrayList<String> testArray = kWords(tesStr);

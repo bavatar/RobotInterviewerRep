@@ -65,6 +65,9 @@
                             <a th:href="@{/detail/{id}(id=${job.id})}">Details</a>
                             <a th:href="@{/delete/{id}(id=${job.id})}">Delete</a>
                     </span>
+                    <span th:if="${user_id != job.user.id}">
+                        <a th:href="@{/apply/{id}(id=${job.id})}">Apply</a>
+                    </span>
                 </td>
             </tr>
             </tr>

@@ -79,6 +79,12 @@ public class JobController {
         return "redirect:/";
     }
 
+    @RequestMapping("/apply/{id}")
+    public String applyJob(@PathVariable("id") long id, Model model){
+        model.addAttribute("job", jobRepository.findById(id).get());
+        return "show";
+    }
+
     @RequestMapping("/detail/{id}")
     public String showJob(@PathVariable("id") long id, Model model){
         model.addAttribute("job", jobRepository.findById(id).get());
