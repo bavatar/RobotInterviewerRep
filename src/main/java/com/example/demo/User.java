@@ -33,6 +33,14 @@ public class User{
     @Column(name = "username")
     private String username;
 
+    public StringBuffer getResume() {
+        return resume;
+    }
+
+    public void setResume(StringBuffer resume) {
+        this.resume = resume;
+    }
+
     @Column(name = "resume")
     private StringBuffer resume;
 
@@ -44,13 +52,6 @@ public class User{
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
-    public StringBuffer getResume() {
-        return resume;
-    }
-
-    public void setResume(StringBuffer resume) {
-        this.resume = resume;
-    }
 
     public User() {
         this.jobs = new HashSet<>();

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Interview Form</title>
+    <div th:replace="base::header"></div>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div th:insert="base :: navbar"></div>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Interview Q's</h1>
+        <hr class="my-4">
+
+        <form action="#" th:action="@{/processinterview}" th:object="${job}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+            <p> this is not hidden</p>
+            <div class="form-row">
+                <p>is this showing up?</p>
+                <div class="col" th:each="q : ${job.questionsAndAnswers}">
+                    <p>div is working?</p>
+                    <label for="question" th:text="${q.question}"></label>
+                    <input type="text" class="form-control" id="question" placeholder="Title" th:field="${q.answer}"/>
+                </div>
+            </div>
+        </form>
+
+        <div class="form-row">
+            <div class="col">
+                <button type="submit" class="btn btn-warning">Submit</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:insert="base :: footnote"></div>
+</body>
+</html>

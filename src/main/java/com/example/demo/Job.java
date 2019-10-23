@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Date;
 
@@ -30,25 +31,20 @@ public class Job {
     private ArrayList<String> keywords;
     private StaticData.Status curStatus;
 
-    private HashMap<Integer, ArrayList<String>> questionsAndAnswers;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "job", fetch = FetchType.EAGER)
+    private Collection<QsAndAs> questionsAndAnswers;
+
+    public Collection<QsAndAs> getQuestionsAndAnswers() {
+        return questionsAndAnswers;
+    }
+
+    public void setQuestionsAndAnswers(Collection<QsAndAs> questionsAndAnswers) {
+        this.questionsAndAnswers = questionsAndAnswers;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-
-    public Job(@NotNull @Size(min = 4) String title, @NotNull @Size(min = 4) String phone,
-               @NotNull @Size(min = 4) String employerName, @NotNull @Size(min = 4) String employerEmail,
-               @NotNull @Size(min = 6) String description, ArrayList<String> keywords, HashMap<Integer,
-            ArrayList<String>> questionsAndAnswers, Date postedDate, User user) {
-        this.title = title;
-        this.phone = phone;
-        this.employerName = employerName;
-        this.employerEmail = employerEmail;
-        this.description = description;
-        this.keywords = keywords;
-        this.questionsAndAnswers = questionsAndAnswers;
-        this.postedDate = postedDate;
-        this.user = user;
-    }
 
     public Job() {
     }
@@ -69,13 +65,6 @@ public class Job {
         this.employerEmail = employerEmail;
     }
 
-    public HashMap<Integer, ArrayList<String>> getQuestionsAndAnswers() {
-        return questionsAndAnswers;
-    }
-
-    public void setQuestionsAndAnswers(HashMap<Integer, ArrayList<String>> questionsAndAnswers) {
-        this.questionsAndAnswers = questionsAndAnswers;
-    }
 
     public Date getPostedDate() {
         return postedDate;
