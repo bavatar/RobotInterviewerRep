@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:insert="base :: header"></th:block>
+</head>
+<body>
+<!--<div th:replace="base :: navbar"></div>-->
+<div class="container">
+    <h2>Appeal Form</h2>
+    <form action="#" th:action="@{/appeal_email}" method="post" enctype="text/plain">
+        <div class="form-group">
+            <label for="InputName">Name</label>
+            <input type="text" id="name" />
+            <label for="InputTextarea">Please include a reason for your appeal request</label>
+            <textarea class="form-control" name="message" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<!--<div th:replace="footnote :: bootStrapJS"></div>-->
+</body>
+</html>
