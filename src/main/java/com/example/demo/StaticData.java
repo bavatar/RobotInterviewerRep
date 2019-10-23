@@ -25,7 +25,15 @@ public class StaticData {
 
     public enum Status
     {
-        NOT_SUBMITTED, SUBMITTED, PENDING_INTERVIEW, PENDING_OFFER, REJECTED;
+        NOT_SUBMITTED,
+        // User has applied for the job but the decision on granting an interview has not yet been made
+        SUBMITTED,
+        // PENDING_INTERVIEW indicates that the interview has not been scheduled yet but is pending
+        PENDING_INTERVIEW,
+        PENDING_OFFER,
+        // PENDING_SCHEDULED_INTERVIEW indicates that the interview is pending and has been scheduled.
+        PENDING_SCHEDULED_INTERVIEW,
+        REJECTED;
     }
 
     public ArrayList<String> getBehavioralQuestions() {

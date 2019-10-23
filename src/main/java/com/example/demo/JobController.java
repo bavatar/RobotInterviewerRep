@@ -47,6 +47,22 @@ public class JobController {
         return "listjobs";
     }
 
+    // JA 10-23-19 11:11am
+//  model.addAttribute("cars", carRepository.findAll());
+//  model.addAttribute("categories", categoryRepository.findAll());
+    @RequestMapping("/mypage")
+    public String myPage(Model model){
+//        model.addAttribute("jobs", jobRepository.findAll());
+//        model.addAttribute("users", userRepository.findAll());
+        if (userService.getUser() != null) {
+            model.addAttribute("user_id", userService.getUser().getId());
+            model.addAttribute("user", userService.getUser());
+        }
+        //User user = userRepository.findById(userService.getUser().getId());
+//        User user = userRepository.findById(user_id);
+        return "mypage";
+    }
+
     @GetMapping("/add")
     public String addJob(Model model){
         model.addAttribute("job", new Job());
@@ -85,6 +101,10 @@ public class JobController {
         Job job = jobRepository.findById(id).get();
         job.setCurStatus(StaticData.Status.SUBMITTED);
         User user = userService.getUser();
+        user.getApplied_jobs().add(job);
+
+        int count = user.getJobs().size();
+        System.out.println("JobController: applyJob: Number of Jobs in User: " + user.getUsername() + " Count: " + count);
         user.getMatches();  // Evaluate all jobs w/Status == SUBMITTED
         if (job.getCurStatus() == StaticData.Status.PENDING_INTERVIEW) {
             System.out.println("applyJob: " + "Interview is pending.");

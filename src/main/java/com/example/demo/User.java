@@ -33,8 +33,11 @@ public class User{
     @Column(name = "username")
     private String username;
 
-    @Column(name = "resume")
-    private StringBuffer resume;
+    @Column(name = "applied_jobs")
+    private Set<Job> applied_jobs;
+
+    @Column(length = 20000, name = "resume")
+    private String resume;
 
     @OneToMany(mappedBy = "user")
     private Set<Job> jobs;
@@ -44,34 +47,49 @@ public class User{
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
-    public StringBuffer getResume() {
+    public Set<Job> getApplied_jobs() {
+        return applied_jobs;
+    }
+
+    public void setApplied_jobs(Set<Job> applied_jobs) {
+        this.applied_jobs = applied_jobs;
+    }
+
+    public User(String email, String password, String firstName, String lastName, Boolean enabled, String username, Set<Job> applied_jobs, String resume, Set<Job> jobs, Collection<Role> roles) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.enabled = enabled;
+        this.username = username;
+        this.applied_jobs = applied_jobs;
+        this.resume = resume;
+        this.jobs = jobs;
+        this.roles = roles;
+    }
+
+    public String getResume() {
         return resume;
     }
 
-    public void setResume(StringBuffer resume) {
+    public void setResume(String resume) {
         this.resume = resume;
     }
 
     public User() {
         this.jobs = new HashSet<>();
+        this.applied_jobs = new HashSet<>();
     }
 
-    public User(String email, String password, String firstName, String lastName, Boolean enabled, String username) {
-        this.setEmail(email);
-        this.setPassword(password);
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.setEnabled(enabled);
-        this.setUsername(username);
-    }
 
     // Sets the status for newly submitted applications
-    public void getMatches(StringBuffer res, Set<Job> jobs){
+    public void getMatches(String res, Set<Job> jobs){
         int percent = 0;
         int numberFound = 0;
         boolean pass = false;
+        StringBuffer resBuffer = new StringBuffer(res);
 
-        for (Job job: jobs) {
+        for (Job job: applied_jobs) {
             percent = 0;
             numberFound = 0;
             pass = false;
@@ -80,7 +98,7 @@ public class User{
             }
 
             for (String s : job.getKeywords()){
-                if (res.indexOf(s) != -1){
+                if (resBuffer.indexOf(s) != -1){
                     numberFound++;
                 }
             }
@@ -98,23 +116,30 @@ public class User{
         int numberFound = 0;
         boolean pass = false;
 
+        //StringBuilder res = new StringBuilder(10000);
+        StringBuffer resBuffer = new StringBuffer(resume);
+
+        System.out.println("getMatches: Number of User Jobs: " + jobs.size());
         for (Job job: jobs) {
             percent = 0;
             numberFound = 0;
             pass = false;
-            if (job.getCurStatus()!= StaticData.Status.NOT_SUBMITTED){
+            if (job.getCurStatus()== StaticData.Status.NOT_SUBMITTED){
                 continue;
             }
 
             for (String s : job.getKeywords()){
-                if (resume.indexOf(s) != -1){
+                // crashes on the following line JA 10-23-19
+                if (resBuffer.indexOf(s) != -1){
                     numberFound++;
                 }
             }
             percent = (100 * numberFound) / job.getKeywords().size();
             if (percent > 80) {
                 job.setCurStatus(StaticData.Status.PENDING_INTERVIEW);
+                System.out.println("getMatches: Passed Rating percent: " + percent);
             } else {
+                System.out.println("getMatches: Rejected Rating percent: " + percent);
                 job.setCurStatus(StaticData.Status.REJECTED);
             }
         }
@@ -192,4 +217,12 @@ public class User{
     public void setJobs(Set<Job> jobs) {
         this.jobs = jobs;
     }
+
+//    public Set<Job> getApplied_jobs() {
+//        return applied_jobs;
+//    }
+
+//    public void setApplied_jobs(Set<Job> applied_jobs) {
+//        this.applied_jobs = applied_jobs;
+//    }
 }

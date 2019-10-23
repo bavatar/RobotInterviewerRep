@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>My Page</title>
+
+    <th:block th:insert="base :: header"></th:block>
+
+</head>
+<body style="background-color: seagreen">
+
+<div th:replace="base::navbar"></div>
+<br>
+<!--title, phone, employerName, employerEmail;-->
+
+<!--private String description;-->
+
+<!--@DateTimeFormat(pattern = "yyyy-MM-dd")-->
+<!--private Date postedDate;-->
+
+<!--private ArrayList<String> keywords;-->
+<!--    private StaticData.Status curStatus;-->
+
+<!--    private HashMap<Integer, ArrayList<String>> questionsAndAnswers;-->
+
+<div class="container-fluid">
+    <div class="card-columns">
+<!--        User user = userRepository.findById(user_id);-->
+<!--        <div th:each="job:${user_id}"-->
+<!--        <div th:each="user:${users}">-->
+<!--             <span th:if="${user_id == job.user.id}">-->
+        <div th:each="job:${user.jobs}">
+            <div class="card">
+                <div class="card-body-top">
+                    <p class="card-text"><span th:text="${job.title}"></span></p>
+                </div>
+                <div class="card-body-mid">
+                    <p class="card-text"><span th:text="${job.getCurStatus()}"></span></p>
+                </div>
+                <div class="card-body-bottom">
+                    <p class="card-text"><span th:text="${job.postedDate}"></span></p>
+                </div>
+                <!--            <a th:href="@{detail_book/{id}(id=${book.bookID})}">Details</a>&ndash;&gt;-->
+<!--                <a th:href="@{detail_job/{id}(id=${job.getId()})}" class="card-link">Details</a>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<div class="container" th:fragment="footnote">
+    <footer>
+        <center>
+            <div class="footer-main-div" style="alignment: center">
+                <p style="color:greenyellow; ">&copy; Copyright 2019 John Anderjaska and DeadPool Team</p>
+            </div>
+        </center>
+    </footer>
+</div>
+
+</body>
+</html>
