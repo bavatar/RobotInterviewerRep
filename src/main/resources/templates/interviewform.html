@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
@@ -21,23 +22,37 @@
         <h1>Interview Q's</h1>
         <hr class="my-4">
 
-        <form action="#" th:action="@{/processinterview}" th:object="${job}" method="post">
-            <input type="hidden" th:field="*{id}"/>
-            <p> this is not hidden</p>
-            <div class="form-row">
-                <p>is this showing up?</p>
-                <div class="col" th:each="q : ${job.questionsAndAnswers}">
-                    <p>div is working?</p>
-                    <label for="question" th:text="${q.question}"></label>
-                    <input type="text" class="form-control" id="question" placeholder="Title" th:field="${q.answer}"/>
-                </div>
-            </div>
-        </form>
-
         <div class="form-row">
-            <div class="col">
-                <button type="submit" class="btn btn-warning">Submit</button>
-            </div>
+            <form action="#" th:action="@{/processinterview}" th:object="${qsAndAs}" method="post">
+<!--                <input type="hidden" th:field="${job.id}"/>-->
+<!--                <input type="hidden" th:field="${job.title}"/>-->
+<!--                <input type="hidden" th:field="${job.phone}"/>-->
+<!--                <input type="hidden" th:field="${job.employerName}"/>-->
+<!--                <input type="hidden" th:field="${job.employerEmail}"/>-->
+<!--                <input type="hidden" th:field="${job.description}"/>-->
+<!--                <input type="hidden" th:field="${job.postedDate}"/>-->
+<!--                <input type="hidden" th:field="${job.keywords}"/>-->
+<!--                <input type="hidden" th:field="${job.curStatus}"/>-->
+<!--                <input type="hidden" th:field="${job.user}"/>-->
+                <!--            <p> this is not hidden</p>-->
+                <div class="form-row">
+                    <!--                <p>is this showing up?</p>-->
+                    <div class="col" th:each="qA : ${qsAndAs}">
+                        <input type="hidden" th:field="${qA.id}"/>
+                        <input type="hidden" th:field="${qA.job}">
+                        <!--                    <input type="hidden" th:field="${qA.question}">-->
+                        <!--                    <input type="hidden" th:field="${q.answer}">-->
+                        <!--                    <p>div is working?</p>-->
+                        <label th:text="${qA.question}"></label>
+                        <label th:text="${qA.answer}"></label>
+                        <input type="text" placeholder="Answer" th:field="${qA.answer}"/>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <button type="submit" class="btn btn-warning">Submit</button>
+                </div>
+            </form>
         </div>
     </div>
 

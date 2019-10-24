@@ -3,17 +3,27 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Page</title>
+    <title>Email Form</title>
 
     <th:block th:insert="base :: header"></th:block>
 
 </head>
 <body style="background-color: seagreen">
-
 <div th:replace="base::navbar"></div>
 <br>
-<h2>Admin Page</h2>
-
+<h2>Email Form</h2>
+<div class="container">
+    <h2>Appeal Form</h2>
+    <form action="#" th:action="@{/appeal_email}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="InputName">Name</label>
+            <input type="text" id="InputName" />
+            <label for="InputTextarea">Please include a reason for your appeal request</label>
+            <textarea class="form-control" name="InputTextarea" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 <!--Bootstrap JS-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -23,9 +33,10 @@
     <footer>
         <center>
             <div class="footer-main-div" style="alignment: center">
-                <p style="color:greenyellow; ">&copy; Copyright 2019 John Anderjaska and DeadPool Team.</p>
+                <p style="color:greenyellow; ">&copy; Copyright 2019 John Anderjaska.</p>
             </div>
         </center>
+    </footer>
     </footer>
 </div>
 

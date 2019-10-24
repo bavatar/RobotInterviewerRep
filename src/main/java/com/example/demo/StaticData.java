@@ -6,6 +6,43 @@ public class StaticData {
     private ArrayList<String> behavioralQuestions;
     private Status curStatus = Status.NOT_SUBMITTED;   // Initial
 
+    // added 7pm 10-23-19
+    static public ArrayList<ArrayListE> applied_jobs = new ArrayList<>();
+
+    static public void AddAppliedJobUserID(Job j, long uid){
+        if (doesUserHaveAnyPriorAppliedJobs(uid)){
+            for (ArrayListE arrayListE: applied_jobs) {
+                if (arrayListE.userID == uid) {
+                    arrayListE.arrList.add(j);
+                }
+            }
+        }
+        else {
+            ArrayListE temp = new ArrayListE();
+            temp.arrList.add(j);
+            temp.userID= uid;
+            applied_jobs.add(temp);
+        }
+    }
+
+    static boolean doesUserHaveAnyPriorAppliedJobs(long uid){
+        for (ArrayListE arrayListE: applied_jobs){
+            if (arrayListE.userID == uid){
+                return true;
+            }
+        }
+        return false;
+    }
+    static public ArrayList<Job> getJobsByApplicantID (long usrID){
+        ArrayList<Job> appliedByApp = new ArrayList<>();
+        for (ArrayListE arrayListE: applied_jobs){
+            if (arrayListE.userID == usrID){
+                return arrayListE.arrList;
+            }
+        }
+        return appliedByApp;
+    }
+
     public StaticData() {
         behavioralQuestions = new ArrayList<>();
         behavioralQuestions.add("What is your greatest achievement?");
@@ -25,7 +62,15 @@ public class StaticData {
 
     public enum Status
     {
-        NOT_SUBMITTED, SUBMITTED, PENDING_INTERVIEW, PENDING_OFFER, REJECTED;
+        NOT_SUBMITTED,
+        // User has applied for the job but the decision on granting an interview has not yet been made
+        SUBMITTED,
+        // PENDING_INTERVIEW indicates that the interview has not been scheduled yet but is pending
+        PENDING_INTERVIEW,
+        PENDING_OFFER,
+        // PENDING_SCHEDULED_INTERVIEW indicates that the interview is pending and has been scheduled.
+        PENDING_SCHEDULED_INTERVIEW,
+        REJECTED;
     }
 
     public ArrayList<String> getBehavioralQuestions() {

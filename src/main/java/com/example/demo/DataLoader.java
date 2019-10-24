@@ -1,4 +1,4 @@
-//<<<<<<< HEAD
+
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class DataLoader implements CommandLineRunner {
     RoleRepository roleRepository;
 
     @Autowired
-    QandARepository qandARepository;
+    QandAsRepository qandAsRepository;
 
     @Autowired
     JobRepository jobRepository;
@@ -62,8 +62,23 @@ public class DataLoader implements CommandLineRunner {
         Role supervisorRole = roleRepository.findByRole("SUPERVISOR");
         //roleRepository.findAll();
 
-        User user = new User("jim@jim.com", "password", "Jim",
-                "Jimmerson", true, "jim");
+//        User user = new User("jim@jim.com", "password", "Jim",
+//                "Jimmerson", true, "jim");
+        // First User
+        User user = new User();
+        user.setEmail("jim@jim.com");
+        user.setPassword("password");
+        user.setFirstName("jim");
+        user.setLastName("jimmerson");
+        user.setEnabled(true);
+        user.setUsername("jim");
+        //StringBuilder res = new StringBuilder(10000);
+        String res = "Software/Web Developer I am a freelance full stack web engineer who loves a good web design as much as the next " +
+                "guy I am proficient in HTML, CSS, JavaScript, and Ruby/Rails. I value communication and punctuality amongst team members highly, " +
+                "so I am very reliable and a hard worker. Keywords: CSS, Design, Engineering, Full Stack, HTML, JavaScript, Ruby On Rails, " +
+                "Web Design, Web Development, Software Development, Team Management, iPhone, web development";
+        user.setResume(res);
+        user.setJobs(new HashSet<Job>());
         user.setRoles(Arrays.asList(userRole));
         userRepository.save(user);
 
@@ -73,9 +88,72 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("DataLoader: User email: " + user.getEmail());
         user = userRepository.findByUsername(user.getUsername());
 
-        user = new User("admin@admin.com", "password", "Admin",
-                "User", true, "admin");
+
+//        user = new User("admin@admin.com", "password", "Admin",
+//                "User", true, "admin");
+        //Job newJobs = new HashSet<Job>();
+
+        // Second User
+        user = new User();
+        user.setEmail("admin@gmail.com");
+        user.setPassword("password");
+        user.setFirstName("Steve");
+        user.setLastName("Emerson");
+        user.setEnabled(true);
+        user.setUsername("admin");
+        res = "Scopic Software offers high-quality and affordable web development and design services, " +
+                "providing customized solutions that best fit your business's unique needs. Having over 12 years of " +
+                "experience in the software industry, we have helped hundreds of businesses across different industries " +
+                "to succeed, by delivering exceptional custom web development services. We guarantee the visually " +
+                "engaging, highly interactive and responsive front-end work you need to conquer the hearts of your " +
+                "ever-demanding customers. As no front-end work is of use without a great back-end work, we help you " +
+                "develop the exceptional back-end that your application deserves to have. We are experts in the " +
+                "different technology stacks, starting from the PHP/MySQL solution and full-stack JavaScript solutions " +
+                "with relational and non-relational databases to highly scalable cloud serverless solutions based on " +
+                "Amazon Web Services. Check out our website portfolio to get the feel of our work and let's connect " +
+                "to see how we can help you build the unique web application of your dreams!" +
+                "Key Words: web development, customized solutions, software develpment, full stack, " +
+                "PHP, MySQL, JavaScript, RDBMS, serverless, Cloud, Amazon Web Services";
+        user.setResume(res);
+        user.setJobs(new HashSet<Job>());
         user.setRoles(Arrays.asList(adminRole));
+        userRepository.save(user);
+
+        // Third User
+        user = new User();
+        user.setEmail("user3@gmail.com");
+        user.setPassword("password");
+        user.setFirstName("Joe");
+        user.setLastName("Emerson");
+        user.setEnabled(true);
+        user.setUsername("Joe");
+        res = "Scopic Software offers high-quality and affordable web development and design services, " +
+                "providing customized solutions that best fit your business's unique needs. Having over 12 years of " +
+                "experience in the software industry, we have helped hundreds of businesses across different industries " +
+                "to succeed, by delivering exceptional custom web development services. We guarantee the visually " +
+                "engaging, highly interactive and responsive front-end work you need to conquer the hearts of your " +
+                "ever-demanding customers. As no front-end work is of use without a great back-end work, we help you " +
+                "develop the exceptional back-end that your application deserves to have. We are experts in the " +
+                "different technology stacks, starting from the PHP/MySQL solution and full-stack JavaScript solutions " +
+                "with relational and non-relational databases to highly scalable cloud serverless solutions based on " +
+                "Amazon Web Services. Check out our website portfolio to get the feel of our work and let's connect " +
+                "to see how we can help you build the unique web application of your dreams!" +
+                "Key Words: web development, customized solutions, software develpment, full stack, " +
+                "PHP, MySQL, JavaScript, RDBMS, serverless, Cloud, Amazon Web Services";
+        user.setResume(res);
+        user.setJobs(new HashSet<Job>());
+        user.setRoles(Arrays.asList(userRole));
+        userRepository.save(user);
+
+
+      //        HashSet<Job> newJobs = new HashSet<>();
+//        Collection<Role> newRoles = Arrays.asList(userRole);
+//        user = new User("admin@admin.com", "password", "Admin",
+//                "Anderson", true, "admin", res, newJobs, newRoles);
+//        //user.setRoles(Arrays.asList(adminRole));
+
+        //        user.setResume(res);
+
         userRepository.save(user);
         ArrayList<String> keyWords = new ArrayList<>();
 
@@ -100,13 +178,13 @@ public class DataLoader implements CommandLineRunner {
         testQsAndAs.setJob(job);
         testQsAndAs.setQuestion("Question 1");
         testQsAndAs.setAnswer("Answer 1");
-        qandARepository.save(testQsAndAs);
+        qandAsRepository.save(testQsAndAs);
 
         QsAndAs testQaAndAs2 = new QsAndAs();
         testQaAndAs2.setJob(job);
         testQaAndAs2.setQuestion("Question 2");
         testQaAndAs2.setAnswer("Answer 2");
-        qandARepository.save(testQaAndAs2);
+        qandAsRepository.save(testQaAndAs2);
 
 
         Set<QsAndAs> testQAList = new HashSet<>();
@@ -139,6 +217,17 @@ public class DataLoader implements CommandLineRunner {
         tempDate = new Date();
         job.setPostedDate(tempDate);
         jobRepository.save(job);
+
+        QsAndAs testQaAndAs3 = new QsAndAs();
+        testQaAndAs3.setJob(job);
+        testQaAndAs3.setQuestion("Question 3");
+        testQaAndAs3.setAnswer("Answer 3");
+        qandAsRepository.save(testQaAndAs3);
+
+        Set<QsAndAs> testQAList2 = new HashSet<>();
+        testQAList2.add(testQaAndAs3);
+
+        job.setQuestionsAndAnswers(testQAList2);
 
 //        String tesStr = "  Way Good, Better than Good ";
 //        ArrayList<String> testArray = kWords(tesStr);

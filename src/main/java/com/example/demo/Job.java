@@ -34,19 +34,19 @@ public class Job {
     @OneToMany(mappedBy = "job", fetch = FetchType.EAGER)
     private Collection<QsAndAs> questionsAndAnswers;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Job() {
+    }
+
     public Collection<QsAndAs> getQuestionsAndAnswers() {
         return questionsAndAnswers;
     }
 
     public void setQuestionsAndAnswers(Collection<QsAndAs> questionsAndAnswers) {
         this.questionsAndAnswers = questionsAndAnswers;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    public Job() {
     }
 
     public String getEmployerName() {

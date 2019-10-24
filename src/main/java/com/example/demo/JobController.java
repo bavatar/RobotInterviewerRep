@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -25,7 +24,7 @@ public class JobController {
     private UserService userService;
 
     @Autowired
-    QandARepository qandARepository;
+    QandAsRepository qandAsRepository;
 
     @RequestMapping("/")
     public String jobList(Model model){
@@ -50,6 +49,22 @@ public class JobController {
 //        Long id=0;
 //        User user = userRepository.findById(id);
         return "listjobs";
+    }
+
+    // JA 10-23-19 11:11am
+    @RequestMapping("/mypage")
+    public String myPage(Model model){
+//        model.addAttribute("jobs", jobRepository.findAll());
+//        model.addAttribute("users", userRepository.findAll());
+        if (userService.getUser() != null) {
+            long uID = userService.getUser().getId();
+            model.addAttribute("user_id", userService.getUser().getId());
+            model.addAttribute("user", userService.getUser());
+            model.addAttribute("jobs", StaticData.getJobsByApplicantID(uID));
+        }
+        //User user = userRepository.findById(userService.getUser().getId());
+//        User user = userRepository.findById(user_id);
+        return "mypage";
     }
 
     @GetMapping("/add")
@@ -103,40 +118,75 @@ public class JobController {
         return "base";
     }
 
-    @GetMapping("/addinterview")
-    public String interviewForm(@PathVariable("id") long id, Model model){
-        model.addAttribute("job", jobRepository.findById(id).get());
-        return "interviewform";
-    }
+//    @GetMapping("/addinterview")
+//    public String interviewForm(@PathVariable("id") long id, Model model){
+//        model.addAttribute("job", jobRepository.findById(id).get());
+//<<<<<<< HEAD
+//        return "interviewform";
+//    }
 
     @RequestMapping("/addinterview/{id}")
     public String showInterviewForm(@PathVariable("id") long id, Model model){
-        model.addAttribute("job", jobRepository.findById(id).get());
+        Job currJob = jobRepository.findById(id).get();
+//        model.addAttribute("job", currJob);
+//        model.addAttribute("qsAndAs", new QsAndAs(currJob, "q1", "a1"));
+        model.addAttribute("qsAndAs", qandAsRepository.findAllByJob(currJob));
         return "interviewform";
     }
 
-    @PostMapping("/processinterview")
-    public String processInterview(@ModelAttribute Job job,
-                                   @RequestParam(name="interviewDate") String interviewDate){
-        try{
-            String pattern = "yyyy-MM-dd";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-            String formattedDate = interviewDate.substring(0);
-            Date realDate = simpleDateFormat.parse(formattedDate);
-//            job.setInterviewDate
 
-        } catch(Exception e){
-            e.printStackTrace();
-        }
+
+    @PostMapping("/processinterview")
+    public String processInterview(@ModelAttribute("qsAndAs") HashSet<QsAndAs> qsAndAs
+//            ,
+//                                   @RequestParam(name="interviewDate") String interviewDate
+    ) {
+//        try {
+//            String pattern = "yyyy-MM-dd";
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+//            String formattedDate = interviewDate.substring(0);
+//            Date realDate = simpleDateFormat.parse(formattedDate);
+////            job.setInterviewDate
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+////        Job job = jobRepository.findById(id).get();
+////        job.setCurStatus(StaticData.Status.SUBMITTED);
+////        User user = userService.getUser();
+//////        user.getApplied_jobs().add(job);
+////
+////        // JA 10-23-19
+////        StaticData.AddAppliedJobUserID(job, user.getId());
+//
+////        int count = user.getJobs().size();
+////        System.out.println("JobController: applyJob: Number of Jobs in User: " + user.getUsername() + " Count: " + count);
+////
+////        user.getMatches();  // Evaluate all jobs w/Status == SUBMITTED
+//            if (job.getCurStatus() == StaticData.Status.PENDING_INTERVIEW) {
+//                System.out.println("applyJob: " + "Interview is pending.");
+//                // send an email or popup to user to go to myPage to schedule an interview
+//                // during an available window.  When they go to myPage they will see cards for each job they have
+//                // applied to.  Each will have a button to apply for an interview
+//                // if the interview has not been scheduled - add PENDING_SCHEDULED_INTERVIEW
+//            } else {
+//                System.out.println("applyJob: " + "Candidate was rejected");
+//
+//            }
 
 //        User user = job.getUser();
 //        user.add
 //        job.setUser(userService.getUser());
 //        QsAndAs newQandA = new QsAndAs();
 //        newQandA.setQuestion(job.);
-//        qandARepository.save()
-        return "redirect:/";
-    }
+//        qandAsRepository.save()
+        System.out.println("After processing interview form: ");
+//        System.out.println(qsAndAs.getAnswer());
+//        System.out.println(qsAndAs.getQuestion());
+            qandAsRepository.saveAll(qsAndAs);
+//            jobRepository.save(job);
+            return "redirect:/";
+        }
 
 
 
@@ -147,9 +197,12 @@ public class JobController {
 
        // model.addAttribute("job", jobRepository.findById(id).get());
         User currUser = userService.getUser();
-        Job currJob = jobRepository.findByUser(currUser);
 
-        model.addAttribute("job" , jobRepository.findById(id));
+        Job currJob = jobRepository.findById(id).get();
+        model.addAttribute("job", currJob);
+        model.addAttribute("qAndA", qandAsRepository.findAll());
+
+//        model.addAttribute("job" , jobRepository.findById(id));
 
         return "interviewform";
 //        Job job = jobRepository.findById(id).get();
