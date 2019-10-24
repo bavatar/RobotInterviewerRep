@@ -6,6 +6,43 @@ public class StaticData {
     private ArrayList<String> behavioralQuestions;
     private Status curStatus = Status.NOT_SUBMITTED;   // Initial
 
+    // added 7pm 10-23-19
+    static public ArrayList<ArrayListE> applied_jobs = new ArrayList<>();
+
+    static public void AddAppliedJobUserID(Job j, long uid){
+        if (doesUserHaveAnyPriorAppliedJobs(uid)){
+            for (ArrayListE arrayListE: applied_jobs) {
+                if (arrayListE.userID == uid) {
+                    arrayListE.arrList.add(j);
+                }
+            }
+        }
+        else {
+            ArrayListE temp = new ArrayListE();
+            temp.arrList.add(j);
+            temp.userID= uid;
+            applied_jobs.add(temp);
+        }
+    }
+
+    static boolean doesUserHaveAnyPriorAppliedJobs(long uid){
+        for (ArrayListE arrayListE: applied_jobs){
+            if (arrayListE.userID == uid){
+                return true;
+            }
+        }
+        return false;
+    }
+    static public ArrayList<Job> getJobsByApplicantID (long usrID){
+        ArrayList<Job> appliedByApp = new ArrayList<>();
+        for (ArrayListE arrayListE: applied_jobs){
+            if (arrayListE.userID == usrID){
+                return arrayListE.arrList;
+            }
+        }
+        return appliedByApp;
+    }
+
     public StaticData() {
         behavioralQuestions = new ArrayList<>();
         behavioralQuestions.add("What is your greatest achievement?");

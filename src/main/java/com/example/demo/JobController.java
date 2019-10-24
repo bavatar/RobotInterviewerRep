@@ -55,8 +55,10 @@ public class JobController {
 //        model.addAttribute("jobs", jobRepository.findAll());
 //        model.addAttribute("users", userRepository.findAll());
         if (userService.getUser() != null) {
+            long uID = userService.getUser().getId();
             model.addAttribute("user_id", userService.getUser().getId());
             model.addAttribute("user", userService.getUser());
+            model.addAttribute("jobs", StaticData.getJobsByApplicantID(uID));
         }
         //User user = userRepository.findById(userService.getUser().getId());
 //        User user = userRepository.findById(user_id);
@@ -101,10 +103,14 @@ public class JobController {
         Job job = jobRepository.findById(id).get();
         job.setCurStatus(StaticData.Status.SUBMITTED);
         User user = userService.getUser();
-        user.getApplied_jobs().add(job);
+//        user.getApplied_jobs().add(job);
+
+        // JA 10-23-19
+        StaticData.AddAppliedJobUserID(job, user.getId());
 
         int count = user.getJobs().size();
         System.out.println("JobController: applyJob: Number of Jobs in User: " + user.getUsername() + " Count: " + count);
+
         user.getMatches();  // Evaluate all jobs w/Status == SUBMITTED
         if (job.getCurStatus() == StaticData.Status.PENDING_INTERVIEW) {
             System.out.println("applyJob: " + "Interview is pending.");

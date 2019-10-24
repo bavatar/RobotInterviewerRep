@@ -12,6 +12,11 @@
 
 <div th:replace="base::navbar"></div>
 <br>
+
+
+<div class="container" style="background-color: lightgoldenrodyellow">
+    <center><h3> <span th:text="${user.getUsername()}" ></span>'s Home Page</h3></center>
+</div>
 <!--title, phone, employerName, employerEmail;-->
 
 <!--private String description;-->
@@ -30,7 +35,7 @@
 <!--        <div th:each="job:${user_id}"-->
 <!--        <div th:each="user:${users}">-->
 <!--             <span th:if="${user_id == job.user.id}">-->
-        <div th:each="job:${user.jobs}">
+        <div th:each="job:${jobs}">
             <div class="card">
                 <div class="card-body-top">
                     <p class="card-text"><span th:text="${job.title}"></span></p>

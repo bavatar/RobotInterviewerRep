@@ -33,8 +33,8 @@ public class User{
     @Column(name = "username")
     private String username;
 
-    @Column(name = "applied_jobs")
-    private Set<Job> applied_jobs;
+//    @Column(name = "applied_jobs")
+//    private Set<Job> applied_jobs;
 
     @Column(length = 20000, name = "resume")
     private String resume;
@@ -46,14 +46,14 @@ public class User{
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
-
-    public Set<Job> getApplied_jobs() {
-        return applied_jobs;
-    }
-
-    public void setApplied_jobs(Set<Job> applied_jobs) {
-        this.applied_jobs = applied_jobs;
-    }
+//
+//    public Set<Job> getApplied_jobs() {
+//        return applied_jobs;
+//    }
+//
+//    public void setApplied_jobs(Set<Job> applied_jobs) {
+//        this.applied_jobs = applied_jobs;
+//    }
 
     public User(String email, String password, String firstName, String lastName, Boolean enabled, String username, Set<Job> applied_jobs, String resume, Set<Job> jobs, Collection<Role> roles) {
         this.email = email;
@@ -62,7 +62,7 @@ public class User{
         this.lastName = lastName;
         this.enabled = enabled;
         this.username = username;
-        this.applied_jobs = applied_jobs;
+//        this.applied_jobs = applied_jobs;
         this.resume = resume;
         this.jobs = jobs;
         this.roles = roles;
@@ -78,7 +78,7 @@ public class User{
 
     public User() {
         this.jobs = new HashSet<>();
-        this.applied_jobs = new HashSet<>();
+//        this.applied_jobs = new HashSet<>();
     }
 
 
@@ -89,7 +89,7 @@ public class User{
         boolean pass = false;
         StringBuffer resBuffer = new StringBuffer(res);
 
-        for (Job job: applied_jobs) {
+        for (Job job: jobs) {
             percent = 0;
             numberFound = 0;
             pass = false;
@@ -116,11 +116,15 @@ public class User{
         int numberFound = 0;
         boolean pass = false;
 
+        System.out.println("getMatches: Number of applied_jobs" + StaticData.applied_jobs.size());
+        ArrayList<Job> applArray = StaticData.getJobsByApplicantID(id);
+        System.out.println("getMatches: Number of StaticData.getJobsAppliedByUserId(id).size: " + StaticData.getJobsByApplicantID(id).size());
+
         //StringBuilder res = new StringBuilder(10000);
         StringBuffer resBuffer = new StringBuffer(resume);
 
         System.out.println("getMatches: Number of User Jobs: " + jobs.size());
-        for (Job job: jobs) {
+        for (Job job: applArray) {
             percent = 0;
             numberFound = 0;
             pass = false;

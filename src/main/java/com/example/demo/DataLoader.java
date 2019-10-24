@@ -73,7 +73,7 @@ public class DataLoader implements CommandLineRunner {
         String res = "Software/Web Developer I am a freelance full stack web engineer who loves a good web design as much as the next " +
                 "guy I am proficient in HTML, CSS, JavaScript, and Ruby/Rails. I value communication and punctuality amongst team members highly, " +
                 "so I am very reliable and a hard worker. Keywords: CSS, Design, Engineering, Full Stack, HTML, JavaScript, Ruby On Rails, " +
-                "Web Design, Web Development, Software Development, Team Management";
+                "Web Design, Web Development, Software Development, Team Management, iPhone, web development";
         user.setResume(res);
         user.setJobs(new HashSet<Job>());
         user.setRoles(Arrays.asList(userRole));
@@ -115,8 +115,6 @@ public class DataLoader implements CommandLineRunner {
         user.setJobs(new HashSet<Job>());
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
-
-
 
         // Third User
         user = new User();
