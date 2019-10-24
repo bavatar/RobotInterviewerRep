@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.mail.internet.MimeMessage;
 
-
 @Controller
 public class EmailController {
 

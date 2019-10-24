@@ -31,10 +31,11 @@
 
 <div class="container-fluid">
     <div class="card-columns">
-<!--        User user = userRepository.findById(user_id);-->
-<!--        <div th:each="job:${user_id}"-->
-<!--        <div th:each="user:${users}">-->
-<!--             <span th:if="${user_id == job.user.id}">-->
+        <!--        User user = userRepository.findById(user_id);-->
+        <!--        <div th:each="job:${user_id}"-->
+        <!--        <div th:each="user:${users}">-->
+        <!--             <span th:if="${user_id == job.user.id}">-->
+
         <div th:each="job:${jobs}">
             <div class="card">
                 <div class="card-body-top">
@@ -47,7 +48,7 @@
                     <p class="card-text"><span th:text="${job.postedDate}"></span></p>
                 </div>
                 <!--            <a th:href="@{detail_book/{id}(id=${book.bookID})}">Details</a>&ndash;&gt;-->
-<!--                <a th:href="@{detail_job/{id}(id=${job.getId()})}" class="card-link">Details</a>-->
+                <!--                <a th:href="@{detail_job/{id}(id=${job.getId()})}" class="card-link">Details</a>-->
             </div>
         </div>
     </div>
