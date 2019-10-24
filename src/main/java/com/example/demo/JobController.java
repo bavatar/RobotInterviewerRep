@@ -24,6 +24,9 @@ public class JobController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    QandARepository qandARepository;
+
     @RequestMapping("/")
     public String jobList(Model model){
         model.addAttribute("jobs", jobRepository.findAll());
@@ -72,6 +75,8 @@ public class JobController {
         if(result.hasErrors()){
             return "jobform";
         }
+        //Add new job... i.e new identity
+
         job.setUser(userService.getUser());
         job.setEmployerEmail("jj@test.com");
         job.setEmployerName("Amazon");
@@ -90,11 +95,11 @@ public class JobController {
 
     @RequestMapping("/base")
     public String base(@PathVariable("id") long id, Model model){
-        long userId = userService.getUser().getId();
+//        long userId = userService.getUser().getId();
 
-        model.addAttribute("job", jobRepository.findByUserId(userId).getId());
-        if(userService.getUser() != null)
-            model.addAttribute("user_id", userService.getUser().getId());
+//        model.addAttribute("job", jobRepository.findByUser(userService.getUser()));
+//        if(userService.getUser() != null)
+//            model.addAttribute("user_id", userService.getUser().getId());
         return "base";
     }
 
@@ -127,15 +132,25 @@ public class JobController {
 //        User user = job.getUser();
 //        user.add
 //        job.setUser(userService.getUser());
-        jobRepository.save(job);
+//        QsAndAs newQandA = new QsAndAs();
+//        newQandA.setQuestion(job.);
+//        qandARepository.save()
         return "redirect:/";
     }
 
 
 
-    @GetMapping("/apply/{id}")
+    @RequestMapping("/apply/{id}")
     public String applyJob(@PathVariable("id") long id, Model model){
-        model.addAttribute("job", jobRepository.findById(id).get());
+        //Add new job
+
+
+       // model.addAttribute("job", jobRepository.findById(id).get());
+        User currUser = userService.getUser();
+        Job currJob = jobRepository.findByUser(currUser);
+
+        model.addAttribute("job" , jobRepository.findById(id));
+
         return "interviewform";
 //        Job job = jobRepository.findById(id).get();
 ////        job.setCurStatus(StaticData.Status.SUBMITTED);

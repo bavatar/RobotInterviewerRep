@@ -12,8 +12,20 @@ public class QsAndAs {
     @JoinColumn(name = "job_id")
     private Job job;
 
+    @Column(name = "question")
     private String question;
+
+    @Column(name = "answer")
     private String answer;
+
+    public QsAndAs() {
+    }
+
+    public QsAndAs(Job job, String question, String answer) {
+        this.job = job;
+        this.question = question;
+        this.answer = answer;
+    }
 
     public long getId() {
         return id;
@@ -31,12 +43,6 @@ public class QsAndAs {
         this.job = job;
     }
 
-    public QsAndAs(Job job, String question, String answer) {
-        this.job = job;
-        this.question = question;
-        this.answer = answer;
-    }
-
     public String getQuestion() {
         return question;
     }
@@ -52,9 +58,4 @@ public class QsAndAs {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
-
-    public QsAndAs() {
-    }
-
-
 }

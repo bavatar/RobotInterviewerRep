@@ -93,20 +93,31 @@ public class DataLoader implements CommandLineRunner {
         job.setEmployerName("Amazon");
         Date tempDate = new Date();
         job.setPostedDate(tempDate);
+//
+        jobRepository.save(job);
 
         QsAndAs testQsAndAs = new QsAndAs();
         testQsAndAs.setJob(job);
         testQsAndAs.setQuestion("Question 1");
         testQsAndAs.setAnswer("Answer 1");
+        qandARepository.save(testQsAndAs);
 
-        Set<QsAndAs> testQAList = new HashSet<QsAndAs>();
+        QsAndAs testQaAndAs2 = new QsAndAs();
+        testQaAndAs2.setJob(job);
+        testQaAndAs2.setQuestion("Question 2");
+        testQaAndAs2.setAnswer("Answer 2");
+        qandARepository.save(testQaAndAs2);
+
+
+        Set<QsAndAs> testQAList = new HashSet<>();
         testQAList.add(testQsAndAs);
+        testQAList.add(testQaAndAs2);
+
         job.setQuestionsAndAnswers(testQAList);
+
         for(QsAndAs q : testQAList) {
             System.out.println(q.getQuestion() + " " + q.getAnswer());
         }
-        qandARepository.save(testQsAndAs);
-        jobRepository.save(job);
 
         System.out.println("DataLoader: postedDate: " + job.getPostedDate());
 
@@ -116,7 +127,7 @@ public class DataLoader implements CommandLineRunner {
 
 
         job = new Job();
-        job.setQuestionsAndAnswers(testQAList);
+//        job.setQuestionsAndAnswers(testQAList);
         job.setKeywords(keyWords);
         job.setCurStatus(StaticData.Status.NOT_SUBMITTED);
         job.setDescription("This is a detailed description");
