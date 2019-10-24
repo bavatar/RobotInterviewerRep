@@ -16,3 +16,28 @@ function checkTime(){
         alert("This interview is now voided and the job opportunity has been rescinded.")
     }
 }
+
+// function pop up to schedule time
+function schedInterview(){
+    document.getElementById('sched'.style.display = "block");
+}
+
+// datetimepicker function
+function dateSched () {
+    ('#datetimepicker1').datetimepicker({format: "dd-MM-yyyy HH:mm", minuteStep: 30});
+}
+
+// function schedule confirmation
+function confirmsched(){
+    alert("Your interview has been scheduled.")
+}
+
+// function for popup appeal form
+function popAppeal(){
+    document.getElementById('appeal'.style.display ="block");
+}
+// function email confirmation
+function confirmation(){
+    alert("Your appeal has been sent.")
+}
+
