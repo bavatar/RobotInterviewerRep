@@ -9,7 +9,7 @@
 <!--<div th:replace="base :: navbar"></div>-->
 <div class="container">
     <h2>Appeal Form</h2>
-    <form action="#" th:action="@{/appeal_email}" method="post" enctype="text/plain">
+    <form action="#" th:action="@{/appeal_email}" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="InputName">Name</label>
             <input type="text" id="name" />
