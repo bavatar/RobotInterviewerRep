@@ -24,13 +24,14 @@ public class EmailController {
 
     @RequestMapping("/submit_email")
     @ResponseBody
-    String resumeForm() {
+    String resumeForm(Model model) {
         try {
             sendEmailAttach();
-            return "Email Sent!";
+//            return "listjobs";
         } catch (Exception ex) {
             return "Error in sending email: " + ex;
         }
+        return "listjobs";
     }
 
     private void sendEmailAttach() throws Exception {
@@ -65,13 +66,15 @@ public class EmailController {
 
     @RequestMapping(value = "/appeal_email", method = RequestMethod.POST)
     @ResponseBody
-    String appealForm() {
+    String appealForm(Model model) {
         try {
             sendEmail();
-            return "Email Sent!";
+//            return "Email Sent!";
         } catch (Exception ex) {
             return "Error in sending email: " + ex;
         }
+//        return "redirect:/";
+        return "listjobs";
     }
 
     private void sendEmail() throws Exception {
