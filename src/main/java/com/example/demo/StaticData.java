@@ -6,6 +6,20 @@ public class StaticData {
     private ArrayList<String> behavioralQuestions;
     private Status curStatus = Status.NOT_SUBMITTED;   // Initial
 
+    static public void removeAppliedJobForUser(long uid, long jobID){
+        for (int j = 0; j < applied_jobs.size(); j++) {
+            if (applied_jobs.get(j).userID == uid) {
+                for (int i = 0; i<applied_jobs.get(j).arrList.size(); i++){
+                    if (applied_jobs.get(j).arrList.get(i).getId() == jobID) {
+                        // remove this job from arrList
+                        applied_jobs.get(j).arrList.remove(i);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     // added 7pm 10-23-19
     static public ArrayList<ArrayListE> applied_jobs = new ArrayList<>();
 

@@ -59,10 +59,27 @@ public class JobController {
             model.addAttribute("user_id", userService.getUser().getId());
             model.addAttribute("user", userService.getUser());
             model.addAttribute("jobs", StaticData.getJobsByApplicantID(uID));
+            model.addAttribute("statusPendingInterview", StaticData.Status.PENDING_INTERVIEW);
+            model.addAttribute("statusPendingScheduledInterview", StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
         }
         //User user = userRepository.findById(userService.getUser().getId());
 //        User user = userRepository.findById(user_id);
         return "mypage";
+    }
+
+    @RequestMapping("/cancel/{id}")
+    public String cancelApplicationJob(@PathVariable("id") long id, Model model){
+        model.addAttribute("jobs", jobRepository.findAll());
+        model.addAttribute("users", userRepository.findAll());
+        if (userService.getUser() != null) {
+            model.addAttribute("user_id", userService.getUser().getId());
+        }
+
+        // Remove the applied job with the given id for the current user
+        long uID = userService.getUser().getId();
+        model.addAttribute("job", jobRepository.findById(id).get());
+        StaticData.removeAppliedJobForUser(uID, id);
+        return "listjobs";
     }
 
     @GetMapping("/add")
