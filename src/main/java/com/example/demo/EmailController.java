@@ -50,6 +50,7 @@ public class EmailController {
         sender.send(message);
     }
 
+    // This may require the Job ID as well to inform the hiring manager which job they are appealing
     @RequestMapping("/appeal")
     public String appeal(Model model) {
         model.addAttribute("mail", new SendMail());

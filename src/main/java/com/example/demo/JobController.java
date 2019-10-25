@@ -61,10 +61,16 @@ public class JobController {
             model.addAttribute("jobs", StaticData.getJobsByApplicantID(uID));
             model.addAttribute("statusPendingInterview", StaticData.Status.PENDING_INTERVIEW);
             model.addAttribute("statusPendingScheduledInterview", StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
+            model.addAttribute("statusRejected", StaticData.Status.REJECTED);
         }
         //User user = userRepository.findById(userService.getUser().getId());
 //        User user = userRepository.findById(user_id);
         return "mypage";
+    }
+
+    @RequestMapping("/schedule/{id}")
+    public String scheduleApplicationJob(@PathVariable("id") long id, Model model){
+        return "";
     }
 
     @RequestMapping("/cancel/{id}")
