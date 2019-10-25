@@ -27,29 +27,35 @@ public class Job {
     private Date postedDate;
 
     private ArrayList<String> keywords;
+
     private StaticData.Status curStatus;
 
     private HashMap<Integer, ArrayList<String>> questionsAndAnswers;
+
+    Date interviewDateTime = new Date();
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Job(@NotNull @Size(min = 4) String title, @NotNull @Size(min = 4) String phone,
-               @NotNull @Size(min = 4) String employerName, @NotNull @Size(min = 4) String employerEmail,
-               @NotNull @Size(min = 6) String description, ArrayList<String> keywords, HashMap<Integer,
-            ArrayList<String>> questionsAndAnswers, Date postedDate, User user) {
+    public Job() {
+    }
+
+    public Job(@NotNull @Size(min = 4) String title, @NotNull @Size(min = 4) String phone, @NotNull @Size(min = 4) String employerName,
+               @NotNull @Size(min = 4) String employerEmail, @NotNull @Size(min = 6) String description, Date postedDate,
+               ArrayList<String> keywords, StaticData.Status curStatus, HashMap<Integer, ArrayList<String>> questionsAndAnswers,
+               Date interviewDateTime, User user) {
         this.title = title;
         this.phone = phone;
         this.employerName = employerName;
         this.employerEmail = employerEmail;
         this.description = description;
-        this.keywords = keywords;
-        this.questionsAndAnswers = questionsAndAnswers;
         this.postedDate = postedDate;
+        this.keywords = keywords;
+        this.curStatus = curStatus;
+        this.questionsAndAnswers = questionsAndAnswers;
+        this.interviewDateTime = interviewDateTime;
         this.user = user;
-    }
-
-    public Job() {
     }
 
     public String getEmployerName() {
@@ -138,5 +144,13 @@ public class Job {
 
     public void setCurStatus(StaticData.Status curStatus) {
         this.curStatus = curStatus;
+    }
+
+    public Date getInterviewDateTime() {
+        return interviewDateTime;
+    }
+
+    public void setInterviewDateTime(Date interviewDateTime) {
+        this.interviewDateTime = interviewDateTime;
     }
 }

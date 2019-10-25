@@ -70,6 +70,7 @@ public class JobController {
 
     @RequestMapping("/schedule/{id}")
     public String scheduleApplicationJob(@PathVariable("id") long id, Model model){
+
         return "";
     }
 

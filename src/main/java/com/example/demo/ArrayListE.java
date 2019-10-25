@@ -10,7 +10,6 @@ public class ArrayListE {
 
     public ArrayListE() {
         userID = 0;
-        Date interviewDateTime = new Date();
         arrList = new ArrayList<>();
     }
 }
