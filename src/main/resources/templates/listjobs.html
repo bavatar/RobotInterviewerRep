@@ -57,7 +57,8 @@
             <tr>
                     <td><p th:text="${job.title}"></p></td>
                     <td><p th:text="${job.description}"></p></td>
-                    <td><p th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></p></td>
+<!--                    <td><p th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></p></td>-->
+                <td><p th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></p></td>
                     <td><p th:text="${job.phone}"></p></td>
                 <td>
                     <span th:if="${user_id == job.user.id}">
