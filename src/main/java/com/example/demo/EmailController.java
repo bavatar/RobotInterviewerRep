@@ -81,7 +81,7 @@ public class EmailController {
         helper.setFrom("user@email.com.com");
         helper.setTo("no-reply@deadpool.com");
         helper.setText("<html><body>" + message + "</html></body>", true);
-        helper.setSubject(" User Appeal");
+        helper.setSubject("Appeal");
 
         sender.send(message);
     }

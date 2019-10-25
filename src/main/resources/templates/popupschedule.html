@@ -14,7 +14,7 @@
 <body style="overflow-hidden">
 <div id="sched">
     <div class="container">
-    <form action="#" th:action="@{/process_sched}" method="post">
+    <form action="#" th:action="@{/process_sched}" onsubmit="return closeSched(this);" method="post">
         <div class="panel panel-primary">
             <div class="panel-heading">Schedule an Interview</div>
             <div class="panel-body">
@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <label class="control-label">Interview Time</label>
                             <div class='input-group date' id='datetimepicker1'>
-                                <input type='text' class="form-control" />
+                                <input type='datetime-local' class="form-control" />
                                 <div class="input-group-append">
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i></span>
@@ -32,7 +32,6 @@
                 </div>
         <button type="submit" class="btn btn-primary" onclick="confirmsched()">Submit</button>
             </div>
-        </div>
 
     </form>
     <script th:src="@{js/jscript.js}"></script>
