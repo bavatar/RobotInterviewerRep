@@ -39,6 +39,7 @@ public class User{
     @Column(length = 20000, name = "resume")
     private String resume;
 
+
     @OneToMany(mappedBy = "user")
     private Set<Job> jobs;
 
@@ -67,7 +68,6 @@ public class User{
         this.jobs = jobs;
         this.roles = roles;
     }
-
     public String getResume() {
         return resume;
     }

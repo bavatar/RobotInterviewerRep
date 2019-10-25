@@ -5,9 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 public class Job {
@@ -30,21 +28,22 @@ public class Job {
 
     private StaticData.Status curStatus;
 
-    private HashMap<Integer, ArrayList<String>> questionsAndAnswers;
-
     Date interviewDateTime = new Date();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "job", fetch = FetchType.EAGER)
+    private Set<QsAndAs> questionsAndAnswers;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     public Job() {
     }
-
-    public Job(@NotNull @Size(min = 4) String title, @NotNull @Size(min = 4) String phone, @NotNull @Size(min = 4) String employerName,
-               @NotNull @Size(min = 4) String employerEmail, @NotNull @Size(min = 6) String description, Date postedDate,
-               ArrayList<String> keywords, StaticData.Status curStatus, HashMap<Integer, ArrayList<String>> questionsAndAnswers,
-               Date interviewDateTime, User user) {
+    public Job(@NotNull @Size(min = 4) String title, @NotNull @Size(min = 4) String phone,
+               @NotNull @Size(min = 4) String employerName, @NotNull @Size(min = 4)
+                       String employerEmail, @NotNull @Size(min = 6) String description,
+               Date postedDate, ArrayList<String> keywords, StaticData.Status curStatus,
+               Date interviewDateTime, Set<QsAndAs> questionsAndAnswers, User user) {
         this.title = title;
         this.phone = phone;
         this.employerName = employerName;
@@ -53,9 +52,17 @@ public class Job {
         this.postedDate = postedDate;
         this.keywords = keywords;
         this.curStatus = curStatus;
-        this.questionsAndAnswers = questionsAndAnswers;
         this.interviewDateTime = interviewDateTime;
+        this.questionsAndAnswers = questionsAndAnswers;
         this.user = user;
+    }
+
+    public Set<QsAndAs> getQuestionsAndAnswers() {
+        return questionsAndAnswers;
+    }
+
+    public void setQuestionsAndAnswers(Set<QsAndAs> questionsAndAnswers) {
+        this.questionsAndAnswers = questionsAndAnswers;
     }
 
     public String getEmployerName() {
@@ -74,13 +81,6 @@ public class Job {
         this.employerEmail = employerEmail;
     }
 
-    public HashMap<Integer, ArrayList<String>> getQuestionsAndAnswers() {
-        return questionsAndAnswers;
-    }
-
-    public void setQuestionsAndAnswers(HashMap<Integer, ArrayList<String>> questionsAndAnswers) {
-        this.questionsAndAnswers = questionsAndAnswers;
-    }
 
     public Date getPostedDate() {
         return postedDate;

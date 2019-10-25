@@ -7,7 +7,7 @@ import java.util.Collection;
 public interface JobRepository extends CrudRepository<Job,Long> {
 
     Collection<Job> findJobByTitleContainingIgnoreCase(String title);
-    Job findByUserId(long id);
+    Job findByUser(User user);
 //    Job findByUser(User user);
 
 //    ArrayList<Job> findAll();

@@ -35,6 +35,8 @@
 <form th:action="@{/processjob}" th:object="${job}" method="post">
     <input type="hidden" th:field="*{id}" />
     <input type="hidden" th:field="*{postedDate}" />
+    <input type="text" placeholder="Employer Name" th:field="*{employerName}">
+    <input type="text" placeholder="Employer Email" th:field="*{employerEmail}">
     <input type="text" placeholder="Title" th:field="*{title}" />
     <textarea rows="3" placeholder="Description" th:field="*{description}" />
 <!--    <input th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"/>-->
