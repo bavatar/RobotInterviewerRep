@@ -128,16 +128,14 @@ public class JobController {
     @RequestMapping("/addinterview/{id}")
     public String showInterviewForm(@PathVariable("id") long id, Model model){
         Job currJob = jobRepository.findById(id).get();
-//        model.addAttribute("job", currJob);
+        model.addAttribute("job", currJob);
 //        model.addAttribute("qsAndAs", new QsAndAs(currJob, "q1", "a1"));
         model.addAttribute("qsAndAs", qandAsRepository.findAllByJob(currJob));
         return "interviewform";
     }
 
-
-
     @PostMapping("/processinterview")
-    public String processInterview(@ModelAttribute("qsAndAs") HashSet<QsAndAs> qsAndAs
+    public String processInterview(Job job
 //            ,
 //                                   @RequestParam(name="interviewDate") String interviewDate
     ) {
@@ -183,8 +181,8 @@ public class JobController {
         System.out.println("After processing interview form: ");
 //        System.out.println(qsAndAs.getAnswer());
 //        System.out.println(qsAndAs.getQuestion());
-            qandAsRepository.saveAll(qsAndAs);
-//            jobRepository.save(job);
+//            qandAsRepository.saveAll(qsAndAs);
+            jobRepository.save(job);
             return "redirect:/";
         }
 
@@ -199,8 +197,6 @@ public class JobController {
         User currUser = userService.getUser();
 
         Job currJob = jobRepository.findById(id).get();
-        model.addAttribute("job", currJob);
-        model.addAttribute("qAndA", qandAsRepository.findAll());
 
 //        model.addAttribute("job" , jobRepository.findById(id));
 

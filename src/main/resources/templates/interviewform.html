@@ -23,7 +23,9 @@
         <hr class="my-4">
 
         <div class="form-row">
-            <form action="#" th:action="@{/processinterview}" th:object="${qsAndAs}" method="post">
+            <form th:action="@{/processinterview}"
+                  th:each="qA : ${#numbers.sequence(0,(job.questionsAndAnswers.size() - 1))}"
+                  th:object="${job.questionsAndAnswers[__${qA}__]}" method="post">
 <!--                <input type="hidden" th:field="${job.id}"/>-->
 <!--                <input type="hidden" th:field="${job.title}"/>-->
 <!--                <input type="hidden" th:field="${job.phone}"/>-->
@@ -36,17 +38,29 @@
 <!--                <input type="hidden" th:field="${job.user}"/>-->
                 <!--            <p> this is not hidden</p>-->
                 <div class="form-row">
+                    <input type="text" placeholder="question" th:field="*{job.questionsAndAnswers[qA].question}">
+                    <input type="text" placeholder="answer" th:field="*{job.questionsAndAnswers[qA].answer}">
                     <!--                <p>is this showing up?</p>-->
-                    <div class="col" th:each="qA : ${qsAndAs}">
-                        <input type="hidden" th:field="${qA.id}"/>
-                        <input type="hidden" th:field="${qA.job}">
+                    <div class="col">
+                        <input type="hidden" th:field="*{id}"/>
+                        <input type="text" th:field="*{question}">
+                        <input type="text" th:field="*{answer}">
+<!--                        <input type="hidden" th:field="${qA.job}">-->
                         <!--                    <input type="hidden" th:field="${qA.question}">-->
                         <!--                    <input type="hidden" th:field="${q.answer}">-->
                         <!--                    <p>div is working?</p>-->
-                        <label th:text="${qA.question}"></label>
-                        <label th:text="${qA.answer}"></label>
-                        <input type="text" placeholder="Answer" th:field="${qA.answer}"/>
+
+<!--                            <span th:text="${qA.id}"></span>-->
+<!--                            <span th:text="${qA.job}">${qA.job}</span>-->
+<!--                            <span th:text="${qA.question}">${qA.question}</span>-->
+<!--                            <span th:text="${qA.answer}">${qA.answer}</span>-->
+
+
+
+<!--                        <label th:text="${qA.question}"></label>-->
+<!--                        <label th:text="${qA.answer}"></label>-->
                     </div>
+<!--                    <input type="text" placeholder="Answer" th:field="*{}"/>-->
                 </div>
 
                 <div class="col">
