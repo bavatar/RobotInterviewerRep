@@ -44,14 +44,14 @@
 <!--                            <a th:href="@{/detail/{id}(id=${job.id})}">Details</a>-->
 <!--                            <a th:href="@{/delete/{id}(id=${job.id})}">Delete</a>-->
 <!--                    </span>-->
-
+<center>
 <div class="container-fluid">
     <div class="card-columns">
         <div th:each="job:${jobs}">
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-30">
-                    <div class="card">
+                    <div class="card" style="max-width: 350px;">
                         <div class="card-body-top">
                             <p class="card-text">Job Title: <span th:text="${job.title}"></span>&nbsp;&nbsp;
 <!--                                <a style="color: whitesmoke" href="/cancel">Cancel</a>-->
@@ -83,7 +83,7 @@
         </div>
     </div>
 </div>
-
+</center>
 <!--Bootstrap JS-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
