@@ -5,10 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Date;
+import java.util.*;
 
 
 @Entity
@@ -32,7 +29,7 @@ public class Job {
     private StaticData.Status curStatus;
 
     @OneToMany(mappedBy = "job", fetch = FetchType.EAGER)
-    private Collection<QsAndAs> questionsAndAnswers;
+    private Set<QsAndAs> questionsAndAnswers;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -41,11 +38,11 @@ public class Job {
     public Job() {
     }
 
-    public Collection<QsAndAs> getQuestionsAndAnswers() {
+    public Set<QsAndAs> getQuestionsAndAnswers() {
         return questionsAndAnswers;
     }
 
-    public void setQuestionsAndAnswers(Collection<QsAndAs> questionsAndAnswers) {
+    public void setQuestionsAndAnswers(Set<QsAndAs> questionsAndAnswers) {
         this.questionsAndAnswers = questionsAndAnswers;
     }
 

@@ -24,7 +24,7 @@
 
         <div class="form-row">
             <form th:action="@{/processinterview}"
-                  th:each="qA : ${#numbers.sequence(0,(job.questionsAndAnswers.size() - 1))}"
+                  th:each="qA, index : ${job}"
                   th:object="${job.questionsAndAnswers[__${qA}__]}" method="post">
 <!--                <input type="hidden" th:field="${job.id}"/>-->
 <!--                <input type="hidden" th:field="${job.title}"/>-->
@@ -38,13 +38,13 @@
 <!--                <input type="hidden" th:field="${job.user}"/>-->
                 <!--            <p> this is not hidden</p>-->
                 <div class="form-row">
-                    <input type="text" placeholder="question" th:field="*{job.questionsAndAnswers[qA].question}">
-                    <input type="text" placeholder="answer" th:field="*{job.questionsAndAnswers[qA].answer}">
+                    <input type="text" placeholder="question" th:field="*{question}">
+                    <input type="text" placeholder="answer" th:field="*{answer}">
                     <!--                <p>is this showing up?</p>-->
-                    <div class="col">
-                        <input type="hidden" th:field="*{id}"/>
-                        <input type="text" th:field="*{question}">
-                        <input type="text" th:field="*{answer}">
+<!--                    <div class="col">-->
+<!--                        <input type="hidden" th:field="*{id}"/>-->
+<!--                        <input type="text" th:field="*{question}">-->
+<!--                        <input type="text" th:field="*{answer}">-->
 <!--                        <input type="hidden" th:field="${qA.job}">-->
                         <!--                    <input type="hidden" th:field="${qA.question}">-->
                         <!--                    <input type="hidden" th:field="${q.answer}">-->
@@ -61,16 +61,14 @@
 <!--                        <label th:text="${qA.answer}"></label>-->
                     </div>
 <!--                    <input type="text" placeholder="Answer" th:field="*{}"/>-->
-                </div>
-
-                <div class="col">
+                <div>
                     <button type="submit" class="btn btn-warning">Submit</button>
                 </div>
             </form>
-        </div>
     </div>
-
 </div>
+
+
 
 <div th:insert="base :: footnote"></div>
 </body>
