@@ -26,6 +26,7 @@ public class JobController {
     @Autowired
     QandAsRepository qandAsRepository;
 
+
     @RequestMapping("/")
     public String jobList(Model model){
         model.addAttribute("jobs", jobRepository.findAll());
@@ -128,15 +129,16 @@ public class JobController {
     @RequestMapping("/addinterview/{id}")
     public String showInterviewForm(@PathVariable("id") long id, Model model){
         Job currJob = jobRepository.findById(id).get();
-        model.addAttribute("job", currJob);
+        model.addAttribute("qsAndAs", qandAsRepository.findByJob(currJob));
+//        model.addAttribute("job", currJob);
 //        model.addAttribute("qsAndAs", new QsAndAs(currJob, "q1", "a1"));
-        model.addAttribute("qsAndAs", qandAsRepository.findAllByJob(currJob));
+//        model.addAttribute("qsAndAs", qandAsRepository.findAllByJob(currJob));
         return "interviewform";
     }
 
     @PostMapping("/processinterview")
     public String processInterview(Job job
-//            ,
+            //            ,
 //                                   @RequestParam(name="interviewDate") String interviewDate
     ) {
 //        try {

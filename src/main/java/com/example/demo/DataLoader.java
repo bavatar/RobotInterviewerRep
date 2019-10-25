@@ -176,22 +176,26 @@ public class DataLoader implements CommandLineRunner {
 
         QsAndAs testQsAndAs = new QsAndAs();
         testQsAndAs.setJob(job);
-        testQsAndAs.setQuestion("Question 1");
+        testQsAndAs.setQuestion("1. Talk about a time when you had to work closely with someone whose personality " +
+                "was very different from yours." +                                                          "\n"
+                + "2. Tell me about a time when you made sure a customer was pleased with your service." +  "\n"
+                + "3. How do you reverse an array in place in Java?"                                     +  "\n"
+                + "4. How do you find the largest and smallest number in an unsorted integer array?");
         testQsAndAs.setAnswer("Answer 1");
         qandAsRepository.save(testQsAndAs);
 
-        QsAndAs testQaAndAs2 = new QsAndAs();
-        testQaAndAs2.setJob(job);
-        testQaAndAs2.setQuestion("Question 2");
-        testQaAndAs2.setAnswer("Answer 2");
-        qandAsRepository.save(testQaAndAs2);
+//        QsAndAs testQaAndAs2 = new QsAndAs();
+//        testQaAndAs2.setJob(job);
+//        testQaAndAs2.setQuestion("Question 2");
+//        testQaAndAs2.setAnswer("Answer 2");
+//        qandAsRepository.save(testQaAndAs2);
 
 
         Set<QsAndAs> testQAList = new HashSet<>();
         testQAList.add(testQsAndAs);
-        testQAList.add(testQaAndAs2);
+//        testQAList.add(testQaAndAs2);
 
-        job.setQuestionsAndAnswers(testQAList);
+//        job.setQuestionsAndAnswers(testQAList);
 
         for(QsAndAs q : testQAList) {
             System.out.println(q.getQuestion() + " " + q.getAnswer());
@@ -227,7 +231,7 @@ public class DataLoader implements CommandLineRunner {
         Set<QsAndAs> testQAList2 = new HashSet<>();
         testQAList2.add(testQaAndAs3);
 
-        job.setQuestionsAndAnswers(testQAList2);
+//        job.setQuestionsAndAnswers(testQAList2);
 
 //        String tesStr = "  Way Good, Better than Good ";
 //        ArrayList<String> testArray = kWords(tesStr);

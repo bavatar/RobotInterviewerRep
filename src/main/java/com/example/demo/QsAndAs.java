@@ -12,10 +12,10 @@ public class QsAndAs {
     @JoinColumn(name = "job_id")
     private Job job;
 
-    @Column(name = "question")
+    @Column(length = 20000, name = "question")
     private String question;
 
-    @Column(name = "answer")
+//    @Column(name = "answer")
     private String answer;
 
     public QsAndAs() {

@@ -64,11 +64,10 @@
                             <a th:href="@{/update/{id}(id=${job.id})}">Update</a>
                             <a th:href="@{/detail/{id}(id=${job.id})}">Details</a>
                             <a th:href="@{/delete/{id}(id=${job.id})}">Delete</a>
-
-                            <a th:href="@{/apply/{id}(id=${job.id})}">Apply</a>
                     </span>
                     <span th:if="${user_id != job.user.id}">
                         <a th:href="@{/addinterview/{id}(id=${job.id})}">Interview</a>
+                        <a th:href="@{/apply/{id}(id=${job.id})}">Apply</a>
                     </span>
                 </td>
             </tr>

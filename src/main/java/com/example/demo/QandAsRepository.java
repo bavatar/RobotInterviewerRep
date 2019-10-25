@@ -6,5 +6,5 @@ import java.util.HashSet;
 
 public interface QandAsRepository extends CrudRepository<QsAndAs, Long> {
     QsAndAs findByJob(Job job);
-    HashSet<QsAndAs> findAllByJob(Job job);
+//    HashSet<QsAndAs> findAllByJob(Job job);
 }
