@@ -11,31 +11,37 @@
 
     <title>Schedule</title>
 </head>
-<body style="overflow-hidden">
+<body style="background-color: seagreen;">
+<div th:replace="base::navbar"></div>
 <div id="sched">
     <div class="container">
-    <form action="#" th:action="@{/process_sched}" onsubmit="return closeSched(this);" method="post">
+        <h2>Schedule an Interview</h2>
+    <form action="#" th:action="@{/process_schedule}" th:object="${job}" method="post">
         <div class="panel panel-primary">
-            <div class="panel-heading">Schedule an Interview</div>
+
             <div class="panel-body">
 <!--                <div class='col-md-6'>-->
                         <div class="form-group">
-                            <label class="control-label">Interview Time</label>
-                            <div class='input-group date' id='datetimepicker1'>
-                                <input type='datetime-local' class="form-control" />
-                                <div class="input-group-append">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i></span>
-                                </div>
+                            <label class="control-label">Select a Date and Time</label>
+                            <div class='input-group date' id='datetimepicker1' >
+                                <input type='datetime-local' id="datetime" class="form-control" th:field="*{interviewDateTime}"/>
+                            </div>
                         </div>
-                    </div>
                 </div>
-        <button type="submit" class="btn btn-primary" onclick="confirmsched()">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
             </div>
 
     </form>
-    <script th:src="@{js/jscript.js}"></script>
+    </div>
 </div>
+<div class="container" th:fragment="footnote">
+    <footer>
+        <center>
+            <div class="footer-main-div" style="alignment: center">
+                <p style="color:greenyellow; ">&copy; Copyright 2019 John Anderjaska and DeadPool Team</p>
+            </div>
+        </center>
+    </footer>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

@@ -73,9 +73,24 @@ public class JobController {
 
     @RequestMapping("/schedule/{id}")
     public String scheduleApplicationJob(@PathVariable("id") long id, Model model){
-
-        return "";
+        if (userService.getUser() != null) {
+            model.addAttribute("user_id", userService.getUser().getId());
+            model.addAttribute("job", jobRepository.findById(id));
+        }
+        return "schedule";
     }
+
+    //@ModelAttribute Job job, BindingResult result
+    @PostMapping("/process_schedule")
+    public String addSchedule(@ModelAttribute Job job, Model model){
+        if (userService.getUser() != null) {
+            model.addAttribute("user_id", userService.getUser().getId());
+        }
+        job.setInterviewDateTime(job.getInterviewDateTime());
+        jobRepository.save(job);
+        return "redirect:/mypage";
+    }
+
 
     @RequestMapping("/cancel/{id}")
     public String cancelApplicationJob(@PathVariable("id") long id, Model model){

@@ -61,7 +61,7 @@
                         <div class="card-body-mid">
                             <p class="card-text">Status: <span th:text="${job.getCurStatus()}"></span></p>
                             <span th:if="${job.getCurStatus() == statusPendingInterview}">
-                                <a style="color: red" th:href="@{/schedule/{id}(id=${job.id})}">Schedule</a>
+                                <a style="color: red" th:href="@{/schedule/{id}(id=${job.id})}" onclick="schedInterview()">Schedule</a>
                             </span>
                         </div>
                         <div class="card-body-bottom">
@@ -71,7 +71,7 @@
                                 Inverview Scheduled for 2PM on 10-26-2019
                             </span>
                             <span th:if="${job.getCurStatus() == statusRejected}">
-                                <a style="color: red" href="/appeal/">Appeal</a>
+                                <a style="color: red" th:href="@{/appeal/{id}(id=${job.id})}">Appeal</a>
                             </span>
                             </p>
 

@@ -1,7 +1,11 @@
 /*
     functions to check if interviews are pending or expired
  */
+function checkJobs(){
+    if (isAuthenticated()){
 
+    }
+}
 // check interview time is within 30 minutes
 function checkTime(){
     var timer = 31 * 60 * 1000;
@@ -24,7 +28,7 @@ function schedInterview(){
 }
 // choose date and time
 function dateSched () {
-    ('#datetimepicker1').datetimepicker({format: "dd-MM-yyyy HH:mm", minuteStep: 30});
+    ('#datetimepicker1').datetimepicker({format: "dd-MM-yyyy HH:mm:00", minuteStep: 30});
 }
 // check if interview date is within 2 weeks
 function validateDate() {
