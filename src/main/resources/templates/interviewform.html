@@ -28,6 +28,7 @@
 <!--                <label th:text="${q.question}"></label>-->
                 <form th:action="@{/processinterview}" th:object="${qsAndAs}">
                     <p th:text="${qsAndAs.question}"></p>
+                    <p data-th-utext="${#strings.replace(#strings.escapeXml(text),'&#10;','&lt;br&gt;')}"></p>
 <!--                    <label th:text="${qsAndAs.question}"></label>-->
                     <input type="text" placeholder="Answer" th:field="*{answer}"/>-->
                     <button type="submit" class="btn btn-warning">Submit</button>

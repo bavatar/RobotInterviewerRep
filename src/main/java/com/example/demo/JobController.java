@@ -116,10 +116,8 @@ public class JobController {
             return "jobform";
         }
         //Add new job... i.e new identity
-
         job.setUser(userService.getUser());
-        job.setEmployerEmail("jj@test.com");
-        job.setEmployerName("Amazon");
+        job.setCurStatus(StaticData.Status.NOT_SUBMITTED);
         Date tempDate = new Date();
         job.setPostedDate(tempDate);
         jobRepository.save(job);
@@ -161,9 +159,8 @@ public class JobController {
     }
 
     @PostMapping("/processinterview")
-    public String processInterview(Job job
-            //            ,
-//                                   @RequestParam(name="interviewDate") String interviewDate
+    public String processInterview(QsAndAs qsAndAs
+//                              @RequestParam(name="interviewDate") String interviewDate
     ) {
 //        try {
 //            String pattern = "yyyy-MM-dd";
@@ -175,40 +172,12 @@ public class JobController {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-////        Job job = jobRepository.findById(id).get();
-////        job.setCurStatus(StaticData.Status.SUBMITTED);
-////        User user = userService.getUser();
-//////        user.getApplied_jobs().add(job);
 ////
-////        // JA 10-23-19
-////        StaticData.AddAppliedJobUserID(job, user.getId());
-//
-////        int count = user.getJobs().size();
-////        System.out.println("JobController: applyJob: Number of Jobs in User: " + user.getUsername() + " Count: " + count);
-////
-////        user.getMatches();  // Evaluate all jobs w/Status == SUBMITTED
-//            if (job.getCurStatus() == StaticData.Status.PENDING_INTERVIEW) {
-//                System.out.println("applyJob: " + "Interview is pending.");
-//                // send an email or popup to user to go to myPage to schedule an interview
-//                // during an available window.  When they go to myPage they will see cards for each job they have
-//                // applied to.  Each will have a button to apply for an interview
-//                // if the interview has not been scheduled - add PENDING_SCHEDULED_INTERVIEW
-//            } else {
-//                System.out.println("applyJob: " + "Candidate was rejected");
-//
-//            }
-
-//        User user = job.getUser();
-//        user.add
-//        job.setUser(userService.getUser());
-//        QsAndAs newQandA = new QsAndAs();
-//        newQandA.setQuestion(job.);
-//        qandAsRepository.save()
         System.out.println("After processing interview form: ");
 //        System.out.println(qsAndAs.getAnswer());
 //        System.out.println(qsAndAs.getQuestion());
-//            qandAsRepository.saveAll(qsAndAs);
-            jobRepository.save(job);
+            qandAsRepository.save(qsAndAs);
+//            jobRepository.save(job);
             return "redirect:/";
         }
 
