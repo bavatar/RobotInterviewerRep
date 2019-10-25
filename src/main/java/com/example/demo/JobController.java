@@ -3,8 +3,10 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -70,6 +72,27 @@ public class JobController {
 //        User user = userRepository.findById(user_id);
         return "mypage";
     }
+
+    @RequestMapping("/manageresumes")
+    public String manageResumes(Model model) {
+        model.addAttribute("user", userService.getUser());
+        return "manageresumes";
+    }
+
+    @PostMapping("/manageresumes")
+    public String processResume@ModelAttribute User user, @RequestParam("file")
+    if(file.isEmpty())
+            return "redirect:/manageresumes";
+        try{
+
+        Map uploadResult = cloudinaryConfig.upload(file.getBytes(),
+                ObjectUtils.asMap("resourcetype", "auto"));
+    }
+
+
+
+
+
 
     @RequestMapping("/schedule/{id}")
     public String scheduleApplicationJob(@PathVariable("id") long id, Model model){
