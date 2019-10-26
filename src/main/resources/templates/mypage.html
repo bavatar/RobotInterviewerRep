@@ -25,7 +25,10 @@
 <br>
 
 <div class="container" style="background-color: lightgoldenrodyellow">
-    <center><h3> <span th:text="${user.getUsername()}" ></span>'s Home Page</h3></center>
+    <center>
+        <h3> <span th:text="${user.getUsername()}" ></span>'s Home Page</h3>
+        <p><a href="/manageresumes">Manage Resumes</a>     &nbsp; &nbsp;&nbsp;&nbsp; Currently Using Resume: <span th:text="${user.getResume_name()}" ></span></p>
+    </center>
 </div>
 <!--title, phone, employerName, employerEmail;-->
 

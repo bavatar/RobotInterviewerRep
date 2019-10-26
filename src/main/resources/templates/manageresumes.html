@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Manage Resumes</title>
@@ -14,7 +15,6 @@
             margin-right: 5px;
             margin-left: 5px;
         }
-
     </style>
 
 </head>
@@ -30,17 +30,12 @@
     <input type="submit" value="Submit">
 </form>
 
-<form th:action="@{/processjob}" th:object="${job}" method="post">
-    <input type="hidden" th:field="*{id}" />
-    <input type="hidden" th:field="*{postedDate}" />
-    <input type="text" placeholder="Employer Name" th:field="*{employerName}">
-    <input type="text" placeholder="Employer Email" th:field="*{employerEmail}">
 
-
-
-<body>
-
-
+<!--<form th:action="@{/processjob}" th:object="${job}" method="post">-->
+<!--    <input type="hidden" th:field="*{id}" />-->
+<!--    <input type="hidden" th:field="*{postedDate}" />-->
+<!--    <input type="text" placeholder="Employer Name" th:field="*{employerName}">-->
+<!--    <input type="text" placeholder="Employer Email" th:field="*{employerEmail}">-->
 
 
 

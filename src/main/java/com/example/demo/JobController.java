@@ -8,6 +8,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -76,23 +79,65 @@ public class JobController {
     @RequestMapping("/manageresumes")
     public String manageResumes(Model model) {
         model.addAttribute("user", userService.getUser());
+//        model.addAttribute(("resName"))
         return "manageresumes";
     }
 
+//    @PostMapping("/add")
+////    @PostMapping("/add")
+////    public String processActor(@ModelAttribute Actor actor,
+////                               @RequestParam("file")MultipartFile file){
+
+
     @PostMapping("/manageresumes")
-    public String processResume@ModelAttribute User user, @RequestParam("file")
-    if(file.isEmpty())
+    public String processResumes(@ModelAttribute User user, @RequestParam("file") MultipartFile file, Model model){
+        BufferedReader br = null;
+        String line = "";
+        String fileName = "";
+        String fName = "";
+        String resStr = "";
+        String dir = "";
+        String fileContents = "";
+
+        user = userService.getUser();
+
+        dir = System.getProperty("user.dir");   // C:\Users\John\IdeaProjects\CloudinaryUpload
+        System.out.println("dir: " + dir.replace("\\", "/"));
+        dir = dir.replace("\\", "/");
+
+        if(file.isEmpty()) {
             return "redirect:/manageresumes";
-        try{
+        }
 
-        Map uploadResult = cloudinaryConfig.upload(file.getBytes(),
-                ObjectUtils.asMap("resourcetype", "auto"));
+        try {
+            fName = file.getOriginalFilename();
+
+
+
+            if (fName.contains("txt")) {
+                fileName = dir + "/" + fName;
+                String resume_name = fName;
+                fName = fName.replace(".txt", "");
+
+                System.out.println("fileName: " + fileName);    //fileName: C:/Users/John/IdeaProjects/CloudinaryUpload/Sr_AWS_Cloud_Engr.txt
+                br = new BufferedReader(new FileReader(fileName));
+                while ((line = br.readLine()) != null) {
+                    System.out.println("processActor: line= " + line);
+                    fileContents += line;
+                }
+                user.setResume(fileContents);
+                user.setResume_name(fName);
+                userRepository.save(user);
+            }
+            else {
+                return "redirect:/manageresumes";   // A *.txt file is required
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "redirect:/manageresumes";
+        }
+        return "redirect:/";
     }
-
-
-
-
-
 
     @RequestMapping("/schedule/{id}")
     public String scheduleApplicationJob(@PathVariable("id") long id, Model model){
@@ -234,8 +279,6 @@ public class JobController {
             jobRepository.save(job);
             return "redirect:/";
         }
-
-
 
     @RequestMapping("/apply/{id}")
     public String applyJob(@PathVariable("id") long id, Model model){

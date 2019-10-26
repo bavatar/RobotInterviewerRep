@@ -78,6 +78,7 @@ public class DataLoader implements CommandLineRunner {
                 "so I am very reliable and a hard worker. Keywords: CSS, Design, Engineering, Full Stack, HTML, JavaScript, Ruby On Rails, " +
                 "Web Design, Web Development, Software Development, Team Management, iPhone, web development";
         user.setResume(res);
+        user.setResume_name("Web_Developer");
         user.setJobs(new HashSet<Job>());
         user.setRoles(Arrays.asList(userRole));
         userRepository.save(user);
@@ -115,6 +116,7 @@ public class DataLoader implements CommandLineRunner {
                 "Key Words: web development, customized solutions, software develpment, full stack, " +
                 "PHP, MySQL, JavaScript, RDBMS, serverless, Cloud, Amazon Web Services";
         user.setResume(res);
+        user.setResume_name("AWS_Developer");
         user.setJobs(new HashSet<Job>());
         user.setRoles(Arrays.asList(adminRole));
         userRepository.save(user);
@@ -141,10 +143,10 @@ public class DataLoader implements CommandLineRunner {
                 "Key Words: web development, customized solutions, software develpment, full stack, " +
                 "PHP, MySQL, JavaScript, RDBMS, serverless, Cloud, Amazon Web Services";
         user.setResume(res);
+        user.setResume_name("Software_Developer");
         user.setJobs(new HashSet<Job>());
         user.setRoles(Arrays.asList(userRole));
         userRepository.save(user);
-
 
       //        HashSet<Job> newJobs = new HashSet<>();
 //        Collection<Role> newRoles = Arrays.asList(userRole);

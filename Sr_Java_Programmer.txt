@@ -1,0 +1,6 @@
+Resume
+Scopic Software offers high-quality and affordable web development and design services, providing customized solutions that best fit your business's unique needs. Having over 12 years of experience in the software industry, we have helped hundreds of businesses across different industries to succeed, by delivering exceptional custom web development services.
+
+We guarantee the visually engaging, highly interactive and responsive front-end work you need to conquer the hearts of your ever-demanding customers. As no front-end work is of use without a great back-end work, we help you develop the exceptional back-end that your application deserves to have. We are experts in the different technology stacks, starting from the PHP/MySQL solution and full-stack JavaScript solutions with relational and non-relational databases to highly scalable cloud serverless solutions based on Amazon Web Services. Check out our website portfolio to get the feel of our work and let's connect to see how we can help you build the unique web application of your dreams!
+
+Key Words: web development, customized solutions, software develpment, full stack, PHP, MySQL, Java, JavaScript, RDBMS, serverless, Cloud, Amazon Web Services
