@@ -43,6 +43,10 @@
 <!--                            <a th:href="@{/update/{id}(id=${job.id})}">Update</a>-->
 <!--                            <a th:href="@{/detail/{id}(id=${job.id})}">Details</a>-->
 <!--                            <a th:href="@{/delete/{id}(id=${job.id})}">Delete</a>-->
+
+<!--<a href="#" class="card-link">Sun Gone</a>-->
+<!--<a href="#" class="card-link">Still Gone</a>-->
+
 <!--                    </span>-->
 <center>
 <div class="container-fluid">
@@ -51,7 +55,8 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-30">
-                    <div class="card" style="max-width: 350px;">
+<!--                    class="card text-center"-->
+                    <div class="card text-center" style="max-width: 350px;">
                         <div class="card-body-top">
                             <p class="card-text">Job Title: <span th:text="${job.title}"></span>&nbsp;&nbsp;
 <!--                                <a style="color: whitesmoke" href="/cancel">Cancel</a>-->
