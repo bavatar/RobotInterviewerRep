@@ -39,6 +39,9 @@ public class User{
     @Column(length = 20000, name = "resume")
     private String resume;
 
+    @Column(name="resume_name")
+    private String resume_name;
+
     @OneToMany(mappedBy = "user")
     private Set<Job> jobs;
 
@@ -46,24 +49,17 @@ public class User{
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
-//
-//    public Set<Job> getApplied_jobs() {
-//        return applied_jobs;
-//    }
-//
-//    public void setApplied_jobs(Set<Job> applied_jobs) {
-//        this.applied_jobs = applied_jobs;
-//    }
 
-    public User(String email, String password, String firstName, String lastName, Boolean enabled, String username, Set<Job> applied_jobs, String resume, Set<Job> jobs, Collection<Role> roles) {
+    public User(String email, String password, String firstName, String lastName, Boolean enabled,
+                String username, String resume, String resume_name, Set<Job> jobs, Collection<Role> roles) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.enabled = enabled;
         this.username = username;
-//        this.applied_jobs = applied_jobs;
         this.resume = resume;
+        this.resume_name = resume_name;
         this.jobs = jobs;
         this.roles = roles;
     }
@@ -220,6 +216,14 @@ public class User{
 
     public void setJobs(Set<Job> jobs) {
         this.jobs = jobs;
+    }
+
+    public String getResume_name() {
+        return resume_name;
+    }
+
+    public void setResume_name(String resume_name) {
+        this.resume_name = resume_name;
     }
 
 //    public Set<Job> getApplied_jobs() {

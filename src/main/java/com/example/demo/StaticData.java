@@ -1,10 +1,17 @@
 package com.example.demo;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 public class StaticData {
     private ArrayList<String> behavioralQuestions;
     private Status curStatus = Status.NOT_SUBMITTED;   // Initial
+    private HashMap<String, String> techQs;
+
+    public HashMap<String, String> getTechQs() {
+        return techQs;
+    }
 
     static public void removeAppliedJobForUser(long uid, long jobID){
         for (int j = 0; j < applied_jobs.size(); j++) {
@@ -18,6 +25,11 @@ public class StaticData {
                 }
             }
         }
+    }
+
+    public void addTechQs(String jobType, String question) {
+        //String should be composite with a ; delimiter
+        techQs.put(jobType, question);
     }
 
     // added 7pm 10-23-19
@@ -58,6 +70,7 @@ public class StaticData {
     }
 
     public StaticData() {
+        techQs = new HashMap<>();
         behavioralQuestions = new ArrayList<>();
         behavioralQuestions.add("What is your greatest achievement?");
         behavioralQuestions.add("What is your greatest failure?");
