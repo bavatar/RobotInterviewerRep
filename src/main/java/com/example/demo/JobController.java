@@ -7,6 +7,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -153,7 +155,7 @@ public class JobController {
     @RequestMapping("/addinterview/")
     public String showInterviewForm(
             @RequestParam("id") long id,
-                                    Model model){
+            Model model){
         Job currJob = jobRepository.findByUser(userService.getUser());
         StaticData staticData = new StaticData();
 //        QuestionCreationDto questions = new QuestionCreationDto();
@@ -221,9 +223,47 @@ public class JobController {
 //        System.out.println(qsAndAs.getQuestion());
 //            qandAsRepository.save(qsAndAs);
 //            jobRepository.save(job);
-            return "redirect:/mypage";
+        return "redirect:/mypage";
+    }
+
+
+    @RequestMapping("/selectdate")
+    public String showScheduleForm(
+            @RequestParam("id") long id, Model model)
+    {
+        ArrayList<String> dateOptions = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
+
+        LocalDateTime tempTime = LocalDateTime.now();
+        String formatDateTime = tempTime.format(formatter);
+        dateOptions.add(formatDateTime);
+        for(int i =0; i <= 14; i++) {
+            tempTime.withHour(9);
+            tempTime.withMinute(0);
+            formatDateTime = tempTime.format(formatter);
+            dateOptions.add(formatDateTime);
+
+            tempTime.withHour(12);
+            tempTime.withMinute(0);
+            formatDateTime = tempTime.format(formatter);
+            dateOptions.add(formatDateTime);
+
+            tempTime.withHour(15);
+            tempTime.withMinute(30);
+            formatDateTime = tempTime.format(formatter);
+            dateOptions.add(formatDateTime);
+
+            tempTime.plusDays(1);
         }
 
+        model.addAttribute("dateOptions", dateOptions);
+
+        ScheduleInterview sI = new ScheduleInterview();
+        sI.setUserId(userService.getUser().getId());
+        sI.setJobId(jobRepository.findJobById(id).getId());
+        model.addAttribute("selDate" , sI);
+        return "scheduleform";
+    }
 
 
     @RequestMapping("/apply/{id}")
