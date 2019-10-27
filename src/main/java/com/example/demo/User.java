@@ -39,6 +39,8 @@ public class User{
     @Column(length = 20000, name = "resume")
     private String resume;
 
+    @Column(name="resume_name")
+    private String resume_name;
 
     @OneToMany(mappedBy = "user")
     private Set<Job> jobs;
@@ -47,27 +49,21 @@ public class User{
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
-//
-//    public Set<Job> getApplied_jobs() {
-//        return applied_jobs;
-//    }
-//
-//    public void setApplied_jobs(Set<Job> applied_jobs) {
-//        this.applied_jobs = applied_jobs;
-//    }
 
-    public User(String email, String password, String firstName, String lastName, Boolean enabled, String username, Set<Job> applied_jobs, String resume, Set<Job> jobs, Collection<Role> roles) {
+    public User(String email, String password, String firstName, String lastName, Boolean enabled,
+                String username, String resume, String resume_name, Set<Job> jobs, Collection<Role> roles) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.enabled = enabled;
         this.username = username;
-//        this.applied_jobs = applied_jobs;
         this.resume = resume;
+        this.resume_name = resume_name;
         this.jobs = jobs;
         this.roles = roles;
     }
+
     public String getResume() {
         return resume;
     }
@@ -81,7 +77,6 @@ public class User{
 //        this.applied_jobs = new HashSet<>();
     }
 
-
     // Sets the status for newly submitted applications
     public void getMatches(String res, Set<Job> jobs){
         int percent = 0;
@@ -89,6 +84,7 @@ public class User{
         boolean pass = false;
         StringBuffer resBuffer = new StringBuffer(res);
 
+        ArrayList<String> keyWordArray = new ArrayList<>();
         for (Job job: jobs) {
             percent = 0;
             numberFound = 0;
@@ -97,12 +93,14 @@ public class User{
                 continue;
             }
 
-            for (String s : job.getKeywords()){
+            keyWordArray = StaticData.kWords(job.getKeywords());
+
+            for (String s : keyWordArray){
                 if (resBuffer.indexOf(s) != -1){
                     numberFound++;
                 }
             }
-            percent = (100 * numberFound) / job.getKeywords().size();
+            percent = (100 * numberFound) / keyWordArray.size();
             if (percent > 80) {
                 job.setCurStatus(StaticData.Status.PENDING_INTERVIEW);
             } else {
@@ -120,8 +118,19 @@ public class User{
         ArrayList<Job> applArray = StaticData.getJobsByApplicantID(id);
         System.out.println("getMatches: Number of StaticData.getJobsAppliedByUserId(id).size: " + StaticData.getJobsByApplicantID(id).size());
 
+        if ((resume == null) || (resume == "")) {
+            System.out.println("User:getMatches: The user has not yet selected a resume");
+            return;
+        }
         //StringBuilder res = new StringBuilder(10000);
-        StringBuffer resBuffer = new StringBuffer(resume);
+        StringBuffer resBuffer;
+        try {
+            resBuffer = new StringBuffer(resume);
+        } catch (Exception e){
+            System.out.println("User:getMatches: Error: " + e.toString());
+            return;
+        }
+        ArrayList<String> keyWordArray = new ArrayList<>();
 
         System.out.println("getMatches: Number of User Jobs: " + jobs.size());
         for (Job job: applArray) {
@@ -132,13 +141,14 @@ public class User{
                 continue;
             }
 
-            for (String s : job.getKeywords()){
-                // crashes on the following line JA 10-23-19
+            keyWordArray = StaticData.kWords(job.getKeywords());
+
+            for (String s : keyWordArray){
                 if (resBuffer.indexOf(s) != -1){
                     numberFound++;
                 }
             }
-            percent = (100 * numberFound) / job.getKeywords().size();
+            percent = (100 * numberFound) / keyWordArray.size();
             if (percent > 80) {
                 job.setCurStatus(StaticData.Status.PENDING_INTERVIEW);
                 System.out.println("getMatches: Passed Rating percent: " + percent);
@@ -220,6 +230,14 @@ public class User{
 
     public void setJobs(Set<Job> jobs) {
         this.jobs = jobs;
+    }
+
+    public String getResume_name() {
+        return resume_name;
+    }
+
+    public void setResume_name(String resume_name) {
+        this.resume_name = resume_name;
     }
 
 //    public Set<Job> getApplied_jobs() {

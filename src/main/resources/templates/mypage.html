@@ -25,25 +25,12 @@
 <br>
 
 <div class="container" style="background-color: lightgoldenrodyellow">
-    <center><h3> <span th:text="${user.getUsername()}" ></span>'s Home Page</h3></center>
+    <center>
+        <h3> <span th:text="${user.getUsername()}" ></span>'s Home Page</h3>
+        <p><a href="/manageresumes">Manage Resumes</a>     &nbsp; &nbsp;&nbsp;&nbsp; Currently Using Resume: <span th:text="${user.getResume_name()}" ></span></p>
+    </center>
 </div>
-<!--title, phone, employerName, employerEmail;-->
 
-<!--private String description;-->
-
-<!--@DateTimeFormat(pattern = "yyyy-MM-dd")-->
-<!--private Date postedDate;-->
-
-<!--private ArrayList<String> keywords;-->
-<!--    private StaticData.Status curStatus;-->
-
-<!--    private HashMap<Integer, ArrayList<String>> questionsAndAnswers;-->
-
-<!--<span th:if="${user_id == job.user.id}">-->
-<!--                            <a th:href="@{/update/{id}(id=${job.id})}">Update</a>-->
-<!--                            <a th:href="@{/detail/{id}(id=${job.id})}">Details</a>-->
-<!--                            <a th:href="@{/delete/{id}(id=${job.id})}">Delete</a>-->
-<!--                    </span>-->
 <center>
 <div class="container-fluid">
     <div class="card-columns">
@@ -51,7 +38,8 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-30">
-                    <div class="card" style="max-width: 350px;">
+<!--                    class="card text-center"-->
+                    <div class="card text-center" style="max-width: 350px;">
                         <div class="card-body-top">
                             <p class="card-text">Job Title: <span th:text="${job.title}"></span>&nbsp;&nbsp;
 <!--                                <a style="color: whitesmoke" href="/cancel">Cancel</a>-->
@@ -67,11 +55,15 @@
                         <div class="card-body-bottom">
                             <p class="card-text">
                                 Posted Date: <span th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></span>
-<!--                            <span th:if="${job.getCurStatus() == statusPendingScheduledInterview}">-->
-                                <a th:href="@{/addinterview/(id=${job.id})}">Interview</a>
+
+                            <span th:if="${job.getCurStatus() == statusPendingScheduledInterview}">
+                                Inverview Scheduled for 2PM on 10-26-2019
+                                <a th:href="@{/addinterview/{id}(id=${job.id})}">Start Interview</a>
+
                             </span>
                             <span th:if="${job.getCurStatus() == statusRejected}">
-                                <a style="color: red" href="/appeal/">Appeal</a>
+<!--                                <a style="color: red" href="/appeal/">Appeal</a>-->
+                                 <a style="color: red" th:href="@{/appeal/{id}(id=${job.id})}">Appeal</a>
                             </span>
                             </p>
 
@@ -84,6 +76,7 @@
     </div>
 </div>
 </center>
+
 <!--Bootstrap JS-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

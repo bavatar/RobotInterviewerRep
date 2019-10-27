@@ -6,10 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.internet.MimeMessage;
 
@@ -21,6 +18,18 @@ public class EmailController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    JobRepository jobRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    QandAsRepository qandAsRepository;
 
     @RequestMapping("/submit_email")
     @ResponseBody
@@ -52,15 +61,18 @@ public class EmailController {
     }
 
     // This may require the Job ID as well to inform the hiring manager which job they are appealing
-    @RequestMapping("/appeal")
-    public String appeal(Model model) {
+    @RequestMapping("/appeal/{id}")
+    public String appeal(@PathVariable("id") long id, Model model) {
         model.addAttribute("mail", new SendMail());
+        model.addAttribute("job", jobRepository.findById(id).get());
+
         if (userService.getUser() != null) {
             model.addAttribute("user_id", userService.getUser().getId());
         }
             else{
                 System.out.println("AppController:jobList:userService.getUser(): is null");
             }
+
                 return "emailform";
     }
 

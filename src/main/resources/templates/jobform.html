@@ -38,51 +38,46 @@
 
 <div class="container" style="background-color: azure">
     <br>
-        <form th:action="@{/processjob}" th:object="${job}" method="post">
-            <input type="hidden" th:field="*{id}" />
-            <input type="hidden" th:field="*{postedDate}" />
+    <form th:action="@{/processjob}" th:object="${job}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{postedDate}" />
 
-            <div class="form-row">
-                <div class="col">
-                    <label for="employerName">Employer Name</label>
-                    <input type="text" id="employerName" class="form-control"
-                           placeholder="Employer Name" th:field="*{employerName}">
-                </div>
-                <div class="col">
-                    <label for="employerEmail">Employer Email</label>
-                    <input type="text" id="employerEmail" class="form-control"
-                           placeholder="Employer Email" th:field="*{employerEmail}">
-                </div>
-                <div class="col-2">
-                    <label for="phone">Phone</label>
-                    <input type="text" id="phone" class="form-control"
-                           placeholder="Phone" th:field="*{phone}">
-                </div>
+        <div class="form-row">
+            <div class="col">
+                <label for="employerName">Employer Name</label>
+                <input type="text" id="employerName" class="form-control"
+                       placeholder="Employer Name" th:field="*{employerName}">
             </div>
-
-            <div class="form-row">
-                <div class="col-6">
-                    <label for="jobTitle">Job Title</label>
-                    <input type="text" id="jobTitle" class="form-control"
-                           placeholder="Job Title" th:field="*{title}">
-                </div>
-                <div class="col-6">
-                    <label for="description">Description</label>
-                    <textarea rows="3" id="description" class="form-control"
-                              placeholder="Description" th:field="*{description}" />
-                </div>
+            <div class="col">
+                <label for="employerEmail">Employer Email</label>
+                <input type="text" id="employerEmail" class="form-control"
+                       placeholder="Employer Email" th:field="*{employerEmail}">
             </div>
+            <div class="col-2">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" class="form-control"
+                       placeholder="Phone" th:field="*{phone}">
+            </div>
+        </div>
 
-            <!--    <input th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"/>-->
-            <!--    <p th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></p>-->
-            <!--    <input type="date" name="date" />-->
-            <input class="button" type="submit" value="Submit">
-            <!--    <input class="button" type="submit" onclick="confirmation()" value="Submit">-->
-            <!--    <input type="submit" onclick="confirmation()" value="Submit">-->
-            <!--    <button class="button" type="submit">Search</button>-->
-        </form>
+        <div class="form-row">
+            <div class="col-6">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" class="form-control"
+                       placeholder="Job Title" th:field="*{title}">
+            </div>
+            <div class="col-6">
+                <label for="description">Description</label>
+                <textarea rows="3" id="description" class="form-control"
+                          placeholder="Description" th:field="*{description}" />
+            </div>
+        </div>
 
-
+        <input type="text" placeholder="Key Words" th:field="*{keywords}" />
+        <input type="hidden" placeholder="Current Status" th:field="*{curStatus}" />
+        <input type="hidden" placeholder="Interview DateTime" th:field="*{interviewDateTime}" />
+        <input class="button" type="submit" value="Submit">
+    </form>
 <br>
 </div>
 

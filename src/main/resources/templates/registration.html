@@ -58,6 +58,7 @@
         </strong></mark>
         <input type="text" id="email" placeholder="Email"
                th:field="*{email}"/><br/>
+
         Username
         <mark><strong>
             <span th:if="${#fields.hasErrors('username')}"
@@ -65,6 +66,23 @@
         </strong></mark>
         <input type="text" id="username" placeholder="Username"
                th:field="*{username}"/><br/>
+
+        Resume
+        <mark><strong>
+            <span th:if="${#fields.hasErrors('resume')}"
+                  th:errors="*{resume}">resume error</span>
+        </strong></mark>
+        <input type="text" id="resume" placeholder="resume"
+               th:field="*{resume}"/><br/>
+
+        Resume Name
+        <mark><strong>
+            <span th:if="${#fields.hasErrors('resume_name')}"
+                  th:errors="*{resume_name}">resume name error</span>
+        </strong></mark>
+        <input type="text" id="resume_name" placeholder="resume_name"
+               th:field="*{resume_name}"/><br/>
+
         Password
         <mark><strong>
             <span th:if="${#fields.hasErrors('password')}"

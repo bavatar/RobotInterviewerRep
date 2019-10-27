@@ -3,9 +3,15 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,9 +33,6 @@ public class JobController {
 
     @Autowired
     QandAsRepository qandAsRepository;
-
-
-
 
     @RequestMapping("/")
     public String jobList(Model model){
@@ -70,9 +73,62 @@ public class JobController {
             model.addAttribute("statusPendingScheduledInterview", StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
             model.addAttribute("statusRejected", StaticData.Status.REJECTED);
         }
-        //User user = userRepository.findById(userService.getUser().getId());
-//        User user = userRepository.findById(user_id);
         return "mypage";
+    }
+
+    @RequestMapping("/manageresumes")
+    public String manageResumes(Model model) {
+        model.addAttribute("user", userService.getUser());
+//        model.addAttribute(("resName"))
+        return "manageresumes";
+    }
+
+    @PostMapping("/manageresumes")
+    public String processResumes(@ModelAttribute User user, @RequestParam("file") MultipartFile file, Model model){
+        BufferedReader br = null;
+        String line = "";
+        String fileName = "";
+        String fName = "";
+        String resStr = "";
+        String dir = "";
+        String fileContents = "";
+
+        user = userService.getUser();
+
+        dir = System.getProperty("user.dir");   // C:\Users\John\IdeaProjects\CloudinaryUpload
+        System.out.println("dir: " + dir.replace("\\", "/"));
+        dir = dir.replace("\\", "/");
+
+        if(file.isEmpty()) {
+            return "redirect:/manageresumes";
+        }
+
+        try {
+            fName = file.getOriginalFilename();
+
+            if (fName.contains("txt")) {
+                fileName = dir + "/" + fName;
+                String resume_name = fName;
+                fName = fName.replace(".txt", "");
+
+                System.out.println("fileName: " + fileName);    //fileName: C:/Users/John/IdeaProjects/CloudinaryUpload/Sr_AWS_Cloud_Engr.txt
+                br = new BufferedReader(new FileReader(fileName));
+                while ((line = br.readLine()) != null) {
+                    System.out.println("processActor: line= " + line);
+                    fileContents += line;
+                }
+                user.setResume(fileContents);
+                user.setResume_name(fName);
+                userRepository.save(user);
+            }
+            else {
+                return "redirect:/manageresumes";   // A *.txt file is required
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "redirect:/manageresumes";
+        }
+        return "redirect:/";
     }
 
     @RequestMapping("/schedule/{id}")
@@ -115,19 +171,34 @@ public class JobController {
     }
 
     @PostMapping("/processjob")
-    public String processJob(@ModelAttribute Job job, BindingResult result) {
-        if(result.hasErrors()){
-            return "jobform";
-        }
+//    public String processJob(@ModelAttribute Job job, BindingResult result) {
+    public String processJob(@Valid @ModelAttribute("job") Job job, BindingResult result, Model model) {
+//        if(result.hasErrors()){
+//            System.out.println("processJob: Cannot continue as there have be errors with result.");
+//            return "jobform";
+//        }
         //Add new job... i.e new identity
         job.setUser(userService.getUser());
+
         job.setCurStatus(StaticData.Status.NOT_SUBMITTED);
+
         Date tempDate = new Date();
         job.setPostedDate(tempDate);
         jobRepository.save(job);
+
+        // Add Questions & Answers?  Test
+        QsAndAs testQsAndAs = new QsAndAs();
+        testQsAndAs.setJob(job);
+        testQsAndAs.setQuestion("1. Talk about a time when you had to work closely with someone whose personality " +
+                "was very different from yours." +                                                          "\n"
+                + "2. Tell me about a time when you made sure a customer was pleased with your service." +  "\n"
+                + "3. How do you reverse an array in place in Java?"                                     +  "\n"
+                + "4. How do you find the largest and smallest number in an unsorted integer array?");
+        testQsAndAs.setAnswer("Answer 1");
+        qandAsRepository.save(testQsAndAs);
+
         return "redirect:/";
     }
-
 
     //Processing interview form
 //    @GetMapping("/interviewform")
@@ -272,6 +343,12 @@ public class JobController {
         Job job = jobRepository.findById(id).get();
         job.setCurStatus(StaticData.Status.SUBMITTED);
         User user = userService.getUser();
+        String tempRes = user.getResume();
+        if ((tempRes == null) || (tempRes == ""))
+        {
+            System.out.println("Error: the user cannot apply for a job until a resume is selected.");
+            return "redirect:/";
+        }
 //        user.getApplied_jobs().add(job);
 
         // JA 10-23-19

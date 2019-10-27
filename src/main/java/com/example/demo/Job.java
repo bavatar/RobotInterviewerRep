@@ -24,7 +24,7 @@ public class Job {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date postedDate;
 
-    private ArrayList<String> keywords;
+    private String keywords;
 
     private StaticData.Status curStatus;
 
@@ -44,11 +44,11 @@ public class Job {
 
     public Job() {
     }
+
     public Job(@NotNull @Size(min = 4) String title, @NotNull @Size(min = 4) String phone,
-               @NotNull @Size(min = 4) String employerName, @NotNull @Size(min = 4)
-                       String employerEmail, @NotNull @Size(min = 6) String description,
-               Date postedDate, ArrayList<String> keywords, StaticData.Status curStatus,
-               Date interviewDateTime, Set<QsAndAs> questionsAndAnswers, User user) {
+               @NotNull @Size(min = 4) String employerName, @NotNull @Size(min = 4) String employerEmail,
+               @NotNull @Size(min = 6) String description, Date postedDate, String keywords,
+               StaticData.Status curStatus, Date interviewDateTime, Set<QsAndAs> questionsAndAnswers, User user) {
         this.title = title;
         this.phone = phone;
         this.employerName = employerName;
@@ -151,14 +151,6 @@ public class Job {
         this.user = user;
     }
 
-    public ArrayList<String> getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(ArrayList<String> keywords) {
-        this.keywords = keywords;
-    }
-
     public StaticData.Status getCurStatus() {
         return curStatus;
     }
@@ -173,5 +165,13 @@ public class Job {
 
     public void setInterviewDateTime(Date interviewDateTime) {
         this.interviewDateTime = interviewDateTime;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 }
