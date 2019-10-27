@@ -4,39 +4,50 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserAnswersDto {
-    long userId;
+    long userId , jobId;
     // job id, answer
-    private HashMap<Long, String> answers;
+
+
+    private String answer;
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 
     public UserAnswersDto() {
     }
 
-    public UserAnswersDto(long userId, HashMap<Long, String> answers) {
+    public UserAnswersDto(long userId, long jobId, String answer) {
         this.userId = userId;
-        this.answers = answers;
+        this.jobId = jobId;
+        this.answer = answer;
     }
 
     static public ArrayList<UserAnswersDto> userAnswersArr = new ArrayList<>();
-    static public void addAnswer(long userId, long jobId, String answer){
-//        userAnswer = new UserAnswersDto(userId, new HashMap<>());
-        for(int i = 0; i < userAnswersArr.size(); i++){
-            if(userId == userAnswersArr.get(i).userId) {
-                if (!userAnswersArr.get(i).answers.containsKey(jobId)) {
-                    userAnswersArr.get(i).answers.put(jobId, answer);
-                }
-            }
-            else{
-                UserAnswersDto toAdd = new UserAnswersDto();
-                toAdd.setUserId(userId);
-                HashMap<Long, String> jobAnswer = new HashMap<>();
-                jobAnswer.put(jobId, answer);
-                toAdd.setAnswers(jobAnswer);
-
-                userAnswersArr.add(toAdd);
-            }
-        }
+//    static public void addAnswer(long userId, long jobId, String answer){
+////        userAnswer = new UserAnswersDto(userId, new HashMap<>());
+//        for(int i = 0; i < userAnswersArr.size(); i++){
+//            if(userId == userAnswersArr.get(i).userId) {
+//                if (!userAnswersArr.get(i).answers.containsKey(jobId)) {
+//                    userAnswersArr.get(i).answers.put(jobId, answer);
+//                }
+//            }
+//            else{
+//                UserAnswersDto toAdd = new UserAnswersDto();
+//                toAdd.setUserId(userId);
+//                HashMap<Long, String> jobAnswer = new HashMap<>();
+//                jobAnswer.put(jobId, answer);
+//                toAdd.setAnswers(jobAnswer);
+//
+//                userAnswersArr.add(toAdd);
+//            }
+//        }
 //        userAnswersArr.add(new UserAnswersDto(userId, Has))
-    }
+//    }
 
     static public UserAnswersDto getUserAnswerFromArr(long userId){
         for(int i = 0; i < userAnswersArr.size(); i++)
@@ -57,11 +68,11 @@ public class UserAnswersDto {
         this.userId = userId;
     }
 
-    public HashMap<Long, String> getAnswers() {
-        return answers;
+    public long getJobId() {
+        return jobId;
     }
 
-    public void setAnswers(HashMap<Long, String> answers) {
-        this.answers = answers;
+    public void setJobId(long jobId) {
+        this.jobId = jobId;
     }
 }

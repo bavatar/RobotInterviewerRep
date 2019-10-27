@@ -167,18 +167,24 @@ public class JobController {
         }
 
 
+
+
         model.addAttribute("currJob" , currJob);
         model.addAttribute("questions",questions);
         User user = userService.getUser();
         model.addAttribute("job", currJob);
 
-        UserAnswersDto uA = new UserAnswersDto();
-        HashMap<Long, String> jobAns = new HashMap<Long, String>();
-        jobAns.put(currJob.getId(),"");
-        uA.setAnswers(jobAns);
-        UserAnswersDto.userAnswersArr.add(uA);
+//        UserAnswersDto uA = new UserAnswersDto();
+//        HashMap<Long, String> jobAns = new HashMap<Long, String>();
+//        jobAns.put(currJob.getId(),"");
+//        uA.setAnswers(jobAns);
+//        UserAnswersDto.userAnswersArr.add(uA);
 
-        model.addAttribute("answer", UserAnswersDto.getUserAnswerFromArr(user.getId()));
+        UserAnswersDto uA = new UserAnswersDto();
+        uA.setUserId(user.getId());
+        uA.setJobId(currJob.getId());
+
+        model.addAttribute("userAnswer", uA);
 //        Job currJob = jobRepository.findJobById(id);
 //        model.addAttribute("questions", currJob.getQuestions());
 //        model.addAttribute("answers", currJob.getAnswers());
@@ -205,6 +211,8 @@ public class JobController {
 //            e.printStackTrace();
 //        }
 ////
+        Job job = jobRepository.findByUser(userService.getUser());
+        job.setCurStatus(StaticData.Status.PENDING_OFFER);
         System.out.println("After processing interview form: ");
 //        System.out.println(qsAndAs.getAnswer());
 //        System.out.println(qsAndAs.getQuestion());

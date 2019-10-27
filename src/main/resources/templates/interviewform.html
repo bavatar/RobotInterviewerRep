@@ -39,11 +39,14 @@
             </tbody>
         </table>
 
-        <form action="#" th:action="@{/processinterview}">
+        <form action="#" th:action="@{/processinterview}" th:object="${userAnswer}">
+            <input type="hidden" th:field="*{userId}">
+            <input type="hidden" th:field="*{jobId}">
             <div class="form-group">
                 <label for="exampleFormControlTextarea3">Answer: </label>
-                <textarea th:value="${answer.answers.get(currJob.getId())}"
+                <textarea th:object="*{answer}"
                           class="form-control" id="exampleFormControlTextarea3" rows="7"></textarea>
+                <!--                        th:value="${answer.answers.get(currJob.getId())}"-->
             </div>
             <button type="submit" class="btn btn-warning">Submit</button>
         </form>
