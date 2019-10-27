@@ -48,18 +48,17 @@
                         </div>
                         <div class="card-body-mid">
                             <p class="card-text">Status: <span th:text="${job.getCurStatus()}"></span></p>
-                            <span th:if="${job.getCurStatus() == statusPendingInterview}">
-                                <a style="color: red" th:href="@{/schedule/{id}(id=${job.id})}">Schedule</a>
+<!--                            <span th:if="${job.getCurStatus() == statusPendingInterview}">-->
+                                <a style="color: red" th:href="@{/selectdate/(id=${job.id})}">Schedule</a>
                             </span>
                         </div>
                         <div class="card-body-bottom">
                             <p class="card-text">
                                 Posted Date: <span th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></span>
 
-                            <span th:if="${job.getCurStatus() == statusPendingScheduledInterview}">
-                                Inverview Scheduled for 2PM on 10-26-2019
-                                <a th:href="@{/addinterview/{id}(id=${job.id})}">Start Interview</a>
-
+<!--                            <span th:if="${job.getCurStatus() == statusPendingScheduledInterview}">-->
+<!--                                <a th:href="@{/addinterview/{id}(id=${job.id})}">Start Interview</a>-->
+                                <a th:href="@{/addinterview/(id=${job.id})}">Start Interview</a>
                             </span>
                             <span th:if="${job.getCurStatus() == statusRejected}">
 <!--                                <a style="color: red" href="/appeal/">Appeal</a>-->

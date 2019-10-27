@@ -19,6 +19,8 @@ public class StaticData {
          return techQs;
      }
 
+     //remember to match Questions to types of jobs
+
      public void setDeveloperQuestions(){
          techQs.add("Do you like programming? If yes, why?");
          techQs.add("Tell me about the project you’ve worked on that you’re most proud of. " +

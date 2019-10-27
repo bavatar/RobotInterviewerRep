@@ -131,12 +131,6 @@ public class JobController {
         return "redirect:/";
     }
 
-    @RequestMapping("/schedule/{id}")
-    public String scheduleApplicationJob(@PathVariable("id") long id, Model model){
-
-        return "";
-    }
-
     @RequestMapping("/cancel/{id}")
     public String cancelApplicationJob(@PathVariable("id") long id, Model model){
         model.addAttribute("jobs", jobRepository.findAll());
@@ -303,28 +297,24 @@ public class JobController {
             @RequestParam("id") long id, Model model)
     {
         ArrayList<String> dateOptions = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy hh:mm");
 
         LocalDateTime tempTime = LocalDateTime.now();
         String formatDateTime = tempTime.format(formatter);
         dateOptions.add(formatDateTime);
-        for(int i =0; i <= 14; i++) {
-            tempTime.withHour(9);
-            tempTime.withMinute(0);
+        for(int i = 1; i <= 14; i+=4) {
+           // add conditionals if there's time...
+            tempTime = tempTime.withHour(9);
+            tempTime = tempTime.withMinute(0);
             formatDateTime = tempTime.format(formatter);
             dateOptions.add(formatDateTime);
 
-            tempTime.withHour(12);
-            tempTime.withMinute(0);
+            tempTime = tempTime.withHour(12);
+            tempTime = tempTime.withMinute(30);
             formatDateTime = tempTime.format(formatter);
             dateOptions.add(formatDateTime);
 
-            tempTime.withHour(15);
-            tempTime.withMinute(30);
-            formatDateTime = tempTime.format(formatter);
-            dateOptions.add(formatDateTime);
-
-            tempTime.plusDays(1);
+            tempTime = tempTime.plusDays(4);
         }
 
         model.addAttribute("dateOptions", dateOptions);
@@ -336,6 +326,15 @@ public class JobController {
         return "scheduleform";
     }
 
+    @PostMapping("/process_selectdate")
+    public String processDate(@ModelAttribute ScheduleInterview selDate){
+        Job job = jobRepository.findJobById(selDate.getJobId());
+        job.setCurStatus(StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
+
+        //Continiue later at home
+
+        return "redirect:/";
+    }
 
     @RequestMapping("/apply/{id}")
     public String applyJob(@PathVariable("id") long id, Model model){

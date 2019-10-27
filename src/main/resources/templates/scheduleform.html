@@ -18,17 +18,27 @@
 
 <div class="container">
     <div class="jumbotron">
-        <h1>Interview Q's</h1>
+        <h1>Schedule Interview</h1>
 
-        <form action="#" th:action="@{/processinterview}" th:object="${userAnswer}" method="post">
+        <form action="#" th:action="@{/process_selectdate}" th:object="${selDate}" method="post">
             <input type="hidden" th:field="*{userId}">
             <input type="hidden" th:field="*{jobId}">
-            <div class="form-group">
-                <label for="exampleFormControlTextarea3">Answer: </label>
-                <textarea th:field="*{answer}"
-                          class="form-control" id="exampleFormControlTextarea3" rows="7"></textarea>
-                <!--                        th:value="${answer.answers.get(currJob.getId())}"-->
+
+            <div class="form-group col-md-4">
+                <label>Select Date</label>
+                <select name="inputDate" class="form-control" th:field="*{stringSelectTime}">
+                    <option selected th:each="date : ${dateOptions}"
+                            th:value="${date}"
+                            th:text="${date}"></option>
+                </select>
             </div>
+
+<!--            <div class="form-group">-->
+<!--                <label for="exampleFormControlTextarea3">Select a date </label>-->
+<!--                <textarea th:field="*{answer}"-->
+<!--                          class="form-control" id="exampleFormControlTextarea3" rows="7"></textarea>-->
+<!--                &lt;!&ndash;                        th:value="${answer.answers.get(currJob.getId())}"&ndash;&gt;-->
+<!--            </div>-->
             <button type="submit" class="btn btn-warning">Submit</button>
         </form>
     </div>
