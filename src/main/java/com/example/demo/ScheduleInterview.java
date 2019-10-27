@@ -9,6 +9,8 @@ public class ScheduleInterview {
     private LocalDateTime selectedTime;
     private String stringSelectTime;
 
+    static public ArrayList<ScheduleInterview> userScheduleDates = new ArrayList<>();
+
     public ScheduleInterview(){
     }
 

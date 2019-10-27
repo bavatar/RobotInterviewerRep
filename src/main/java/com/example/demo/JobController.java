@@ -72,6 +72,8 @@ public class JobController {
             model.addAttribute("statusPendingInterview", StaticData.Status.PENDING_INTERVIEW);
             model.addAttribute("statusPendingScheduledInterview", StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
             model.addAttribute("statusRejected", StaticData.Status.REJECTED);
+            //testing...
+//            model.addAttribute("selDate", ScheduleInterview.userScheduleDates.);
         }
         return "mypage";
     }
@@ -332,6 +334,11 @@ public class JobController {
         job.setCurStatus(StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
 
         //Continiue later at home
+        String tmp = selDate.getStringSelectTime();
+      //  selDate.setSelectedTime(LocalDateTime.parse(tmp));
+      //  ScheduleInterview.userScheduleDates.add(selDate);
+        System.out.println("selected time: " + tmp);
+        //selDate.setStringSelectTime();
 
         return "redirect:/";
     }
