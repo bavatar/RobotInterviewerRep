@@ -62,7 +62,7 @@ public class EmailController {
                 System.out.println("AppController:jobList:userService.getUser(): is null");
             }
                 return "emailform";
-            }
+    }
 
     @RequestMapping(value = "/appeal_email", method = RequestMethod.POST)
     @ResponseBody

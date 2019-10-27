@@ -4,6 +4,7 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.header.writers.frameoptions.StaticAllowFromStrategy;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -172,17 +173,44 @@ public class DataLoader implements CommandLineRunner {
         Date tempDate = new Date();
         job.setPostedDate(tempDate);
 //
+
+
+        StaticData staticData = new StaticData();
+        HashSet<String> questions = new HashSet<>();
+        questions.addAll(staticData.getBehavioralQuestions());
+        staticData.setDeveloperQuestions();
+        questions.addAll(staticData.getTechQs());
+        job.setQuestions(questions);
+        job.setAnswers(new HashSet<>());
+
         jobRepository.save(job);
 
-        QsAndAs testQsAndAs = new QsAndAs();
-        testQsAndAs.setJob(job);
-        testQsAndAs.setQuestion("1. Talk about a time when you had to work closely with someone whose personality " +
-                "was very different from yours." +                                                          "\n"
-                + "2. Tell me about a time when you made sure a customer was pleased with your service." +  "\n"
-                + "3. How do you reverse an array in place in Java?"                                     +  "\n"
-                + "4. How do you find the largest and smallest number in an unsorted integer array?");
-        testQsAndAs.setAnswer("Answer 1");
-        qandAsRepository.save(testQsAndAs);
+//        staticData.setDeveloperQuestions();
+//        Set<QsAndAs> testQAList = new HashSet<>();
+//
+//
+//        for(int i = 1; i <= 4; i++) {
+//            QsAndAs testQsAndAs = new QsAndAs();
+//            testQsAndAs.setJob(job);
+//            testQsAndAs.setQuestion(staticData.getBehavioralQuestions().get(i-1));
+//            testQsAndAs.setAnswer("Answer");
+//            qandAsRepository.save(testQsAndAs);
+//            testQAList.add(testQsAndAs);
+//        }
+//        for(int i = 1; i <= 4; i++) {
+//            QsAndAs testQsAndAs = new QsAndAs();
+//            testQsAndAs.setJob(job);
+//            testQsAndAs.setQuestion(staticData.getTechQs().get(i-1));
+//            testQsAndAs.setAnswer("Answer");
+//            qandAsRepository.save(testQsAndAs);
+//            testQAList.add(testQsAndAs);
+//        }
+
+
+
+
+
+
 
 //        QsAndAs testQaAndAs2 = new QsAndAs();
 //        testQaAndAs2.setJob(job);
@@ -191,15 +219,13 @@ public class DataLoader implements CommandLineRunner {
 //        qandAsRepository.save(testQaAndAs2);
 
 
-        Set<QsAndAs> testQAList = new HashSet<>();
-        testQAList.add(testQsAndAs);
 //        testQAList.add(testQaAndAs2);
 
 //        job.setQuestionsAndAnswers(testQAList);
 
-        for(QsAndAs q : testQAList) {
-            System.out.println(q.getQuestion() + " " + q.getAnswer());
-        }
+//        for(QsAndAs q : testQAList) {
+//            System.out.println(q.getQuestion() + " " + q.getAnswer());
+//        }
 
         System.out.println("DataLoader: postedDate: " + job.getPostedDate());
 
@@ -222,14 +248,18 @@ public class DataLoader implements CommandLineRunner {
         job.setPostedDate(tempDate);
         jobRepository.save(job);
 
-        QsAndAs testQaAndAs3 = new QsAndAs();
-        testQaAndAs3.setJob(job);
-        testQaAndAs3.setQuestion("Question 3");
-        testQaAndAs3.setAnswer("Answer 3");
-        qandAsRepository.save(testQaAndAs3);
 
-        Set<QsAndAs> testQAList2 = new HashSet<>();
-        testQAList2.add(testQaAndAs3);
+
+
+
+//        QsAndAs testQaAndAs3 = new QsAndAs();
+//        testQaAndAs3.setJob(job);
+//        testQaAndAs3.setQuestion("Question 3");
+//        testQaAndAs3.setAnswer("Answer 3");
+//        qandAsRepository.save(testQaAndAs3);
+//
+//        Set<QsAndAs> testQAList2 = new HashSet<>();
+//        testQAList2.add(testQaAndAs3);
 
 //        job.setQuestionsAndAnswers(testQAList2);
 

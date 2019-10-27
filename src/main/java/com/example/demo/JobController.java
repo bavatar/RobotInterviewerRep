@@ -149,9 +149,14 @@ public class JobController {
 //    }
 
     @RequestMapping("/addinterview/{id}")
-    public String showInterviewForm(@PathVariable("id") long id, Model model){
-        Job currJob = jobRepository.findById(id).get();
-        model.addAttribute("qsAndAs", qandAsRepository.findByJob(currJob));
+    public String showInterviewForm(
+            @PathVariable("id") long id,
+                                    Model model){
+//        Job currJob = jobRepository.findByUser(userService.getUser());
+        Job currJob = jobRepository.findJobById(id);
+        model.addAttribute("questions", currJob.getQuestions());
+        model.addAttribute("answers", currJob.getAnswers());
+        model.addAttribute("qsAndAs", qandAsRepository.findAllByJob(currJob));
 //        model.addAttribute("job", currJob);
 //        model.addAttribute("qsAndAs", new QsAndAs(currJob, "q1", "a1"));
 //        model.addAttribute("qsAndAs", qandAsRepository.findAllByJob(currJob));
@@ -159,7 +164,8 @@ public class JobController {
     }
 
     @PostMapping("/processinterview")
-    public String processInterview(QsAndAs qsAndAs
+    public String processInterview(Set<String> answers
+//            QsAndAs qsAndAs
 //                              @RequestParam(name="interviewDate") String interviewDate
     ) {
 //        try {
@@ -176,7 +182,7 @@ public class JobController {
         System.out.println("After processing interview form: ");
 //        System.out.println(qsAndAs.getAnswer());
 //        System.out.println(qsAndAs.getQuestion());
-            qandAsRepository.save(qsAndAs);
+//            qandAsRepository.save(qsAndAs);
 //            jobRepository.save(job);
             return "redirect:/";
         }

@@ -30,6 +30,11 @@ public class Job {
 
     Date interviewDateTime = new Date();
 
+    @Column(length = 20000, name = "question")
+    private HashSet<String> questions = new HashSet<>();
+    @Column(length = 20000, name = "answers")
+    private HashSet<String> answers = new HashSet<>();
+
     @OneToMany(mappedBy = "job", fetch = FetchType.EAGER)
     private Set<QsAndAs> questionsAndAnswers;
 
@@ -55,6 +60,22 @@ public class Job {
         this.interviewDateTime = interviewDateTime;
         this.questionsAndAnswers = questionsAndAnswers;
         this.user = user;
+    }
+
+    public HashSet<String> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(HashSet<String> questions) {
+        this.questions = questions;
+    }
+
+    public HashSet<String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(HashSet<String> answers) {
+        this.answers = answers;
     }
 
     public Set<QsAndAs> getQuestionsAndAnswers() {

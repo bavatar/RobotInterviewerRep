@@ -8,6 +8,7 @@ public interface JobRepository extends CrudRepository<Job,Long> {
 
     Collection<Job> findJobByTitleContainingIgnoreCase(String title);
     Job findByUser(User user);
+    Job findJobById(long id);
 //    Job findByUser(User user);
 
 //    ArrayList<Job> findAll();

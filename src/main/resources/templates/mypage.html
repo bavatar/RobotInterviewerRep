@@ -67,8 +67,8 @@
                         <div class="card-body-bottom">
                             <p class="card-text">
                                 Posted Date: <span th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></span>
-                            <span th:if="${job.getCurStatus() == statusPendingScheduledInterview}">
-                                <a th:href="@{/addinterview/{id}(id=${job.id})}">Interview</a>
+<!--                            <span th:if="${job.getCurStatus() == statusPendingScheduledInterview}">-->
+                                <a th:href="@{/addinterview/(id=${job.id})}">Interview</a>
                             </span>
                             <span th:if="${job.getCurStatus() == statusRejected}">
                                 <a style="color: red" href="/appeal/">Appeal</a>

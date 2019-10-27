@@ -25,14 +25,22 @@
         <div class="form-row">
 
 <!--            <div th:each="q : ${qsAndAs}">-->
-<!--                <label th:text="${q.question}"></label>-->
-                <form th:action="@{/processinterview}" th:object="${qsAndAs}">
-                    <p th:text="${qsAndAs.question}"></p>
-                    <p data-th-utext="${#strings.replace(#strings.escapeXml(text),'&#10;','&lt;br&gt;')}"></p>
-<!--                    <label th:text="${qsAndAs.question}"></label>-->
-                    <input type="text" placeholder="Answer" th:field="*{answer}"/>-->
-                    <button type="submit" class="btn btn-warning">Submit</button>
-                </form>
+<!--&lt;!&ndash;                <label th:text="${q.question}"></label>&ndash;&gt;-->
+<!--&lt;!&ndash;                <form th:action="@{/processinterview}" th:object="${qsAndAs}">&ndash;&gt;-->
+<!--                <p th:text="${q.question}"></p>-->
+<!--                <form id="interform" th:action="@{/processinterview}">-->
+<!--                    <p th:text="${q.question}"></p>-->
+<!--&lt;!&ndash;                    <p data-th-utext="${#strings.replace(#strings.escapeXml(text),'&#10;','&lt;br&gt;')}"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label th:text="${qsAndAs.question}"></label>&ndash;&gt;-->
+<!--                    <input type="text" placeholder="Answer" th:value="${q.answer}"/>-->
+<!--                </form>-->
+<!--                <button type="submit" form="interform" class="btn btn-warning">Submit</button>-->
+<!--            </div>-->
+
+            <div th:each="q : ${questions}">
+                <!--                <label th:text="${q.question}"></label>-->
+                <!--                <form th:action="@{/processinterview}" th:object="${qsAndAs}">-->
+                <p th:text="${q}"></p>
             </div>
 
 
@@ -80,7 +88,7 @@
 <!--            </form>-->
     </div>
 </div>
-
+</div>
 
 
 <div th:insert="base :: footnote"></div>
