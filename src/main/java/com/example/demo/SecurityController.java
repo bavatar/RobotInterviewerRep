@@ -167,10 +167,10 @@ public class SecurityController {
 //        return "redirect:/";
 //    }
 
-
     // Added for 4.06
     @GetMapping("/register")
     public String showRegistrationPage(Model model){
+
         model.addAttribute("user", new User());
         return "registration";
     }
@@ -182,10 +182,15 @@ public class SecurityController {
                Model model){
         model.addAttribute("user", user);
 
+
+
         if(result.hasErrors()){
+            System.out.println("processRegistration: Error with Result.");
             return "registration";
         }
         else {
+
+
             userService.saveUser(user);
             model.addAttribute("message", "User Account Created");
         }

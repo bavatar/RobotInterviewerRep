@@ -13,6 +13,15 @@ public class StaticData {
         return techQs;
     }
 
+    static public ArrayList<String> kWords(String str){
+        ArrayList<String> arrList = new ArrayList();
+        String[] kwords = str.split(",");
+        for (String s: kwords){
+            arrList.add(s.trim());
+        }
+        return arrList;
+    }
+
     static public void removeAppliedJobForUser(long uid, long jobID){
         for (int j = 0; j < applied_jobs.size(); j++) {
             if (applied_jobs.get(j).userID == uid) {
@@ -89,6 +98,7 @@ public class StaticData {
 
     public enum Status
     {
+        // Initial Default State
         NOT_SUBMITTED,
         // User has applied for the job but the decision on granting an interview has not yet been made
         SUBMITTED,

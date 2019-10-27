@@ -11,10 +11,10 @@
 <body style="background-color: seagreen">
 <!--<div th:replace="base::navbar"></div>-->
 <!--<br>-->
-<!--<h2>Email Form</h2>-->
+<h2>Email Form</h2>
 <div id="appeal">
     <div class="container">
-    <form action="#" th:action="@{/appeal_email}"  onsubmit="return closeAppeal(this);" method="post" enctype="multipart/form-data">
+    <form action="#" th:action="@{/appeal_email}" th:object="${job}" onsubmit="return closeAppeal(this);" method="post" enctype="multipart/form-data">
         <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -35,9 +35,9 @@
                         <div class="md-form mb-5">
                             <i class="fas fa-envelope prefix grey-text"></i>
                             <input type="email" id="form29" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="form29">Your email</label>
+<!--                        <label data-error="wrong" data-success="right" for="form29">Your email</label>-->
+                            <label data-error="wrong" data-success="right" for="form29" th:field="*{employerEmail}"></label>
                         </div>
-
 
                         <div class="md-form">
                             <i class="fas fa-pencil prefix grey-text"></i>
@@ -65,7 +65,7 @@
     <footer>
         <center>
             <div class="footer-main-div" style="alignment: center">
-                <p style="color:greenyellow; ">&copy; Copyright 2019 John Anderjaska.</p>
+                <p style="color:greenyellow; ">&copy; Copyright 2019 John Anderjaska and Deadpool Group..</p>
             </div>
         </center>
     </footer>

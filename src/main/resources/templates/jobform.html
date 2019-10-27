@@ -35,14 +35,16 @@
 <form th:action="@{/processjob}" th:object="${job}" method="post">
     <input type="hidden" th:field="*{id}" />
     <input type="hidden" th:field="*{postedDate}" />
-    <input type="text" placeholder="Employer Name" th:field="*{employerName}">
-    <input type="text" placeholder="Employer Email" th:field="*{employerEmail}">
+    <input type="text" placeholder="Employer Name" th:field="*{employerName}"/>
+    <input type="text" placeholder="Employer Email" th:field="*{employerEmail}"/>
     <input type="text" placeholder="Title" th:field="*{title}" />
+    <input type="text" placeholder="Phone" th:field="*{phone}" />
     <textarea rows="3" placeholder="Description" th:field="*{description}" />
+    <input type="text" placeholder="Key Words" th:field="*{keywords}" />
 <!--    <input th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"/>-->
 <!--    <p th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></p>-->
-<!--    <input type="date" name="date" />-->
-    <input type="text" placeholder="Phone" th:field="*{phone}" />
+    <input type="hidden" placeholder="Current Status" th:field="*{curStatus}" />
+    <input type="hidden" placeholder="Interview DateTime" th:field="*{interviewDateTime}" />
     <input class="button" type="submit" value="Submit">
 <!--    <input class="button" type="submit" onclick="confirmation()" value="Submit">-->
 <!--    <input type="submit" onclick="confirmation()" value="Submit">-->

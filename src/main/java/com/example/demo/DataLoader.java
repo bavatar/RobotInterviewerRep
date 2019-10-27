@@ -66,7 +66,7 @@ public class DataLoader implements CommandLineRunner {
 //                "Jimmerson", true, "jim");
         // First User
         User user = new User();
-        user.setEmail("jim@jim.com");
+        user.setEmail("bavatar@hotmail.com");
         user.setPassword("password");
         user.setFirstName("jim");
         user.setLastName("jimmerson");
@@ -88,11 +88,6 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("DataLoader: User Name: " + user.getUsername() + " Password: " + user.getPassword());
         System.out.println("DataLoader: User email: " + user.getEmail());
         user = userRepository.findByUsername(user.getUsername());
-
-
-//        user = new User("admin@admin.com", "password", "Admin",
-//                "User", true, "admin");
-        //Job newJobs = new HashSet<Job>();
 
         // Second User
         user = new User();
@@ -148,20 +143,9 @@ public class DataLoader implements CommandLineRunner {
         user.setRoles(Arrays.asList(userRole));
         userRepository.save(user);
 
-      //        HashSet<Job> newJobs = new HashSet<>();
-//        Collection<Role> newRoles = Arrays.asList(userRole);
-//        user = new User("admin@admin.com", "password", "Admin",
-//                "Anderson", true, "admin", res, newJobs, newRoles);
-//        //user.setRoles(Arrays.asList(adminRole));
-
-        //        user.setResume(res);
-
-        userRepository.save(user);
-        ArrayList<String> keyWords = new ArrayList<>();
-
-        keyWords = kWords("CSS, Design, Engineering, Full Stack, HTML, JavaScript, Ruby On Rails, Web Design, " +
-                "Web Development, Software Development, Team Management");
-
+        // First Job
+        String keyWords = "CSS, Design, Engineering, Full Stack, HTML, JavaScript, Ruby On Rails, Web Design, " +
+                "Web Development, Software Development, Team Management";
         Job job = new Job();
         job.setKeywords(keyWords);
         job.setCurStatus(StaticData.Status.NOT_SUBMITTED);
@@ -169,11 +153,14 @@ public class DataLoader implements CommandLineRunner {
         job.setTitle("Senior Java Developer");
         job.setUser(user);
         job.setPhone("301-879-6524");
-        job.setEmployerEmail("jj@test.com");
+        job.setEmployerEmail("bavatar@hotmail.com");
         job.setEmployerName("Amazon");
         Date tempDate = new Date();
         job.setPostedDate(tempDate);
-//
+        jobRepository.save(job);
+
+        // test for Updating Job => works
+        job.setPhone("202-679-5543");
         jobRepository.save(job);
 
         QsAndAs testQsAndAs = new QsAndAs();
@@ -192,12 +179,8 @@ public class DataLoader implements CommandLineRunner {
 //        testQaAndAs2.setAnswer("Answer 2");
 //        qandAsRepository.save(testQaAndAs2);
 
-
         Set<QsAndAs> testQAList = new HashSet<>();
         testQAList.add(testQsAndAs);
-//        testQAList.add(testQaAndAs2);
-
-//        job.setQuestionsAndAnswers(testQAList);
 
         for(QsAndAs q : testQAList) {
             System.out.println(q.getQuestion() + " " + q.getAnswer());
@@ -205,13 +188,10 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("DataLoader: postedDate: " + job.getPostedDate());
 
-        // Add another job with the same user
-        keyWords = kWords("Programming Dev, Mobile apps, iPhone, Android Development, " +
-                "PhoneGap Software Development, Mobile Development, Ios App Development, Mobile Programming Languages");
-
-
+        // Second job with the same user
+        keyWords = "Programming Dev, Mobile apps, iPhone, Android Development, " +
+                "PhoneGap Software Development, Mobile Development, Ios App Development, Mobile Programming Languages";
         job = new Job();
-//        job.setQuestionsAndAnswers(testQAList);
         job.setKeywords(keyWords);
         job.setCurStatus(StaticData.Status.NOT_SUBMITTED);
         job.setDescription("This is a detailed description");

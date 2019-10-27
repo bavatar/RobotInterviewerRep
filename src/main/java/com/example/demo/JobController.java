@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -30,7 +31,6 @@ public class JobController {
 
     @Autowired
     QandAsRepository qandAsRepository;
-
 
     @RequestMapping("/")
     public String jobList(Model model){
@@ -71,8 +71,6 @@ public class JobController {
             model.addAttribute("statusPendingScheduledInterview", StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
             model.addAttribute("statusRejected", StaticData.Status.REJECTED);
         }
-        //User user = userRepository.findById(userService.getUser().getId());
-//        User user = userRepository.findById(user_id);
         return "mypage";
     }
 
@@ -82,12 +80,6 @@ public class JobController {
 //        model.addAttribute(("resName"))
         return "manageresumes";
     }
-
-//    @PostMapping("/add")
-////    @PostMapping("/add")
-////    public String processActor(@ModelAttribute Actor actor,
-////                               @RequestParam("file")MultipartFile file){
-
 
     @PostMapping("/manageresumes")
     public String processResumes(@ModelAttribute User user, @RequestParam("file") MultipartFile file, Model model){
@@ -111,8 +103,6 @@ public class JobController {
 
         try {
             fName = file.getOriginalFilename();
-
-
 
             if (fName.contains("txt")) {
                 fileName = dir + "/" + fName;
@@ -179,21 +169,36 @@ public class JobController {
     }
 
     @PostMapping("/processjob")
-    public String processJob(@ModelAttribute Job job, BindingResult result) {
-        if(result.hasErrors()){
-            return "jobform";
-        }
+//    public String processJob(@ModelAttribute Job job, BindingResult result) {
+    public String processJob(@Valid @ModelAttribute("job") Job job, BindingResult result, Model model) {
+//        if(result.hasErrors()){
+//            System.out.println("processJob: Cannot continue as there have be errors with result.");
+//            return "jobform";
+//        }
         //Add new job... i.e new identity
-
         job.setUser(userService.getUser());
-        job.setEmployerEmail("jj@test.com");
-        job.setEmployerName("Amazon");
+//        job.setEmployerEmail("bavatar@hotmail.com");
+//        job.setEmployerName("Amazon");
+//        ArrayList<String> keyWordArray = StaticData.kWords(job.getKeywords().toString());
+//        job.setKeywords(keyWordArray);
+        job.setCurStatus(StaticData.Status.NOT_SUBMITTED);  // Default/Initial State
         Date tempDate = new Date();
         job.setPostedDate(tempDate);
         jobRepository.save(job);
+
+        // Add Questions & Answers?  Test
+        QsAndAs testQsAndAs = new QsAndAs();
+        testQsAndAs.setJob(job);
+        testQsAndAs.setQuestion("1. Talk about a time when you had to work closely with someone whose personality " +
+                "was very different from yours." +                                                          "\n"
+                + "2. Tell me about a time when you made sure a customer was pleased with your service." +  "\n"
+                + "3. How do you reverse an array in place in Java?"                                     +  "\n"
+                + "4. How do you find the largest and smallest number in an unsorted integer array?");
+        testQsAndAs.setAnswer("Answer 1");
+        qandAsRepository.save(testQsAndAs);
+
         return "redirect:/";
     }
-
 
     //Processing interview form
 //    @GetMapping("/interviewform")
@@ -286,6 +291,12 @@ public class JobController {
         Job job = jobRepository.findById(id).get();
         job.setCurStatus(StaticData.Status.SUBMITTED);
         User user = userService.getUser();
+        String tempRes = user.getResume();
+        if ((tempRes == null) || (tempRes == ""))
+        {
+            System.out.println("Error: the user cannot apply for a job until a resume is selected.");
+            return "redirect:/";
+        }
 //        user.getApplied_jobs().add(job);
 
         // JA 10-23-19

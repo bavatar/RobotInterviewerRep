@@ -77,9 +77,11 @@
                                 Posted Date: <span th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></span>
                             <span th:if="${job.getCurStatus() == statusPendingScheduledInterview}">
                                 Inverview Scheduled for 2PM on 10-26-2019
+                                <a th:href="@{/addinterview/{id}(id=${job.id})}">Start Interview</a>
                             </span>
                             <span th:if="${job.getCurStatus() == statusRejected}">
-                                <a style="color: red" href="/appeal/">Appeal</a>
+<!--                                <a style="color: red" href="/appeal/">Appeal</a>-->
+                                 <a style="color: red" th:href="@{/appeal/{id}(id=${job.id})}">Appeal</a>
                             </span>
                             </p>
 

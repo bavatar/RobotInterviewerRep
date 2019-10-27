@@ -77,7 +77,6 @@ public class User{
 //        this.applied_jobs = new HashSet<>();
     }
 
-
     // Sets the status for newly submitted applications
     public void getMatches(String res, Set<Job> jobs){
         int percent = 0;
@@ -85,6 +84,7 @@ public class User{
         boolean pass = false;
         StringBuffer resBuffer = new StringBuffer(res);
 
+        ArrayList<String> keyWordArray = new ArrayList<>();
         for (Job job: jobs) {
             percent = 0;
             numberFound = 0;
@@ -93,12 +93,14 @@ public class User{
                 continue;
             }
 
-            for (String s : job.getKeywords()){
+            keyWordArray = StaticData.kWords(job.getKeywords());
+
+            for (String s : keyWordArray){
                 if (resBuffer.indexOf(s) != -1){
                     numberFound++;
                 }
             }
-            percent = (100 * numberFound) / job.getKeywords().size();
+            percent = (100 * numberFound) / keyWordArray.size();
             if (percent > 80) {
                 job.setCurStatus(StaticData.Status.PENDING_INTERVIEW);
             } else {
@@ -116,8 +118,19 @@ public class User{
         ArrayList<Job> applArray = StaticData.getJobsByApplicantID(id);
         System.out.println("getMatches: Number of StaticData.getJobsAppliedByUserId(id).size: " + StaticData.getJobsByApplicantID(id).size());
 
+        if ((resume == null) || (resume == "")) {
+            System.out.println("User:getMatches: The user has not yet selected a resume");
+            return;
+        }
         //StringBuilder res = new StringBuilder(10000);
-        StringBuffer resBuffer = new StringBuffer(resume);
+        StringBuffer resBuffer;
+        try {
+            resBuffer = new StringBuffer(resume);
+        } catch (Exception e){
+            System.out.println("User:getMatches: Error: " + e.toString());
+            return;
+        }
+        ArrayList<String> keyWordArray = new ArrayList<>();
 
         System.out.println("getMatches: Number of User Jobs: " + jobs.size());
         for (Job job: applArray) {
@@ -128,13 +141,14 @@ public class User{
                 continue;
             }
 
-            for (String s : job.getKeywords()){
-                // crashes on the following line JA 10-23-19
+            keyWordArray = StaticData.kWords(job.getKeywords());
+
+            for (String s : keyWordArray){
                 if (resBuffer.indexOf(s) != -1){
                     numberFound++;
                 }
             }
-            percent = (100 * numberFound) / job.getKeywords().size();
+            percent = (100 * numberFound) / keyWordArray.size();
             if (percent > 80) {
                 job.setCurStatus(StaticData.Status.PENDING_INTERVIEW);
                 System.out.println("getMatches: Passed Rating percent: " + percent);
