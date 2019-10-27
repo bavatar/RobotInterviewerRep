@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,12 +33,15 @@ public class JobController {
 
 
     @RequestMapping("/")
-    public String jobList(Model model){
+    public String jobList(Model model, RedirectAttributes redirectAttributes){
         model.addAttribute("jobs", jobRepository.findAll());
         model.addAttribute("users", userRepository.findAll());
         if (userService.getUser() != null) {
             model.addAttribute("user_id", userService.getUser().getId());
         }
+        redirectAttributes.addFlashAttribute("message", "Go to your page to check for pending interviews.");
+        //javax.swing.JOptionPane.showMessageDialog(null, "hello");
+       // StaticData.p.show();
 //        long test = 0;
 //        try {
 //            if (userService.getUser().getId() > test) {

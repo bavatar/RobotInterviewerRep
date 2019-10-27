@@ -76,6 +76,8 @@ public class StaticData {
         behavioralQuestions.add("What is your greatest failure?");
         behavioralQuestions.add("How do you like working on a team?");
         behavioralQuestions.add("Do you like people?");
+
+
     }
 
     public String getCurStatus() {

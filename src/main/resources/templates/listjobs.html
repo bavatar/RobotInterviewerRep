@@ -25,7 +25,7 @@
     </style>
 
 </head>
-<body style="background-color: seagreen" th:onload="checkJobs()">
+<body style="background-color: seagreen">
 
 <div th:replace="base::navbar"></div>
 <br>
@@ -85,8 +85,10 @@
 <br>
 <br>
 <br>
-
-<!--<script th:src="@{js/jscript.js}"></script>-->
+<!--<script type="text/javascript">-->
+<!--    window.onload = function checkJobs(){ alert("PLease check your home page for pending interviews.");}-->
+<!--</script>-->
+<!--<script src="@{js/jscript.js}"></script>-->
 <!--Bootstrap JavaScript -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

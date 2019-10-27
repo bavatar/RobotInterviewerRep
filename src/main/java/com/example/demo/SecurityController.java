@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -36,6 +37,8 @@ public class SecurityController {
 
     @RequestMapping("/delete_profile/{id}")
     public String delUser(@PathVariable("id") long id, Model model){
+
+//        HttpSession.
         System.out.println("HomeController: Delete user with id: " + id);
         try {
             userRepository.deleteById(id);
