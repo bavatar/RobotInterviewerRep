@@ -27,6 +27,8 @@ public class JobController {
     QandAsRepository qandAsRepository;
 
 
+
+
     @RequestMapping("/")
     public String jobList(Model model){
         model.addAttribute("jobs", jobRepository.findAll());
@@ -148,15 +150,39 @@ public class JobController {
 //        return "interviewform";
 //    }
 
-    @RequestMapping("/addinterview/{id}")
+    @RequestMapping("/addinterview/")
     public String showInterviewForm(
-            @PathVariable("id") long id,
+            @RequestParam("id") long id,
                                     Model model){
-//        Job currJob = jobRepository.findByUser(userService.getUser());
-        Job currJob = jobRepository.findJobById(id);
-        model.addAttribute("questions", currJob.getQuestions());
-        model.addAttribute("answers", currJob.getAnswers());
-        model.addAttribute("qsAndAs", qandAsRepository.findAllByJob(currJob));
+        Job currJob = jobRepository.findByUser(userService.getUser());
+        StaticData staticData = new StaticData();
+//        QuestionCreationDto questions = new QuestionCreationDto();
+        ArrayList<String> questions = new ArrayList<>();
+
+
+        questions.addAll(staticData.getBehavioralQuestions());
+        if(id == 7) { // first job
+            staticData.setDeveloperQuestions();
+            questions.addAll(staticData.getTechQs());
+        }
+
+
+        model.addAttribute("currJob" , currJob);
+        model.addAttribute("questions",questions);
+        User user = userService.getUser();
+        model.addAttribute("job", currJob);
+
+        UserAnswersDto uA = new UserAnswersDto();
+        HashMap<Long, String> jobAns = new HashMap<Long, String>();
+        jobAns.put(currJob.getId(),"");
+        uA.setAnswers(jobAns);
+        UserAnswersDto.userAnswersArr.add(uA);
+
+        model.addAttribute("answer", UserAnswersDto.getUserAnswerFromArr(user.getId()));
+//        Job currJob = jobRepository.findJobById(id);
+//        model.addAttribute("questions", currJob.getQuestions());
+//        model.addAttribute("answers", currJob.getAnswers());
+//        model.addAttribute("qsAndAs", qandAsRepository.findAllByJob(currJob));
 //        model.addAttribute("job", currJob);
 //        model.addAttribute("qsAndAs", new QsAndAs(currJob, "q1", "a1"));
 //        model.addAttribute("qsAndAs", qandAsRepository.findAllByJob(currJob));
@@ -164,7 +190,7 @@ public class JobController {
     }
 
     @PostMapping("/processinterview")
-    public String processInterview(Set<String> answers
+    public String processInterview(@ModelAttribute UserAnswersDto userAnswersDto
 //            QsAndAs qsAndAs
 //                              @RequestParam(name="interviewDate") String interviewDate
     ) {
