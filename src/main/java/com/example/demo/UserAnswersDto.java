@@ -19,6 +19,9 @@ public class UserAnswersDto {
     }
 
     public UserAnswersDto() {
+        userId = 0;
+        jobId = 0;
+        answer = "";
     }
 
     public UserAnswersDto(long userId, long jobId, String answer) {

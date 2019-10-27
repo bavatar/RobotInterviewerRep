@@ -182,7 +182,7 @@ public class JobController {
 
         UserAnswersDto uA = new UserAnswersDto();
         uA.setUserId(user.getId());
-        uA.setJobId(currJob.getId());
+        uA.setJobId(jobRepository.findJobById(id).getId());
 
         model.addAttribute("userAnswer", uA);
 //        Job currJob = jobRepository.findJobById(id);
@@ -211,14 +211,17 @@ public class JobController {
 //            e.printStackTrace();
 //        }
 ////
-        Job job = jobRepository.findByUser(userService.getUser());
+
+        Job job = jobRepository.findJobById(userAnswersDto.jobId);
         job.setCurStatus(StaticData.Status.PENDING_OFFER);
         System.out.println("After processing interview form: ");
+        UserAnswersDto.userAnswersArr.add(userAnswersDto);
+
 //        System.out.println(qsAndAs.getAnswer());
 //        System.out.println(qsAndAs.getQuestion());
 //            qandAsRepository.save(qsAndAs);
 //            jobRepository.save(job);
-            return "redirect:/";
+            return "redirect:/mypage";
         }
 
 

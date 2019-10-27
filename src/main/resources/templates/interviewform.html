@@ -25,7 +25,7 @@
         <table>
             <thead>
             <tr>
-                <th> Question </th>
+                <th> Questions </th>
             </tr>
             </thead>
             <tbody>
@@ -39,12 +39,12 @@
             </tbody>
         </table>
 
-        <form action="#" th:action="@{/processinterview}" th:object="${userAnswer}">
+        <form action="#" th:action="@{/processinterview}" th:object="${userAnswer}" method="post">
             <input type="hidden" th:field="*{userId}">
             <input type="hidden" th:field="*{jobId}">
             <div class="form-group">
                 <label for="exampleFormControlTextarea3">Answer: </label>
-                <textarea th:object="*{answer}"
+                <textarea th:field="*{answer}"
                           class="form-control" id="exampleFormControlTextarea3" rows="7"></textarea>
                 <!--                        th:value="${answer.answers.get(currJob.getId())}"-->
             </div>
