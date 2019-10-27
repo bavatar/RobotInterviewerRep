@@ -14,7 +14,7 @@
 <h2>Appeal Form</h2>
 <div id="appeal">
     <div class="container">
-    <form action="#" th:action="@{/appeal_email}" th:object="${job}" onsubmit="return closeAppeal(this);" method="post" enctype="multipart/form-data">
+    <form action="#" th:action="@{/process_appeal}" th:object="${job}" onsubmit="return closeAppeal(this);" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                             <i class="fas fa-user prefix grey-text"></i>
                                 <label data-error="wrong" data-success="right" for="form34">Your name</label>
@@ -33,12 +33,13 @@
                             <label data-error="wrong" data-success="right" for="form8">Please enter a reason for the appeal</label>
                             <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-unique" onclick="confirmation()">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
-                </div>
+                        <button type="submit" class="btn btn-primary" th:onclick="document.getElementById('confirm').style.display = 'block' ;">Send</button>
+        <div
             </div>
         </div>
+</form>
         <script th:src="@{js/jscript.js}"></script>
-    </form>
+<div id="confirm" style="display: none"> Email sent successfully</div>
     </div>
 </div>
 <!--Bootstrap JS-->

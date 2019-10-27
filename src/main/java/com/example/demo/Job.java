@@ -5,7 +5,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static java.time.format.DateTimeFormatter.BASIC_ISO_DATE;
 
 @Entity
 public class Job {
@@ -21,13 +24,14 @@ public class Job {
     @Size(min=6)
     private String description;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date postedDate;
 
     private ArrayList<String> keywords;
 
     private StaticData.Status curStatus;
 
+    @DateTimeFormat(pattern ="yyyy-MM-dd HH:mm")
     Date interviewDateTime = new Date();
 
     @OneToMany(mappedBy = "job", fetch = FetchType.EAGER)

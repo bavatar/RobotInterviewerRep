@@ -2,9 +2,7 @@
     functions to check if interviews are pending or expired
  */
 function checkJobs(){
-    if (isAuthenticated()){
-
-    }
+    alert("Please check your home page for pending interviews.");
 }
 // check interview time is within 30 minutes
 function checkTime(){
@@ -28,7 +26,7 @@ function schedInterview(){
 }
 // choose date and time
 function dateSched () {
-    ('#datetimepicker1').datetimepicker({format: "dd-MM-yyyy HH:mm:00", minuteStep: 30});
+    ('#datetimepicker1').datetimepicker({format: "yyyy-MM-dd HH:mm", minuteStep: 30});
 }
 // check if interview date is within 2 weeks
 function validateDate() {
@@ -56,7 +54,7 @@ function confirmsched(){
 function popAppeal(){
     document.getElementById('appeal'.style.display ="block");
 }
-/ submit and close form
+// submit and close form
 function closeAppeal(f) {
     f.submit();
     window.close();
@@ -66,3 +64,13 @@ function confirmation(){
     alert("Your appeal has been sent.")
 }
 
+// close and submit questionnaire
+function closeChat(f){
+    f.submit();
+    window.close();
+}
+
+// email confirmation for chat
+function confirmChat(){
+    alert("Your responses have been sent.")
+}

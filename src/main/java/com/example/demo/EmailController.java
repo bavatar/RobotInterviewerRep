@@ -23,36 +23,6 @@ public class EmailController {
     JobRepository jobRepository;
 
 
-    @RequestMapping("/submit_email")
-    @ResponseBody
-    String resumeForm(Model model) {
-        try {
-            sendEmailAttach();
-//            return "listjobs";
-        } catch (Exception ex) {
-            return "Error in sending email: " + ex;
-        }
-        return "listjobs";
-    }
-
-    private void sendEmailAttach() throws Exception {
-        MimeMessage message = sender.createMimeMessage();
-
-        // Enable the multipart flag!
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-        helper.setFrom("user@email.com");
-        helper.setTo("no-reply@deadpool.com");
-        helper.setText("Your resume has been submitted");
-        helper.setSubject("Application");
-
-        ClassPathResource file = new ClassPathResource("resume.txt");
-        helper.addAttachment("resume.txt", file);
-
-        sender.send(message);
-    }
-
-
     // This may require the Job ID as well to inform the hiring manager which job they are appealing
     @RequestMapping("/appeal/{id}")
     public String appealForm(@PathVariable("id") long id, Model model) {
@@ -62,18 +32,23 @@ public class EmailController {
         return "emailform";
             }
 
+    @RequestMapping(value="/process_appeal", method=RequestMethod.POST)
+    public String processForm(){
+        return "redirect:/mypage";
+    }
+
     @RequestMapping(value = "/appeal_email", method = RequestMethod.POST)
     @ResponseBody
     String appealForm(Model model) {
         try {
             sendEmail();
-//            return "Email Sent!";
+         return "Email sent!";
         } catch (Exception ex) {
             return "Error in sending email: " + ex;
         }
-//        return "redirect:/";
-        return "redirect:/mypage";
+//
     }
+
 
     private void sendEmail() throws Exception {
         MimeMessage message = sender.createMimeMessage();
@@ -87,4 +62,33 @@ public class EmailController {
         sender.send(message);
     }
 
+    @RequestMapping(value = "/chat_email", method = RequestMethod.POST)
+    @ResponseBody
+    String chatForm(Model model) {
+        try {
+            sendEmailQA();
+          return "Email Sent!";
+        } catch (Exception ex) {
+            return "Error in sending email: " + ex;
+        }
+//        return "redirect:/";
+//        return "mypage";
+    }
+
+    private void sendEmailQA() throws Exception {
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("user@email.com.com");
+        helper.setTo("no-reply@deadpool.com");
+        helper.setText("<html><body>" + message + "</html></body>", true);
+        helper.setSubject("Questionnaire Responses");
+
+        sender.send(message);
+    }
+
+    @RequestMapping(value="/process_chat", method=RequestMethod.POST)
+    public String processQAForm(){
+        return "redirect:/mypage";
+    }
 }

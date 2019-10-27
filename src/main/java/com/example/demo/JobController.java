@@ -1,12 +1,16 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -80,7 +84,7 @@ public class JobController {
         return "schedule";
     }
 
-    //@ModelAttribute Job job, BindingResult result
+    // process schedule form
     @PostMapping("/process_schedule")
     public String addSchedule(@ModelAttribute Job job, Model model){
         if (userService.getUser() != null) {
@@ -176,7 +180,7 @@ public class JobController {
     }
 
     @PostMapping("/processinterview")
-    public String processInterview(Job job
+    public String processInterview(@ModelAttribute Job job
             //            ,
 //                                   @RequestParam(name="interviewDate") String interviewDate
     ) {

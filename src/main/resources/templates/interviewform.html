@@ -26,11 +26,11 @@
 
 <!--            <div th:each="q : ${qsAndAs}">-->
 <!--                <label th:text="${q.question}"></label>-->
-                <form th:action="@{/processinterview}" th:object="${qsAndAs}">
+                <form th:action="@{/processchat}" th:object="${qsAndAs}" method="post" enctype="multipart/form-data">
                     <p th:text="${qsAndAs.question}"></p>
 <!--                    <label th:text="${qsAndAs.question}"></label>-->
                     <input type="text" placeholder="Answer" th:field="*{answer}"/>-->
-                    <button type="submit" class="btn btn-warning">Submit</button>
+                    <button type="submit" class="btn btn-warning" th:onclick="confirmChat()">Submit</button>
                 </form>
             </div>
 
