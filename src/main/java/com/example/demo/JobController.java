@@ -33,13 +33,14 @@ public class JobController {
 
 
     @RequestMapping("/")
-    public String jobList(Model model, RedirectAttributes redirectAttributes){
+    public String jobList(Model model){
         model.addAttribute("jobs", jobRepository.findAll());
         model.addAttribute("users", userRepository.findAll());
         if (userService.getUser() != null) {
             model.addAttribute("user_id", userService.getUser().getId());
         }
-        redirectAttributes.addFlashAttribute("message", "Go to your page to check for pending interviews.");
+        model.addAttribute("statusPendingScheduledInterview", StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
+        model.addAttribute("statusRejected", StaticData.Status.REJECTED);
         //javax.swing.JOptionPane.showMessageDialog(null, "hello");
        // StaticData.p.show();
 //        long test = 0;

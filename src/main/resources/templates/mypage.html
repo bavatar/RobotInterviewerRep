@@ -63,7 +63,7 @@
                             <span th:if="${job.getCurStatus() == statusPendingInterview}">
                                 <a style="color: red" th:href="@{/schedule/{id}(id=${job.id})}" onclick="schedInterview()">Schedule</a>
                             </span>
-                        </div>
+                        </div> working
                         <div class="card-body-bottom">
                             <p class="card-text">
                                 Posted Date: <span th:text="${#dates.format(job.postedDate, 'dd-MMM-yyyy')}"></span>

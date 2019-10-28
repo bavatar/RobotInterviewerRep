@@ -34,7 +34,8 @@
     <center><h3>Job Selector Home Page</h3></center>
 </div>
 
-<div class="nav-item"  sec:authorize="isAuthenticated()">
+    <div class="alert" th:if="${job.getCurStatus()==statusPendingScheduledInterview}" th:text="${job.getCurStatus()}">Please check your home page for pending interviews.</div>
+<!--    <div th:if="${job.getCurStatus()==statusRejected}">Please check your home page to appeal rejected jobs.</div>-->
     <br>
 <!--<div th:each="job : ${jobs}">-->
 <!--    <p th:text="${job.title}">-->
