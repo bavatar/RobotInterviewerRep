@@ -36,9 +36,6 @@
 
 <div class="nav-item"  sec:authorize="isAuthenticated()">
     <br>
-<!--<div th:each="job : ${jobs}">-->
-<!--    <p th:text="${job.title}">-->
-<!--</div>-->
 
     <div class="container" style="background-color: azure">
 
@@ -67,7 +64,6 @@
                             <a th:href="@{/delete/{id}(id=${job.id})}">Delete</a>
                     </span>
                     <span th:if="${user_id != job.user.id}">
-                        <a th:href="@{/addinterview/{id}(id=${job.id})}">Interview</a>
                         <a th:href="@{/apply/{id}(id=${job.id})}">Apply</a>
                     </span>
                 </td>

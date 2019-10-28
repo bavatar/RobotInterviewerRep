@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule Form</title>
+    <div th:replace="base::header"></div>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div th:insert="base :: navbar"></div>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Schedule Interview</h1>
+
+        <form action="#" th:action="@{/process_selectdate}" th:object="${selDate}" method="post">
+            <input type="hidden" th:field="*{userId}">
+            <input type="hidden" th:field="*{jobId}">
+
+            <div class="form-group col-md-4">
+                <label>Select Date</label>
+                <select name="inputDate" class="form-control" th:field="*{stringSelectTime}">
+                    <option selected th:each="date : ${dateOptions}"
+                            th:value="${date}"
+                            th:text="${date}"></option>
+                </select>
+            </div>
+
+<!--            <div class="form-group">-->
+<!--                <label for="exampleFormControlTextarea3">Select a date </label>-->
+<!--                <textarea th:field="*{answer}"-->
+<!--                          class="form-control" id="exampleFormControlTextarea3" rows="7"></textarea>-->
+<!--                &lt;!&ndash;                        th:value="${answer.answers.get(currJob.getId())}"&ndash;&gt;-->
+
+            <!--            </div>-->
+            <button type="submit" class="btn btn-warning">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<div th:insert="base :: footnote"></div>
+</body>
+</html>

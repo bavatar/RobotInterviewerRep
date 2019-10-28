@@ -1,0 +1,11 @@
+Detroit, MI
+AZURE / AWS CLOUD ENGINEER
+12/2014 – present
+Working knowledge of Azure Services IaaS, PaaS, and SaaS and coming trends in the Cloud space
+Serving as a hands-on subject matter expert for DevOps and Automation in an Azure/AWS infrastructure environment
+Strong foundation of knowledge around Azure and/or AWS cloud services and the cloud ecosystem
+Work with business units, software developers, security, to design and build applications and services within AWS and/or other cloud providers
+Provide daily monitoring, management, troubleshooting and issue resolution to systems and services hosted on cloud resources
+Work as part of a team, to design and develop cloud data solutions
+Assist business development teams with pre-sales activities and RFPs
+Keywords: Amazon Cloud, Cloud Space, IaaS, System Maintenance, Lambda, Web Services

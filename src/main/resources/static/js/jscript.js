@@ -1,6 +1,4 @@
-/*
-    functions to check if interviews are pending or expired
- */
+// functions to check if interviews are pending or expired
 
 // check interview time is within 30 minutes
 function checkTime(){
@@ -15,9 +13,8 @@ function checkTime(){
     }
 }
 
-/*
-    these functions are for the interview scheduler
- */
+// these functions are for the interview scheduler
+
 // show pop up to schedule time
 function schedInterview(){
     document.getElementById('sched'.style.display = "block");
@@ -44,19 +41,18 @@ function confirmsched(){
     alert("Your interview has been scheduled.")
 }
 
-
-/*
-    these functions are used to show appeal form and confirmation
- */
+// these functions are used to show appeal form and confirmation
 // show popup
 function popAppeal(){
     document.getElementById('appeal'.style.display ="block");
 }
-/ submit and close form
+
+// submit and close form
 function closeAppeal(f) {
     f.submit();
     window.close();
 }
+
 // email confirmation
 function confirmation(){
     alert("Your appeal has been sent.")

@@ -22,64 +22,103 @@
         <h1>Interview Q's</h1>
         <hr class="my-4">
 
-        <div class="form-row">
+        <table>
+            <thead>
+            <tr>
+                <th> Questions </th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--            <tr th:if="${books.empty}">-->
+            <!--                <td colspan="2"> No Books Available </td>-->
+            <!--            </tr>-->
+            <tr th:each="q : ${questions}">
+                <td><span th:text="${q}"> Title </span></td>
+                <!--                <td><span th:text="${book.author}"> Author </span></td>-->
+            </tr>
+            </tbody>
+        </table>
 
-<!--            <div th:each="q : ${qsAndAs}">-->
-<!--                <label th:text="${q.question}"></label>-->
-                <form th:action="@{/processinterview}" th:object="${qsAndAs}">
-                    <p th:text="${qsAndAs.question}"></p>
-<!--                    <label th:text="${qsAndAs.question}"></label>-->
-                    <input type="text" placeholder="Answer" th:field="*{answer}"/>-->
-                    <button type="submit" class="btn btn-warning">Submit</button>
-                </form>
+        <form action="#" th:action="@{/processinterview}" th:object="${userAnswer}" method="post">
+            <input type="hidden" th:field="*{userId}">
+            <input type="hidden" th:field="*{jobId}">
+            <div class="form-group">
+                <label for="exampleFormControlTextarea3">Answer: </label>
+                <textarea th:field="*{answer}"
+                          class="form-control" id="exampleFormControlTextarea3" rows="7"></textarea>
+                <!--                        th:value="${answer.answers.get(currJob.getId())}"-->
             </div>
+            <button type="submit" class="btn btn-warning">Submit</button>
+        </form>
 
 
-<!--            <form th:action="@{/processinterview}"-->
-<!--                  th:each="qA : ${qsAndAs}"-->
-<!--                  th:object="${qsAndAs[__${qA}__]}" method="post">-->
-<!--&lt;!&ndash;                <input type="hidden" th:field="${job.id}"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="hidden" th:field="${job.title}"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="hidden" th:field="${job.phone}"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="hidden" th:field="${job.employerName}"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="hidden" th:field="${job.employerEmail}"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="hidden" th:field="${job.description}"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="hidden" th:field="${job.postedDate}"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="hidden" th:field="${job.keywords}"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="hidden" th:field="${job.curStatus}"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="hidden" th:field="${job.user}"/>&ndash;&gt;-->
-<!--                &lt;!&ndash;            <p> this is not hidden</p>&ndash;&gt;-->
-<!--                <div class="form-row">-->
-<!--                    <input type="text" placeholder="question" th:field="*{question}">-->
-<!--                    <input type="text" placeholder="answer" th:field="*{answer}">-->
-<!--                    &lt;!&ndash;                <p>is this showing up?</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="col">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input type="hidden" th:field="*{id}"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input type="text" th:field="*{question}">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input type="text" th:field="*{answer}">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input type="hidden" th:field="${qA.job}">&ndash;&gt;-->
-<!--                        &lt;!&ndash;                    <input type="hidden" th:field="${qA.question}">&ndash;&gt;-->
-<!--                        &lt;!&ndash;                    <input type="hidden" th:field="${q.answer}">&ndash;&gt;-->
-<!--                        &lt;!&ndash;                    <p>div is working?</p>&ndash;&gt;-->
+        <!--        <div class="form-row">-->
 
-<!--&lt;!&ndash;                            <span th:text="${qA.id}"></span>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <span th:text="${qA.job}">${qA.job}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <span th:text="${qA.question}">${qA.question}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <span th:text="${qA.answer}">${qA.answer}</span>&ndash;&gt;-->
+        <!--            <div th:each="q : ${qsAndAs}">-->
+        <!--&lt;!&ndash;                <label th:text="${q.question}"></label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <form th:action="@{/processinterview}" th:object="${qsAndAs}">&ndash;&gt;-->
+        <!--                <p th:text="${q.question}"></p>-->
+        <!--                <form id="interform" th:action="@{/processinterview}">-->
+        <!--                    <p th:text="${q.question}"></p>-->
+        <!--&lt;!&ndash;                    <p data-th-utext="${#strings.replace(#strings.escapeXml(text),'&#10;','&lt;br&gt;')}"></p>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <label th:text="${qsAndAs.question}"></label>&ndash;&gt;-->
+        <!--                    <input type="text" placeholder="Answer" th:value="${q.answer}"/>-->
+        <!--                </form>-->
+        <!--                <button type="submit" form="interform" class="btn btn-warning">Submit</button>-->
+        <!--            </div>-->
+
+        <!--            <div th:each="q : ${questions}">-->
+        <!--                &lt;!&ndash;                <label th:text="${q.question}"></label>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                <form th:action="@{/processinterview}" th:object="${qsAndAs}">&ndash;&gt;-->
+        <!--                <p th:text="${q}"></p>-->
+        <!--            </div>-->
 
 
+        <!--            <form th:action="@{/processinterview}"-->
+        <!--                  th:each="qA : ${qsAndAs}"-->
+        <!--                  th:object="${qsAndAs[__${qA}__]}" method="post">-->
+        <!--&lt;!&ndash;                <input type="hidden" th:field="${job.id}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <input type="hidden" th:field="${job.title}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <input type="hidden" th:field="${job.phone}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <input type="hidden" th:field="${job.employerName}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <input type="hidden" th:field="${job.employerEmail}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <input type="hidden" th:field="${job.description}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <input type="hidden" th:field="${job.postedDate}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <input type="hidden" th:field="${job.keywords}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <input type="hidden" th:field="${job.curStatus}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <input type="hidden" th:field="${job.user}"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;            <p> this is not hidden</p>&ndash;&gt;-->
+        <!--                <div class="form-row">-->
+        <!--                    <input type="text" placeholder="question" th:field="*{question}">-->
+        <!--                    <input type="text" placeholder="answer" th:field="*{answer}">-->
+        <!--                    &lt;!&ndash;                <p>is this showing up?</p>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <div class="col">&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="hidden" th:field="*{id}"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="text" th:field="*{question}">&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="text" th:field="*{answer}">&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="hidden" th:field="${qA.job}">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                    <input type="hidden" th:field="${qA.question}">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                    <input type="hidden" th:field="${q.answer}">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                    <p>div is working?</p>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                            <span th:text="${qA.id}"></span>&ndash;&gt;-->
+        <!--&lt;!&ndash;                            <span th:text="${qA.job}">${qA.job}</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;                            <span th:text="${qA.question}">${qA.question}</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;                            <span th:text="${qA.answer}">${qA.answer}</span>&ndash;&gt;-->
 
 
-<!--&lt;!&ndash;                        <label th:text="${qA.answer}"></label>&ndash;&gt;-->
-<!--                    </div>-->
-<!--&lt;!&ndash;                    <input type="text" placeholder="Answer" th:field="*{}"/>&ndash;&gt;-->
-<!--                <div>-->
-<!--                    <button type="submit" class="btn btn-warning">Submit</button>-->
-<!--                </div>-->
-<!--            </form>-->
+
+
+        <!--&lt;!&ndash;                        <label th:text="${qA.answer}"></label>&ndash;&gt;-->
+        <!--                    </div>-->
+        <!--&lt;!&ndash;                    <input type="text" placeholder="Answer" th:field="*{}"/>&ndash;&gt;-->
+        <!--                <div>-->
+        <!--                    <button type="submit" class="btn btn-warning">Submit</button>-->
+        <!--                </div>-->
+        <!--            </form>-->
+        <!--    </div>-->
     </div>
 </div>
-
 
 
 <div th:insert="base :: footnote"></div>
