@@ -1,8 +1,5 @@
 # Final Challenge - RoboInterviewer
 
-<<<<<<< HEAD
-I just tried out this Katrina's branch 9:00pm on 10-27-2019 and find that the email is still not working. It is working the same way it has for the last 3 days where it sends email to a mail trap on a special mail server.  It was requested since Monday of this week that (per the requirements) it should send the requisite emails to the Hiring Manager.  The Hiring Manager's email is listed as the employerEmail within a job record.  I spoke with Katrina this evening and she confirmed that she will email the changes necessary to fix this critical problem tonight. In the meanwhile I am going to attempt to fix the other email-related problem which entails a flaw in the email controller to return to the program after it sends an email.
-=======
 The RoboInterviewer is designed to automate the job selection and interviewing process to prevent companies from having to conduct in-person interviews. This can save them time and money and in the run increase productivity. This program is designed to provide a highly automated workflow that can eliminate much of the labor involved in the hiring process.
 
 The program has the following features:
@@ -63,7 +60,3 @@ Developers:
 John Anderjaska (Solutions Architect/Developer) - MSEE, CISSP
 Joe Huang - Senior Year Engineering Student
 Katrina Campbel - student
-
-
-
->>>>>>> d76744fadda51e19dc0fb4b86d115b8c9796df4b
