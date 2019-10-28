@@ -167,10 +167,9 @@ public class DataLoader implements CommandLineRunner {
         job.setQuestions(questions);
         job.setAnswers(new HashSet<>());
 
-        jobRepository.save(job);
-
         // test for Updating Job => works
         job.setPhone("202-679-5543");
+        job.setJobType("Developer");
         jobRepository.save(job);
 
 //        staticData.setDeveloperQuestions();
@@ -206,7 +205,7 @@ public class DataLoader implements CommandLineRunner {
 
 //        job.setQuestionsAndAnswers(testQAList);
 
-        Set<QsAndAs> testQAList = new HashSet<>();
+//        Set<QsAndAs> testQAList = new HashSet<>();
 //        testQAList.add(testQsAndAs);
 
 
@@ -218,7 +217,8 @@ public class DataLoader implements CommandLineRunner {
 
         // Second job with the same user
         keyWords = "Programming Dev, Mobile apps, iPhone, Android Development, " +
-                "PhoneGap Software Development, Mobile Development, Ios App Development, Mobile Programming Languages";
+                "PhoneGap Software Development, Mobile Development, Ios App Development, " +
+                "Mobile Programming Languages";
         job = new Job();
         job.setKeywords(keyWords);
         job.setCurStatus(StaticData.Status.NOT_SUBMITTED);
@@ -230,6 +230,7 @@ public class DataLoader implements CommandLineRunner {
         job.setEmployerName("Ascension Enterprizes");
         tempDate = new Date();
         job.setPostedDate(tempDate);
+        job.setJobType("Mobile");
         jobRepository.save(job);
     }
 }

@@ -2,6 +2,7 @@ package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
@@ -33,6 +34,9 @@ public class JobController {
 
     @Autowired
     QandAsRepository qandAsRepository;
+
+    @Autowired
+    JobService jobService;
 
     @RequestMapping("/")
     public String jobList(Model model){
@@ -72,6 +76,8 @@ public class JobController {
             model.addAttribute("statusPendingInterview", StaticData.Status.PENDING_INTERVIEW);
             model.addAttribute("statusPendingScheduledInterview", StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
             model.addAttribute("statusRejected", StaticData.Status.REJECTED);
+            model.addAttribute("mapOfStatus", StaticData.perJobStatus);
+            model.addAttribute("mapOfTimes", StaticData.selectedTimes);
         }
         return "mypage";
     }
@@ -155,6 +161,13 @@ public class JobController {
         } else {
             System.out.println("AppController:jobList:userService.getUser(): is null");
         }
+        // dropdown of jobType Choices
+        ArrayList<String> jobTypes = new ArrayList<>();
+        jobTypes.add("Developer");
+        jobTypes.add("Mobile");
+        jobTypes.add("Cloud");
+        model.addAttribute("jobTypes", jobTypes);
+
         return "jobform";
     }
 
@@ -172,6 +185,7 @@ public class JobController {
 //            return "jobform";
 //        }
         //Add new job... i.e new identity
+        StaticData.perJobStatus.put(job.getId(),StaticData.Status.NOT_SUBMITTED);
         job.setUser(userService.getUser());
 
         job.setCurStatus(StaticData.Status.NOT_SUBMITTED);
@@ -222,24 +236,36 @@ public class JobController {
             @RequestParam("id") long id,
             Model model){
         Job currJob = jobRepository.findByUser(userService.getUser());
+        Job jobCreator = jobRepository.findJobById(id);
+        jobCreator.setCurStatus(StaticData.Status.PENDING_OFFER);
+        jobCreator.setEmployerName("bob"); // testing failed switched to static variables
+//        jobRepository.save(jobCreator);
+        //jobService.update(jobCreator);
+
+        StaticData.perJobStatus.put(jobCreator.getId(),StaticData.Status.PENDING_OFFER);
+
         StaticData staticData = new StaticData();
 //        QuestionCreationDto questions = new QuestionCreationDto();
         ArrayList<String> questions = new ArrayList<>();
 
-
         questions.addAll(staticData.getBehavioralQuestions());
-        if(id == 7) { // first job
+        if(jobCreator.getJobType().equals("Developer")) { // first job
             staticData.setDeveloperQuestions();
             questions.addAll(staticData.getTechQs());
         }
-
-
-
+        else if(jobCreator.getJobType().equals("Mobile")){
+            staticData.setMobileQuestions();
+            questions.addAll(staticData.getTechQs());
+        }
+        else if(jobCreator.getJobType().equals("Cloud")){
+            staticData.setCloudQuestions();
+            questions.addAll(staticData.getTechQs());
+        }
 
         model.addAttribute("currJob" , currJob);
         model.addAttribute("questions",questions);
         User user = userService.getUser();
-        model.addAttribute("job", currJob);
+        model.addAttribute("job", jobCreator);
 
 //        UserAnswersDto uA = new UserAnswersDto();
 //        HashMap<Long, String> jobAns = new HashMap<Long, String>();
@@ -263,7 +289,9 @@ public class JobController {
     }
 
     @PostMapping("/processinterview")
-    public String processInterview(@ModelAttribute UserAnswersDto userAnswersDto
+    public String processInterview(
+            @ModelAttribute("userAnswer") UserAnswersDto userAnswersDto
+//                                   @ModelAttribute Job job
 //            QsAndAs qsAndAs
 //                              @RequestParam(name="interviewDate") String interviewDate
     ) {
@@ -279,8 +307,14 @@ public class JobController {
 //        }
 ////
 
+//        Job job = jobRepository.findJobById(userAnswersDto.jobId);
+//
+////        jobService.update(job);
+//        jobRepository.save(job);
+
+
         Job job = jobRepository.findJobById(userAnswersDto.jobId);
-        job.setCurStatus(StaticData.Status.PENDING_OFFER);
+//        job.setCurStatus(StaticData.Status.PENDING_OFFER);
         System.out.println("After processing interview form: ");
         UserAnswersDto.userAnswersArr.add(userAnswersDto);
 
@@ -297,11 +331,12 @@ public class JobController {
             @RequestParam("id") long id, Model model)
     {
         ArrayList<String> dateOptions = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy hh:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy hh:mm a");
 
         LocalDateTime tempTime = LocalDateTime.now();
         String formatDateTime = tempTime.format(formatter);
         dateOptions.add(formatDateTime);
+
         for(int i = 1; i <= 14; i+=4) {
            // add conditionals if there's time...
             tempTime = tempTime.withHour(9);
@@ -317,6 +352,7 @@ public class JobController {
             tempTime = tempTime.plusDays(4);
         }
 
+        model.addAttribute("currJob" , jobRepository.findJobById(id));
         model.addAttribute("dateOptions", dateOptions);
 
         ScheduleInterview sI = new ScheduleInterview();
@@ -328,12 +364,25 @@ public class JobController {
 
     @PostMapping("/process_selectdate")
     public String processDate(@ModelAttribute ScheduleInterview selDate){
-        Job job = jobRepository.findJobById(selDate.getJobId());
-        job.setCurStatus(StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
+        //Job job = jobRepository.findJobById(selDate.getJobId());
+        //job.setCurStatus(StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
+
+        StaticData.perJobStatus.put(selDate.getJobId(),StaticData.Status.PENDING_INTERVIEW);
+        StaticData.selectedTimes.put(selDate.getJobId(),selDate.getStringSelectTime());
 
         //Continiue later at home
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy hh:mm a");
+        selDate.setSelectedTime(LocalDateTime.parse(selDate.getStringSelectTime(), formatter));
 
-        return "redirect:/";
+        //job.setInterviewDateTime(selDate.getSelectedTime());
+       // job.setCurStatus(StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
+//        jobService.update(job);
+//        jobRepository.save(job);
+        System.out.println("After processing interview form: ");
+        System.out.println("Selected time is: " + selDate.getStringSelectTime());
+
+
+        return "redirect:/mypage";
     }
 
     @RequestMapping("/apply/{id}")
@@ -380,6 +429,12 @@ public class JobController {
     @RequestMapping("/update/{id}")
     public String updateJob(@PathVariable("id") long id, Model model){
         model.addAttribute("job", jobRepository.findById(id).get());
+        //Joe added
+        ArrayList<String> jobTypes = new ArrayList<>();
+        jobTypes.add("Developer");
+        jobTypes.add("Mobile");
+        jobTypes.add("Cloud");
+        model.addAttribute("jobTypes", jobTypes);
         return "jobform";
     }
 
