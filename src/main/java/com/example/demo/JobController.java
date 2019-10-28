@@ -55,8 +55,6 @@ public class JobController {
     // JA 10-23-19 11:11am
     @RequestMapping("/mypage")
     public String myPage(Model model){
-//        model.addAttribute("jobs", jobRepository.findAll());
-//        model.addAttribute("users", userRepository.findAll());
         if (userService.getUser() != null) {
             long uID = userService.getUser().getId();
             model.addAttribute("user_id", userService.getUser().getId());
@@ -65,9 +63,18 @@ public class JobController {
             model.addAttribute("statusPendingInterview", StaticData.Status.PENDING_INTERVIEW);
             model.addAttribute("statusPendingScheduledInterview", StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
             model.addAttribute("statusRejected", StaticData.Status.REJECTED);
+            boolean currentJobApplications = StaticData.doesUserHaveAnyPriorAppliedJobs(uID);
+            String msgStr = "";
+            if (currentJobApplications){
+                String testStr = StaticData.doesUserHaveAnyInterviewsScheduled(uID);
+                if (!testStr.equals("")) {
+                    msgStr = "Please check on the status of your current Job Applications.\n" +
+                            "You have an interview scheduled to start at: " + testStr + "\n" +
+                            "Please click the interview button within 30 minutes of this time.";
+                }
+            }
+            model.addAttribute("userMessage", msgStr);
         }
-        //User user = userRepository.findById(userService.getUser().getId());
-//        User user = userRepository.findById(user_id);
         return "mypage";
     }
 

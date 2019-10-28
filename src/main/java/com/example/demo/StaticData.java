@@ -13,6 +13,15 @@ public class StaticData {
         return techQs;
     }
 
+    static public ArrayList<String> kWords(String str){
+        ArrayList<String> arrList = new ArrayList();
+        String[] kwords = str.split(",");
+        for (String s: kwords){
+            arrList.add(s.trim());
+        }
+        return arrList;
+    }
+
     static public void removeAppliedJobForUser(long uid, long jobID){
         for (int j = 0; j < applied_jobs.size(); j++) {
             if (applied_jobs.get(j).userID == uid) {
@@ -49,6 +58,21 @@ public class StaticData {
             temp.userID= uid;
             applied_jobs.add(temp);
         }
+    }
+
+    static String doesUserHaveAnyInterviewsScheduled(long uid){
+        if (doesUserHaveAnyPriorAppliedJobs(uid)){
+            for (ArrayListE arrayListE: applied_jobs){
+                if (arrayListE.userID == uid){
+                    for (Job job: arrayListE.arrList) {
+                        if (job.getCurStatus() == Status.PENDING_SCHEDULED_INTERVIEW) {
+                            return job.getInterviewDateTime().toString();
+                        }
+                    }
+                }
+            }
+        }
+        return "";
     }
 
     static boolean doesUserHaveAnyPriorAppliedJobs(long uid){

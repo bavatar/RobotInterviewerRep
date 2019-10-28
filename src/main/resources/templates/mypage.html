@@ -16,6 +16,26 @@
             margin-left: 5px;
         }
 
+        .alert {
+            padding: 20px;
+            background-color: lightgreen;
+            color: white;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
     </style>
 
 </head>
@@ -27,23 +47,19 @@
 <div class="container" style="background-color: lightgoldenrodyellow">
     <center><h3> <span th:text="${user.getUsername()}" ></span>'s Home Page</h3></center>
 </div>
-<!--title, phone, employerName, employerEmail;-->
 
-<!--private String description;-->
+<div th:each="job:${jobs}">
+    <span th:if="${job.getCurStatus() == statusPendingScheduledInterview}">
+<!--    <span th:if="${job.getCurStatus() == statusPendingInterview}">-->
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            You have an interview scheduled at: <p th:text="${job.interviewDateTime}"></p>
+            <p>for Job: <p th:text="${job.title}"></p>&nbsp;Please Click the Interview Button within 30min of this start time. </p>
+    <!--        <p th:text="${userMessage}"></p>-->
+        </div>
+    </span>
+</div>
 
-<!--@DateTimeFormat(pattern = "yyyy-MM-dd")-->
-<!--private Date postedDate;-->
-
-<!--private ArrayList<String> keywords;-->
-<!--    private StaticData.Status curStatus;-->
-
-<!--    private HashMap<Integer, ArrayList<String>> questionsAndAnswers;-->
-
-<!--<span th:if="${user_id == job.user.id}">-->
-<!--                            <a th:href="@{/update/{id}(id=${job.id})}">Update</a>-->
-<!--                            <a th:href="@{/detail/{id}(id=${job.id})}">Details</a>-->
-<!--                            <a th:href="@{/delete/{id}(id=${job.id})}">Delete</a>-->
-<!--                    </span>-->
 <center>
 <div class="container-fluid">
     <div class="card-columns">
