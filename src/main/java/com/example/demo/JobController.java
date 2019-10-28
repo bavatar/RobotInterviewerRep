@@ -63,7 +63,7 @@ public class JobController {
     @RequestMapping("/mypage")
     public String myPage(Model model){
 //        model.addAttribute("jobs", jobRepository.findAll());
-//        model.addAttribute("users", userRepository.findAll());
+////        model.addAttribute("users", userRepository.findAll());
         if (userService.getUser() != null) {
             long uID = userService.getUser().getId();
             model.addAttribute("user_id", userService.getUser().getId());

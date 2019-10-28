@@ -69,11 +69,11 @@ public class EmailController {
         if (userService.getUser() != null) {
             model.addAttribute("user_id", userService.getUser().getId());
         }
-            else{
-                System.out.println("AppController:jobList:userService.getUser(): is null");
-            }
+        else{
+            System.out.println("AppController:jobList:userService.getUser(): is null");
+        }
 
-                return "emailform";
+        return "emailform";
     }
 
     @RequestMapping(value = "/appeal_email", method = RequestMethod.POST)
