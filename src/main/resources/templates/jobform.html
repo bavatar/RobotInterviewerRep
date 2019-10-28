@@ -73,10 +73,28 @@
             </div>
         </div>
 
-        <input type="text" placeholder="Key Words" th:field="*{keywords}" />
+        <div class="form-row">
+            <div class="col-6">
+                <label for="keywords">KeyWords</label>
+                <input type="text" id="keywords" class="form-control"
+                       placeholder="Job Title" th:field="*{keywords}">
+            </div>
+            <div class="col-6">
+                <label>Job Type</label>
+                <select name="inputDate" class="form-control" th:field="*{jobType}">
+                    <option selected th:each="jobType : ${jobTypes}"
+                            th:value="${jobType}"
+                            th:text="${jobType}"></option>
+                </select>
+            </div>
+        </div>
+
+
+<!--        <input type="text" placeholder="Key Words" th:field="*{keywords}" />-->
+        <input class="button" type="submit" value="Submit">
+
         <input type="hidden" placeholder="Current Status" th:field="*{curStatus}" />
         <input type="hidden" placeholder="Interview DateTime" th:field="*{interviewDateTime}" />
-        <input class="button" type="submit" value="Submit">
     </form>
 <br>
 </div>

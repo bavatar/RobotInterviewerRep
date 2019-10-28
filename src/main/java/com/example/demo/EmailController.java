@@ -61,40 +61,51 @@ public class EmailController {
     }
 
     // This may require the Job ID as well to inform the hiring manager which job they are appealing
-    @RequestMapping("/appeal/{id}")
-    public String appeal(@PathVariable("id") long id, Model model) {
+    @RequestMapping("/appeal/")
+    public String appeal(@RequestParam("id") long id, Model model) {
         model.addAttribute("mail", new SendMail());
         model.addAttribute("job", jobRepository.findById(id).get());
+
+        System.out.println("/appeal : " + jobRepository.findById(id).get().getEmployerName());
+        System.out.println("/appeal : " + jobRepository.findJobById(id).getEmployerName());
+
+       // sendEmail(id);
 
         if (userService.getUser() != null) {
             model.addAttribute("user_id", userService.getUser().getId());
         }
-            else{
-                System.out.println("AppController:jobList:userService.getUser(): is null");
-            }
+        else{
+            System.out.println("AppController:jobList:userService.getUser(): is null");
+        }
 
-                return "emailform";
+        return "emailform";
     }
 
     @RequestMapping(value = "/appeal_email", method = RequestMethod.POST)
-    @ResponseBody
-    String appealForm(Model model) {
+//    @ResponseBody
+    public String appealForm(@ModelAttribute("job") Job job) {
         try {
-            sendEmail();
+            sendEmail(job);
+           // sendEmail();
 //            return "Email Sent!";
         } catch (Exception ex) {
             return "Error in sending email: " + ex;
         }
 //        return "redirect:/";
-        return "listjobs";
+        return "redirect:/mypage";
     }
 
-    private void sendEmail() throws Exception {
+    private void sendEmail(Job job) throws Exception {
+
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("user@email.com.com");
-        helper.setTo("no-reply@deadpool.com");
+        User user = userService.getUser();
+
+        helper.setFrom(user.getEmail());
+        System.out.println(job.getEmployerEmail());
+        helper.setTo(job.getEmployerEmail());
+       // UserAnswersDto u = UserAnswersDto.getUserAnswerFromArr(user.getId());
         helper.setText("<html><body>" + message + "</html></body>", true);
         helper.setSubject("Appeal");
 

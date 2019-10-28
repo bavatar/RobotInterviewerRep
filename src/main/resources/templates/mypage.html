@@ -47,12 +47,13 @@
                             </p>
                         </div>
                         <div class="card-body-mid">
-                            <p class="card-text">Status: <span th:text="${job.getCurStatus()}"></span></p>
+<!--                            <p class="card-text">Status: <span th:text="${job.getCurStatus()}"></span></p>-->
+                            <p class="card-text">Status: <span th:text="${mapOfStatus.get(job.id)}"></span></p>
 <!--                            <span th:if="${job.getCurStatus() == statusPendingInterview}">-->
-<!--                            Add Label of Scheduled time -->
-<!--                               // <p th:text=""></p>-->
-                                <a style="color: red" th:href="@{/selectdate/(id=${job.id})}">Schedule</a>
-                            </span>
+
+                            <a style="color: darkcyan" th:href="@{/selectdate/(id=${job.id})}">Schedule</a>
+                            <p class="card-text">Scheduled Time: <span th:text="${mapOfTimes.get(job.id)}"></span></p>
+<!--                            </span>-->
                         </div>
                         <div class="card-body-bottom">
                             <p class="card-text">
@@ -61,10 +62,10 @@
 <!--                            <span th:if="${job.getCurStatus() == statusPendingScheduledInterview}">-->
 <!--                                <a th:href="@{/addinterview/{id}(id=${job.id})}">Start Interview</a>-->
                                 <a th:href="@{/addinterview/(id=${job.id})}">Start Interview</a>
-                            </span>
+<!--                            </span>-->
                             <span th:if="${job.getCurStatus() == statusRejected}">
 <!--                                <a style="color: red" href="/appeal/">Appeal</a>-->
-                                 <a style="color: red" th:href="@{/appeal/{id}(id=${job.id})}">Appeal</a>
+                                 <a style="color: red" th:href="@{/appeal/(id=${job.id})}">Appeal</a>
                             </span>
                             </p>
 

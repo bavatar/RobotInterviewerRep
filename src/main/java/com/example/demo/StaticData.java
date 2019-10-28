@@ -19,6 +19,9 @@ public class StaticData {
          return techQs;
      }
 
+     static public HashMap<Long, StaticData.Status> perJobStatus = new HashMap<>();
+     static public HashMap<Long, String> selectedTimes = new HashMap<>();
+
      //remember to match Questions to types of jobs
 
      public void setDeveloperQuestions(){
@@ -30,19 +33,18 @@ public class StaticData {
          techQs.add("If you could master one technology this year, what would it be?");
      }
 
-     public void setManagerQuestions(){
-         techQs.add("Describe your management style");
+     public void setMobileQuestions(){
+         techQs.add("How will you handle app testing?");
          techQs.add("How do you define success?");
          techQs.add("Tell me about a time you led by example.");
-         techQs.add("What is your biggest management weakness?");
+         techQs.add("How does maintenance of the app work?");
      }
 
-     public void setHelpDeskQuestions(){
-         techQs.add("How important IT skills are in help desk service and how you keep yourself " +
-                 "updated with those skills?");
-         techQs.add("What is your worst experience so far as a help desk assistant?");
-         techQs.add("What is the difference between helpdesk and service desk?");
-         techQs.add("What is the recent skill you have learned that can be helpful for help desk position?");
+     public void setCloudQuestions(){
+         techQs.add("What are the advantages of using cloud computing?");
+         techQs.add("Explain different models for deployment in cloud computing?");
+         techQs.add("What is the difference in cloud computing and computing for mobiles?");
+         techQs.add("For a transport in cloud how you can secure your data?");
      }
 
 

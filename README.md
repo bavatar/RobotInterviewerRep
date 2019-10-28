@@ -1,4 +1,3 @@
 # Final Challenge - RoboInterviewer
 
-Requirements:
-* 
+I just tried out this Katrina's branch 9:00pm on 10-27-2019 and find that the email is still not working. It is working the same way it has for the last 3 days where it sends email to a mail trap on a special mail server.  It was requested since Monday of this week that (per the requirements) it should send the requisite emails to the Hiring Manager.  The Hiring Manager's email is listed as the employerEmail within a job record.  I spoke with Katrina this evening and she confirmed that she will email the changes necessary to fix this critical problem tonight. In the meanwhile I am going to attempt to fix the other email-related problem which entails a flaw in the email controller to return to the program after it sends an email.
