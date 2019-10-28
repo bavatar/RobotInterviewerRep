@@ -380,7 +380,7 @@ public class JobController {
         //Job job = jobRepository.findJobById(selDate.getJobId());
         //job.setCurStatus(StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
 
-        StaticData.perJobStatus.put(selDate.getJobId(),StaticData.Status.PENDING_INTERVIEW);
+        StaticData.perJobStatus.put(selDate.getJobId(),StaticData.Status.PENDING_SCHEDULED_INTERVIEW);
         StaticData.selectedTimes.put(selDate.getJobId(),selDate.getStringSelectTime());
 
         //Continiue later at home

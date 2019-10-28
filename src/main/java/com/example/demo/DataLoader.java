@@ -145,8 +145,7 @@ public class DataLoader implements CommandLineRunner {
         userRepository.save(user);
 
         // First Job
-        String keyWords = "CSS, Design, Engineering, Full Stack, HTML, JavaScript, Ruby On Rails, Web Design, " +
-                "Web Development, Software Development, Team Management";
+        String keyWords = "CSS, Design, Engineering, Full Stack, HTML, JavaScript, Ruby On Rails, Web Design, Web Development, Software Development, Team Management";
         Job job = new Job();
         job.setKeywords(keyWords);
         job.setCurStatus(StaticData.Status.NOT_SUBMITTED);
